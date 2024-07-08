@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import "./NavBar.css";
 
 const NavBar: React.FC = () => {
@@ -14,6 +15,9 @@ const NavBar: React.FC = () => {
                 </li>
                 <li>
                     <NavLink to="/swap-ticket">Swap Ticket</NavLink>
+                </li>
+                <li className="wallet-button">
+                    <WalletMultiButton />
                 </li>
             </ul>
         </nav>
