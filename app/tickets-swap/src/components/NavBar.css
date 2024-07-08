@@ -22,7 +22,7 @@
 }
 
 .nav-bar a.active {
-    font-weight: bold;
+    border-bottom: 2px solid #fff;
 }
 
 .nav-bar a:hover {
