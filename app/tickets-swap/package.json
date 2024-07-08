@@ -10,8 +10,10 @@
     "@types/node": "^16.18.101",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "prettier": "3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -20,7 +22,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "lint-fix": "npx eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
+    "fix": "npx prettier --write './src/**/*.{js,jsx,ts,tsx,css,scss}'",
+    "fix-all": "npm run fix && npm run lint-fix"
   },
   "eslintConfig": {
     "extends": [
