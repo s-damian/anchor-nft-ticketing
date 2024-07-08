@@ -6,17 +6,19 @@
 
 ## Develop :
 
-### Back-End Directory :
+### Full Project Directory :
 
 ```
 cd /[your-path]/tickets-swap
 ```
 
-### Run Front-End :
+### Front-End Directory :
 
 ```
 cd /[your-path]/tickets-swap/app/tickets-swap
 ```
+
+Run Front-End :
 
 ```
 npm run start
