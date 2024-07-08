@@ -1,0 +1,30 @@
+.nav-bar {
+    background-color: #2d16fa;
+    padding: 1rem;
+}
+
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar li {
+    display: inline;
+}
+
+.nav-bar a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+}
+
+.nav-bar a.active {
+    font-weight: bold;
+}
+
+.nav-bar a:hover {
+    border-bottom: 2px solid #aaa;
+}
