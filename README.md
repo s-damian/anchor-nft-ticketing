@@ -1,18 +1,18 @@
 
 # Tickets Swap
 
-> Marketplace NFT Billetterie Événementiel
+> NFT Marketplace Event Ticketing
 
 
 ## Develop :
 
-### Back-End :
+### Back-End Directory :
 
 ```
 cd /[your-path]/tickets-swap
 ```
 
-### Front-End :
+### Run Front-End :
 
 ```
 cd /[your-path]/tickets-swap/app/tickets-swap
