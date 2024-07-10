@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
+export default function Home() {
     return (
         <div>
             <h2>Welcome to the Event Tickets Marketplace</h2>
@@ -9,5 +9,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;

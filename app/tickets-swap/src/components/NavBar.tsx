@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
-const NavBar: React.FC = () => {
+export default function NavBar() {
     return (
         <nav className="bg-blue-600 p-4">
             <ul className="flex justify-around items-center list-none p-0 m-0">
@@ -43,5 +43,3 @@ const NavBar: React.FC = () => {
         </nav>
     );
 };
-
-export default NavBar;
