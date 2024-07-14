@@ -10,7 +10,7 @@ describe("initialize", () => {
 
     it("Is initialized!", async () => {
         // Add your test here.
-        const tx = await program.methods.initialize().rpc();
-        console.log("initialize - tx signature", tx);
+        const txid = await program.methods.initialize().rpc();
+        console.log("initialize - tx signature", txid);
     });
 });

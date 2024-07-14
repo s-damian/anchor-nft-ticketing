@@ -6,8 +6,7 @@ import idl from "../idl/tickets_swap.json";
 import BN from "bn.js";
 
 const { SystemProgram } = web3;
-//const programId = new PublicKey(idl.address); // OLD avec "@coral-xyz/anchor": "0.29.0"
-const network = "http://127.0.0.1:8899"; // URL de votre validateur local
+const network = "http://127.0.0.1:8899"; // URL du validateur local
 const opts = {
     preflightCommitment: "confirmed" as Commitment,
 };
@@ -29,21 +28,24 @@ const CreateEvent: React.FC = () => {
             return;
         }
 
+        // Crée une nouvelle connexion à Solana avec l'URL du validateur local et le niveau de commitment
         const connection = new Connection(network, opts.preflightCommitment);
-        // Créer une instance de Provider
+
+        // Crée une instance de Provider
         const provider = new AnchorProvider(connection, wallet, opts);
         setProvider(provider);
 
-        // Initialiser le programme Anchor
-        //const program = new Program(idl as Idl, programId, provider); // OLD avec "@coral-xyz/anchor": "0.29.0"
+        // Initialise le programme Anchor
         const program = new Program(idl as Idl, provider);
 
+        // Génère une nouvelle paire de clés pour le compte événement
         const eventAccount = web3.Keypair.generate();
 
         const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
 
         try {
-            await program.methods
+            // Envoie la transaction pour créer un événement
+            const txid = await program.methods
                 .createEvent(title, description, inputDate, location)
                 .accounts({
                     event: eventAccount.publicKey,
@@ -52,10 +54,10 @@ const CreateEvent: React.FC = () => {
                 })
                 .signers([eventAccount])
                 .rpc();
-            alert("Événement créé avec succès !");
+
+            console.log("Success: tx signature", txid);
         } catch (err) {
-            console.error("Transaction échouée !", err);
-            alert("Échec de la création de l'événement !");
+            console.error("Error:", err);
         }
     };
 

@@ -23,7 +23,7 @@ describe("create_event", () => {
         const location = "Test Location";
 
         // Appeler l'instruction create_event
-        const tx = await program.methods
+        const txid = await program.methods
             .createEvent(title, description, date, location)
             .accounts({
                 event: event.publicKey, // Compte de l'événement
@@ -32,7 +32,7 @@ describe("create_event", () => {
             })
             .signers([event]) // Signataires de la transaction
             .rpc();
-        console.log("createEvent - tx signature", tx);
+        console.log("createEvent - tx signature", txid);
 
         // Récupérer les détails du compte de l'événement
         const eventAccount = await program.account.event.fetch(event.publicKey);
