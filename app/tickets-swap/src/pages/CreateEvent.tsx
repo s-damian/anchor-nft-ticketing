@@ -41,9 +41,9 @@ const CreateEvent: React.FC = () => {
                 .signers([eventAccount])
                 .rpc();
 
-            console.log("Success: tx signature", txid);
+            console.log("Success to create event. Tx signature:", txid);
         } catch (err) {
-            console.error("Error:", err);
+            console.error("Failed to create event.", err);
         }
     };
 

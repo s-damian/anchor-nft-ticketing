@@ -29,6 +29,19 @@ pub mod tickets_swap {
         event.organizer = *ctx.accounts.organizer.key; // Définit l'organisateur de l'événement
         Ok(())
     }
+
+    // Instruction permettant de récupérer un événement
+    pub fn get_event(ctx: Context<GetEvent>) -> Result<Event> {
+        let event_account = &ctx.accounts.event;
+        let event = Event {
+            title: event_account.title.clone(),
+            description: event_account.description.clone(),
+            date: event_account.date,
+            location: event_account.location.clone(),
+            organizer: event_account.organizer,
+        };
+        Ok(event)
+    }
 }
 
 // Contexte de l'instruction d'initialisation
@@ -44,6 +57,12 @@ pub struct CreateEvent<'info> {
     #[account(mut)]
     pub organizer: Signer<'info>, // Organisateur de l'événement, qui doit être un signataire de la transaction
     pub system_program: Program<'info, System>, // Programme système Solana
+}
+
+// Contexte de l'instruction permettant de récupérer un événement
+#[derive(Accounts)]
+pub struct GetEvent<'info> {
+    pub event: Account<'info, Event>,
 }
 
 // Structure pour stocker les informations de l'événement

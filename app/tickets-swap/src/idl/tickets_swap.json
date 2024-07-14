@@ -55,6 +55,30 @@
         ]
       },
       {
+        "name": "get_event",
+        "discriminator": [
+          196,
+          194,
+          139,
+          136,
+          108,
+          122,
+          175,
+          219
+        ],
+        "accounts": [
+          {
+            "name": "event"
+          }
+        ],
+        "args": [],
+        "returns": {
+          "defined": {
+            "name": "Event"
+          }
+        }
+      },
+      {
         "name": "initialize",
         "discriminator": [
           175,

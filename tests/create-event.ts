@@ -12,7 +12,7 @@ describe("create_event", () => {
     // Initialisation du programme Anchor
     const program = anchor.workspace.TicketsSwap as Program<TicketsSwap>;
 
-    it("Creates an event", async () => {
+    it("Create an event", async () => {
         // Générer une nouvelle paire de clés pour le compte de l'événement
         const event = anchor.web3.Keypair.generate();
 
@@ -28,7 +28,7 @@ describe("create_event", () => {
             .accounts({
                 event: event.publicKey, // Compte de l'événement
                 organizer: provider.wallet.publicKey, // Organisateur de l'événement
-                system_program: anchor.web3.SystemProgram.programId, // Programme système
+                systemProgram: anchor.web3.SystemProgram.programId, // Programme système
             })
             .signers([event]) // Signataires de la transaction
             .rpc();
