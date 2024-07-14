@@ -1,12 +1,32 @@
-import { Connection, Commitment } from "@solana/web3.js";
+import { Connection, Commitment, clusterApiUrl } from "@solana/web3.js";
 import { Program, AnchorProvider, web3, Idl, setProvider } from "@coral-xyz/anchor";
 import { Wallet } from "@coral-xyz/anchor/dist/cjs/provider";
 import idl from "../idl/tickets_swap.json";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 const { SystemProgram } = web3;
-const network = "http://127.0.0.1:8899"; // URL du validateur local
+
+const getNetworkUrl = (network: string): string => {
+    switch (network) {
+        case "localnet":
+            return "http://127.0.0.1:8899";
+        case "devnet":
+            return clusterApiUrl(WalletAdapterNetwork.Devnet);
+        case "testnet":
+            return clusterApiUrl(WalletAdapterNetwork.Testnet);
+        case "mainnet":
+            return clusterApiUrl(WalletAdapterNetwork.Mainnet);
+        default:
+            throw new Error(`Unsupported network: ${network}`);
+    }
+};
+
+const network = process.env.REACT_APP_SOLANA_NETWORK!; // URL du validateur local
+
+const networkUrl = getNetworkUrl(network); // URL du validateur
+
 const opts = {
-    preflightCommitment: "confirmed" as Commitment,
+    preflightCommitment: process.env.REACT_APP_SOLANA_COMMITMENT as Commitment,
 };
 
 export const getAnchorProgram = (wallet: Wallet) => {
@@ -15,7 +35,7 @@ export const getAnchorProgram = (wallet: Wallet) => {
     }
 
     // Crée une nouvelle connexion à Solana avec l'URL du validateur et le niveau de commitment
-    const connection = new Connection(network, opts.preflightCommitment);
+    const connection = new Connection(networkUrl, opts.preflightCommitment);
 
     // Crée une instance de Provider
     const provider = new AnchorProvider(connection, wallet, opts);
