@@ -13,7 +13,7 @@ export default function NavBar() {
                             `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
                         }
                     >
-                        Home
+                        Accueil
                     </NavLink>
                 </li>
                 <li>
@@ -23,7 +23,7 @@ export default function NavBar() {
                             `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
                         }
                     >
-                        Create Event
+                        Créer un Événement
                     </NavLink>
                 </li>
                 <li>
@@ -33,7 +33,7 @@ export default function NavBar() {
                             `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
                         }
                     >
-                        Create Ticket
+                        Créer un Ticket
                     </NavLink>
                 </li>
                 <li>

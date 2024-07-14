@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { Connection, Commitment } from "@solana/web3.js";
-import { Program, AnchorProvider, web3, Idl, setProvider } from "@coral-xyz/anchor";
-import idl from "../idl/tickets_swap.json";
+import { web3 } from "@coral-xyz/anchor";
 import BN from "bn.js";
-
-const { SystemProgram } = web3;
-const network = "http://127.0.0.1:8899"; // URL du validateur local
-const opts = {
-    preflightCommitment: "confirmed" as Commitment,
-};
+import { getAnchorProgram } from "../utils/anchorUtils";
 
 const CreateEvent: React.FC = () => {
     // État pour les champs du formulaire
@@ -28,22 +21,15 @@ const CreateEvent: React.FC = () => {
             return;
         }
 
-        // Crée une nouvelle connexion à Solana avec l'URL du validateur local et le niveau de commitment
-        const connection = new Connection(network, opts.preflightCommitment);
-
-        // Crée une instance de Provider
-        const provider = new AnchorProvider(connection, wallet, opts);
-        setProvider(provider);
-
-        // Initialise le programme Anchor
-        const program = new Program(idl as Idl, provider);
+        // Récupère le programme Anchor et le Provider
+        const { program, SystemProgram } = getAnchorProgram(wallet);
 
         // Génère une nouvelle paire de clés pour le compte événement
         const eventAccount = web3.Keypair.generate();
 
-        const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
-
         try {
+            const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
+
             // Envoie la transaction pour créer un événement
             const txid = await program.methods
                 .createEvent(title, description, inputDate, location)
