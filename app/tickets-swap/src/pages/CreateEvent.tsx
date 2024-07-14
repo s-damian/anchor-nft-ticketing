@@ -6,15 +6,15 @@ import { getAnchorProgram } from "../utils/anchorUtils";
 
 const CreateEvent: React.FC = () => {
     // État pour les champs du formulaire
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [date, setDate] = useState("");
-    const [location, setLocation] = useState("");
+    const [title, setTitle] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [date, setDate] = useState<string>("");
+    const [location, setLocation] = useState<string>("");
 
     const wallet = useAnchorWallet();
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
 
         if (!wallet?.publicKey) {
             alert("Veuillez connecter votre portefeuille !");
