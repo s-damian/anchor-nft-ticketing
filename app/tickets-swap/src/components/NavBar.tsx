@@ -28,6 +28,16 @@ export default function NavBar() {
                 </li>
                 <li>
                     <NavLink
+                        to="/create-ticket"
+                        className={({ isActive }) =>
+                            `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
+                        }
+                    >
+                        Create Ticket
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
                         to="/swap-ticket"
                         className={({ isActive }) =>
                             `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`

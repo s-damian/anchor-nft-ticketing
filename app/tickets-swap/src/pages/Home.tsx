@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+const Home: React.FC = () => {
     return (
         <div>
-            <h2>Welcome to the Event Tickets Marketplace</h2>
-            <Link to="/event/create">Create an Event</Link>
+            <h1>Welcome to the Event Tickets Marketplace</h1>
         </div>
     );
-}
+};
+
+export default Home;
