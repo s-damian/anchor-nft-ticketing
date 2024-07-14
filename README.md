@@ -44,11 +44,11 @@ cargo clippy
 ### Front-End Lint :
 
 ```
-cd /[your-path]/tickets-swap/app/tickets-swap
+cd /[your-path]/tickets-swap
 ```
 
 Lint and format the code :
 
 ```
-npm run fix-all
+npm run lint:fix
 ```
