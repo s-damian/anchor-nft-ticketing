@@ -15,11 +15,13 @@ const ListEvents: React.FC = () => {
             }
 
             // Récupère le programme Anchor et le Provider
-            const { connection, program, SystemProgram } = getAnchorProgram(wallet);
+            const { connection, program } = getAnchorProgram(wallet);
 
             try {
+                // Récupère les comptes du programme
                 const accounts = await connection.getProgramAccounts(new PublicKey(idl.metadata.address));
 
+                // Récupère les données de chaque compte événement
                 const eventAccounts = await Promise.all(
                     accounts.map(async ({ pubkey, account }) => {
                         //console.log(`Public Key : ${pubkey.toBase58()}`);
@@ -39,7 +41,8 @@ const ListEvents: React.FC = () => {
                     }),
                 );
 
-                console.log(eventAccounts);
+                // Filtre les comptes valides et met à jour l'état
+                setEvents(eventAccounts.filter((account) => account !== null));
             } catch (err) {
                 console.error("Failed to fetch events.", err);
             }
@@ -54,11 +57,11 @@ const ListEvents: React.FC = () => {
             <ul>
                 {events.map((event, index) => (
                     <li key={index}>
-                        <h3>{event.title}</h3>
-                        <p>{event.description}</p>
-                        <p>Date: {new Date(event.date.toNumber() * 1000).toLocaleDateString()}</p>
-                        <p>Lieu: {event.location}</p>
-                        <p>Organisateur: {event.organizer.toBase58()}</p>
+                        <h3>{event.accountData.title}</h3>
+                        <p>{event.accountData.description}</p>
+                        <p>Date: {new Date(event.accountData.date.toNumber() * 1000).toLocaleDateString()}</p>
+                        <p>Lieu: {event.accountData.location}</p>
+                        <p>Organisateur: {event.accountData.organizer.toBase58()}</p>
                     </li>
                 ))}
             </ul>
