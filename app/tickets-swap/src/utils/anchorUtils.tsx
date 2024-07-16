@@ -1,4 +1,4 @@
-import { Connection, Commitment, clusterApiUrl } from "@solana/web3.js";
+import { Connection, Commitment, clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { Program, AnchorProvider, web3, Idl, setProvider } from "@coral-xyz/anchor";
 import { Wallet } from "@coral-xyz/anchor/dist/cjs/provider";
@@ -47,7 +47,8 @@ export const getAnchorProgram = (wallet: Wallet) => {
     setProvider(provider);
 
     // Initialise le programme Anchor
-    const program = new Program(idl as Idl, provider);
+    //const program = new Program(idl as Idl, provider); // for "@coral-xyz/anchor": "0.30.1",
+    const program = new Program(idl as Idl, new PublicKey(idl.metadata.address), provider); // for "@coral-xyz/anchor": "0.29.0",
 
     return { program, provider, connection, SystemProgram };
 };
