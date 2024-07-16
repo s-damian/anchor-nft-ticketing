@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { getAnchorProgram } from "../utils/anchorUtils";
+//import { getAnchorProgram } from "../utils/anchorUtils";
 import { PublicKey } from "@solana/web3.js";
+import { Connection, Commitment, clusterApiUrl } from "@solana/web3.js";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { Program, AnchorProvider, web3, Idl, setProvider } from "@coral-xyz/anchor";
+import { Wallet } from "@coral-xyz/anchor/dist/cjs/provider";
+import idl from "../idl/tickets_swap.json";
+
+const network = "http://127.0.0.1:8899";
+const opts = {
+    preflightCommitment: process.env.REACT_APP_SOLANA_COMMITMENT as Commitment,
+};
 
 const ListEvents: React.FC = () => {
     const [events, setEvents] = useState<any[]>([]);
@@ -10,31 +20,90 @@ const ListEvents: React.FC = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             if (!wallet?.publicKey) {
-                alert("Veuillez connecter votre portefeuille !");
                 return;
             }
 
             try {
-                const { program } = getAnchorProgram(wallet);
+                // Crée une nouvelle connexion à Solana avec l'URL du validateur et le niveau de commitment
+                const connection = new Connection(network, opts.preflightCommitment);
 
-                // Remplacez par vos clés publiques d'événements
-                const eventPublicKeys = [
-                    new PublicKey("8aZwxNmZTGGNJPE3ogp9qYqqaw4dvT6Y4v3NzL8ZHdC9"),
-                    new PublicKey("4UMgDq8Sf7PHC9SHBh45UeQH9pdEf9CTbwk4iUPmLCxh"),
-                ];
+                // Crée une instance de Provider
+                const provider = new AnchorProvider(connection, wallet, opts);
+                setProvider(provider);
+
+                // Initialise le programme Anchor
+                const program = new Program(idl as Idl, provider);
+
+                //const test = await program.account.event.fetch(new PublicKey("8aZwxNmZTGGNJPE3ogp9qYqqaw4dvT6Y4v3NzL8ZHdC9"));
+                //console.log(test);
+
+
+
+                const accounts = await connection.getProgramAccounts(new PublicKey(idl.address));
+                //console.log(accounts)
+
+
+
+
+
+                /*accounts.forEach(({ pubkey, account }) => {
+                    console.log(`Public Key: ${pubkey.toBase58()}`);
+                    //const test1 = program.coder.accounts.decode('Event', account.data);
+                    const test2 = program.account.event.fetch(pubkey);
+                    //const test3 = program.account['event'].fetch(pubkey);
+
+                    //console.log(program.coder.accounts)
+                    console.log(program.account)
+                    console.log('----------------------------');
+                });*/
+
+
+
+
 
                 const eventAccounts = await Promise.all(
-                    eventPublicKeys.map(async (publicKey) => {
-                        // Appel explicite de getEvent si nécessaire
-                        await program.methods.getEvent().accounts({ event: publicKey }).rpc();
+                    accounts.map(async ({ pubkey, account }) => {
+                        console.log(`Public Key : ${pubkey.toBase58()}`);
 
-                        // Récupération du compte de l'événement
-                        const event = await program.account.event.fetch(publicKey);
-                        return event;
-                    }),
+                        //const fetchedAccountData = await program.account.event.fetch(pubkey);
+                        //console.log('Fetched account data:', fetchedAccountData);
+                        console.log(program.account)
+                        console.log(program.account.event)
+                        console.log('----------------------------');
+                        
+                        
+                        /*try {
+                            // Essayez de décoder les données du compte avec coder
+                            const eventAccountData = program.coder.accounts.decode('Event', account.data);
+                            console.log('Decoded with coder:', eventAccountData);
+
+                            // Essayez de décoder les données du compte avec fetch
+                            const fetchedAccountData = await program.account.event.fetch(pubkey);
+                            console.log('Fetched account data:', fetchedAccountData);
+
+                            return {
+                                publicKey: pubkey,
+                                accountData: fetchedAccountData,
+                            };
+                        } catch (e) {
+                            console.error('Failed to fetch or decode account data:', e);
+                            return null;
+                        }*/
+                    })
                 );
 
-                setEvents(eventAccounts);
+
+
+
+                /*const eventAccounts = accounts.map(({ pubkey, account }) => ({
+                    publicKey: pubkey,
+                    accountData: program.account.event.coder.accounts.decode('Event', account.data),
+                }));*/
+
+                //setEvents(eventAccounts);
+
+
+
             } catch (err) {
                 console.error("Failed to fetch events.", err);
             }
