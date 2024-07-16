@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../utils/anchorUtils";
 import { PublicKey } from "@solana/web3.js";
-import { Commitment } from "@solana/web3.js";
 import idl from "../idl/tickets_swap.json";
-
-const network = "http://127.0.0.1:8899";
-const opts = {
-    preflightCommitment: process.env.REACT_APP_SOLANA_COMMITMENT as Commitment,
-};
 
 const ListEvents: React.FC = () => {
     const [events, setEvents] = useState<any[]>([]);
