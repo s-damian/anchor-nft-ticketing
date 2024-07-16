@@ -41,7 +41,9 @@ const CreateEvent: React.FC = () => {
                 .signers([eventAccount])
                 .rpc();
 
-            console.log("Success to create event. Tx signature:", txid);
+            console.log("Success to create event");
+            console.log("txid", txid);
+            console.log("eventAccount.publicKey.toBase58()", eventAccount.publicKey.toBase58());
         } catch (err) {
             console.error("Failed to create event.", err);
         }

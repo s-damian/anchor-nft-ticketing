@@ -18,7 +18,10 @@ const ListEvents: React.FC = () => {
                 const { program } = getAnchorProgram(wallet);
 
                 // Remplacez par vos clés publiques d'événements
-                const eventPublicKeys = [new PublicKey("..."), new PublicKey("...")];
+                const eventPublicKeys = [
+                    new PublicKey("8aZwxNmZTGGNJPE3ogp9qYqqaw4dvT6Y4v3NzL8ZHdC9"),
+                    new PublicKey("4UMgDq8Sf7PHC9SHBh45UeQH9pdEf9CTbwk4iUPmLCxh"),
+                ];
 
                 const eventAccounts = await Promise.all(
                     eventPublicKeys.map(async (publicKey) => {
@@ -59,3 +62,11 @@ const ListEvents: React.FC = () => {
 };
 
 export default ListEvents;
+
+/*
+txid 2Rb63oMoS3bT1H6GPD6AoCCYBzM14S32EJ1RTkRX6GnJfhHUiqe2wvyVu1hzM8Aegbg1gDd9PGXg2dHJJxU1ULuv
+eventAccount.publicKey.toBase58() 8aZwxNmZTGGNJPE3ogp9qYqqaw4dvT6Y4v3NzL8ZHdC9
+
+txid 2Tac7zbAnctcu8wp8q4oNihkWTuV7AtrHrKpXodTyN6CdHgG6qKKvsdBXaWLvq1ojdUaJM6couk5GKSq1EpSTPMn
+eventAccount.publicKey.toBase58() 4UMgDq8Sf7PHC9SHBh45UeQH9pdEf9CTbwk4iUPmLCxh
+*/
