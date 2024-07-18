@@ -36,26 +36,6 @@ const NavBar: React.FC = () => {
                         Liste des Événements
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink
-                        to="/create-ticket"
-                        className={({ isActive }) =>
-                            `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
-                        }
-                    >
-                        Créer un Ticket
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to="/swap-ticket"
-                        className={({ isActive }) =>
-                            `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
-                        }
-                    >
-                        Swap Ticket
-                    </NavLink>
-                </li>
                 <li className="ml-auto">
                     <WalletMultiButton className="btn btn-primary" />
                 </li>

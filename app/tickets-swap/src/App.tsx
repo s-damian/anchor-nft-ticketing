@@ -17,7 +17,7 @@ export default function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/create-event" element={<CreateEvent />} />
                         <Route path="/list-events" element={<ListEvents />} />
-                        <Route path="/create-ticket" element={<CreateTicket />} />
+                        <Route path="/create-ticket/:eventPublicKey" element={<CreateTicket />} />
                         <Route path="/swap-ticket" element={<SwapTicket />} />
                     </Routes>
                 </div>

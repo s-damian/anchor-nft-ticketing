@@ -1,32 +1,87 @@
 {
-    "version": "0.1.0",
-    "name": "tickets_swap",
-    "instructions": [
-      {
-        "name": "initialize",
-        "accounts": [],
-        "args": []
-      },
-      {
-        "name": "createEvent",
-        "accounts": [
-          {
-            "name": "event",
-            "isMut": true,
-            "isSigner": true
-          },
-          {
-            "name": "organizer",
-            "isMut": true,
-            "isSigner": true
-          },
-          {
-            "name": "systemProgram",
-            "isMut": false,
-            "isSigner": false
-          }
-        ],
-        "args": [
+  "version": "0.1.0",
+  "name": "tickets_swap",
+  "instructions": [
+    {
+      "name": "createEvent",
+      "accounts": [
+        {
+          "name": "event",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "organizer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "date",
+          "type": "i64"
+        },
+        {
+          "name": "location",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "createTicket",
+      "accounts": [
+        {
+          "name": "ticket",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "event",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "event",
+          "type": "publicKey"
+        },
+        {
+          "name": "price",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
             "name": "title",
             "type": "string"
@@ -42,85 +97,36 @@
           {
             "name": "location",
             "type": "string"
+          },
+          {
+            "name": "organizer",
+            "type": "publicKey"
           }
         ]
-      },
-      {
-        "name": "getEvent",
-        "accounts": [
+      }
+    },
+    {
+      "name": "Ticket",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
             "name": "event",
-            "isMut": false,
-            "isSigner": false
+            "type": "publicKey"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "owner",
+            "type": "publicKey"
           }
-        ],
-        "args": [],
-        "returns": {
-          "defined": "Event"
-        }
+        ]
       }
-    ],
-    "accounts": [
-      {
-        "name": "Event",
-        "type": {
-          "kind": "struct",
-          "fields": [
-            {
-              "name": "title",
-              "type": "string"
-            },
-            {
-              "name": "description",
-              "type": "string"
-            },
-            {
-              "name": "date",
-              "type": "i64"
-            },
-            {
-              "name": "location",
-              "type": "string"
-            },
-            {
-              "name": "organizer",
-              "type": "publicKey"
-            }
-          ]
-        }
-      }
-    ],
-    "types": [
-      {
-        "name": "Event",
-        "type": {
-          "kind": "struct",
-          "fields": [
-            {
-              "name": "title",
-              "type": "string"
-            },
-            {
-              "name": "description",
-              "type": "string"
-            },
-            {
-              "name": "date",
-              "type": "i64"
-            },
-            {
-              "name": "location",
-              "type": "string"
-            },
-            {
-              "name": "organizer",
-              "type": "publicKey"
-            }
-          ]
-        }
-      }
-    ],
-    "metadata": {
-      "address": "FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa"
     }
+  ],
+  "metadata": {
+    "address": "FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa"
   }
+}

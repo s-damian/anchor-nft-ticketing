@@ -7,12 +7,6 @@ declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
 pub mod tickets_swap {
     use super::*;
 
-    // Instruction d'initialisation du programme
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        msg!("Greetings from: {:?}", ctx.program_id); // Affiche un message de salutation avec l'ID du programme
-        Ok(())
-    }
-
     // Instruction permettant de créer un événement
     pub fn create_event(
         ctx: Context<CreateEvent>,
@@ -30,23 +24,15 @@ pub mod tickets_swap {
         Ok(())
     }
 
-    // Instruction permettant de récupérer un événement
-    pub fn get_event(ctx: Context<GetEvent>) -> Result<Event> {
-        let event_account = &ctx.accounts.event;
-        let event = Event {
-            title: event_account.title.clone(),
-            description: event_account.description.clone(),
-            date: event_account.date,
-            location: event_account.location.clone(),
-            organizer: event_account.organizer,
-        };
-        Ok(event)
+    // Instruction permettant de créer un ticker pour un X événement
+    pub fn create_ticket(ctx: Context<CreateTicket>, event: Pubkey, price: u64) -> Result<()> {
+        let ticket = &mut ctx.accounts.ticket;
+        ticket.event = event;
+        ticket.price = price;
+        ticket.owner = *ctx.accounts.owner.key;
+        Ok(())
     }
 }
-
-// Contexte de l'instruction d'initialisation
-#[derive(Accounts)]
-pub struct Initialize {}
 
 // Contexte de l'instruction permettant de créer un événement
 #[derive(Accounts)]
@@ -59,10 +45,15 @@ pub struct CreateEvent<'info> {
     pub system_program: Program<'info, System>, // Programme système Solana
 }
 
-// Contexte de l'instruction permettant de récupérer un événement
+// Contexte de l'instruction permettant de créer un ticker pour un X événement
 #[derive(Accounts)]
-pub struct GetEvent<'info> {
+pub struct CreateTicket<'info> {
+    #[account(init, payer = owner, space = 8 + 32 + 32 + 8)]
+    pub ticket: Account<'info, Ticket>,
     pub event: Account<'info, Event>,
+    #[account(mut)]
+    pub owner: Signer<'info>,
+    pub system_program: Program<'info, System>,
 }
 
 // Structure pour stocker les informations de l'événement
@@ -73,4 +64,11 @@ pub struct Event {
     pub date: i64,
     pub location: String,
     pub organizer: Pubkey, // Clé publique de l'organisateur de l'événement
+}
+
+#[account]
+pub struct Ticket {
+    pub event: Pubkey,
+    pub price: u64,
+    pub owner: Pubkey,
 }

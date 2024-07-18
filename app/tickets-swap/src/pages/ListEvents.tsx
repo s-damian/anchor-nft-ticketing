@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../utils/anchorUtils";
 import { PublicKey } from "@solana/web3.js";
@@ -57,11 +58,32 @@ const ListEvents: React.FC = () => {
             <div>
                 {events.map((event, index) => (
                     <div className="w-full p-10 mt-8 bg-white rounded-xl shadow-md" key={index}>
-                        <h3>{event.accountData.title}</h3>
-                        <p>{event.accountData.description}</p>
-                        <p>Date: {new Date(event.accountData.date.toNumber() * 1000).toLocaleDateString()}</p>
-                        <p>Lieu: {event.accountData.location}</p>
-                        <p>Organisateur: {event.accountData.organizer.toBase58()}</p>
+                        <h3>
+                            <b>Titre</b> : {event.accountData.title}
+                        </h3>
+                        <p>
+                            <b>Description</b> : {event.accountData.description}
+                        </p>
+                        <p>
+                            <b>Date</b> : {new Date(event.accountData.date.toNumber() * 1000).toLocaleDateString()}
+                        </p>
+                        <p>
+                            <b>Lieu</b> : {event.accountData.location}
+                        </p>
+                        <p>
+                            <b>Public Key de l'organisateur</b> : {event.accountData.organizer.toBase58()}
+                        </p>
+                        <p>
+                            <b>Public Key de l'événement</b> : {event.publicKey.toBase58()}
+                        </p>
+                        <p>
+                            <Link
+                                to={`/create-ticket/${event.publicKey.toBase58()}`}
+                                className="group relative inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4"
+                            >
+                                Aller dans l'événement
+                            </Link>
+                        </p>
                     </div>
                 ))}
             </div>
@@ -70,11 +92,3 @@ const ListEvents: React.FC = () => {
 };
 
 export default ListEvents;
-
-/*
-txid 3EDEsKUH1zGFAj4hawFXCKEBYZr6mD9F5JYyfiSfUnNP6jMQ8jdEXWS5EnyEi5F7NHHzDd9RmpT3SJZcXtrTCDfB
-eventAccount.publicKey.toBase58() 5nNbuSneSWCRoEkN4cEn8xeYJrgd9wXoeKxr7Wcu8eJu
-
-txid 2u4dU4WMMxjPkxprWoanNc3jB1Rr3idT6Jqt2pWWoGpDJqZedprvHXm7dMjd2DWJUsJAog9WcpXrQVtGhbq6hmHm
-eventAccount.publicKey.toBase58() G5AfTT7tbnFuZ2AdH5nm9w8jb8AwoTLJLvZmpk4pyYwU
-*/

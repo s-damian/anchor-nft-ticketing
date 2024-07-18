@@ -10,7 +10,6 @@ const CreateEvent: React.FC = () => {
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [location, setLocation] = useState<string>("");
-
     const wallet = useAnchorWallet();
 
     const handleSubmit = async (e: React.FormEvent) => {

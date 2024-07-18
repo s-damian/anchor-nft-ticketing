@@ -53,7 +53,7 @@ Lint and format the code :
 npm run lint:fix
 ```
 
-### Build program :
+### Build/Deploy program :
 
 ```
 cd /[your-path]/tickets-swap
