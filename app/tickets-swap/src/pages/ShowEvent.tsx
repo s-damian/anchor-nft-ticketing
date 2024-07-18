@@ -96,34 +96,35 @@ const ShowEvent: React.FC = () => {
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                     {eventDetails && (
                         <div className="mb-6">
-                            <h2 className="text-center text-3xl font-extrabold text-gray-900">
+                            <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-2">
                                 <b>Titre</b> : {eventDetails.title}
                             </h2>
-                            <p className="text-center text-gray-700">
+                            <p className="text-center text-gray-700 mb-2">
                                 <b>Description</b> : {eventDetails.description}
                             </p>
-                            <p className="text-center text-gray-700">
+                            <p className="text-center text-gray-700 mb-2">
                                 <b>Date</b> : {new Date(eventDetails.date.toNumber() * 1000).toLocaleDateString()}
                             </p>
-                            <p className="text-center text-gray-700">
+                            <p className="text-center text-gray-700 mb-2">
                                 <b>Lieu</b> : {eventDetails.location}
                             </p>
-                            <p className="text-center text-gray-700">
+                            <p className="text-center text-gray-700 mb-2">
                                 <b>Prix du Ticket</b> : {eventDetails.ticketPrice.toString()} Lamports
                             </p>
-                            <p className="text-center text-gray-700">
+                            <p className="text-center text-gray-700 mb-2">
                                 <b>Public Key de l'organisateur</b> :
-                                <br />
-                                {eventDetails.organizer.toBase58()}
+                                <span className="block truncate bg-gray-200 p-1 rounded" title={eventDetails.organizer.toBase58()}>
+                                    {eventDetails.organizer.toBase58()}
+                                </span>
                             </p>
                             <p className="text-center text-gray-700">
                                 <b>Public Key de l'événement</b> :
-                                <br />
-                                {eventPublicKey}
+                                <span className="block truncate bg-gray-200 p-1 rounded" title={eventPublicKey}>
+                                    {eventPublicKey}
+                                </span>
                             </p>
                         </div>
                     )}
-                    <h2 className="text-center text-3xl font-extrabold text-gray-900">Acheter un Ticket</h2>
                     <form className="space-y-6" onSubmit={handleSubmitBuyTicket}>
                         <div>
                             <button
@@ -142,17 +143,23 @@ const ShowEvent: React.FC = () => {
                     <ul>
                         {tickets.map((ticket, index) => (
                             <li key={index} className="mt-4 p-4 bg-white rounded-md shadow-sm">
-                                <p>
+                                <p className="mb-2">
                                     <b>Prix</b> : {ticket.account.price.toString()} SOL
                                 </p>
-                                <p>
+                                <p className="mb-2">
                                     <b>Date de l'achat</b> : {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleDateString()}
                                 </p>
-                                <p>
-                                    <b>Public Key de l'acheteur</b> : {ticket.account.owner.toBase58()}
+                                <p className="mb-2">
+                                    <b>Public Key de l'acheteur</b> :{" "}
+                                    <span className="truncate bg-gray-200 p-1 rounded" title={ticket.account.owner.toBase58()}>
+                                        {ticket.account.owner.toBase58()}
+                                    </span>
                                 </p>
                                 <p>
-                                    <b>Public Key du ticket</b> : {ticket.publicKey.toBase58()}
+                                    <b>Public Key du ticket</b> :{" "}
+                                    <span className="truncate bg-gray-200 p-1 rounded" title={ticket.publicKey.toBase58()}>
+                                        {ticket.publicKey.toBase58()}
+                                    </span>
                                 </p>
                             </li>
                         ))}

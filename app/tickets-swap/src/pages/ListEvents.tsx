@@ -56,26 +56,32 @@ const ListEvents: React.FC = () => {
             <div>
                 {events.map((event, index) => (
                     <div className="w-full p-10 mt-8 bg-white rounded-xl shadow-md" key={index}>
-                        <h3>
+                        <h3 className="mb-2">
                             <b>Titre</b> : {event.accountData.title}
                         </h3>
-                        <p>
+                        <p className="mb-2">
                             <b>Description</b> : {event.accountData.description}
                         </p>
-                        <p>
+                        <p className="mb-2">
                             <b>Date</b> : {new Date(event.accountData.date.toNumber() * 1000).toLocaleDateString()}
                         </p>
-                        <p>
+                        <p className="mb-2">
                             <b>Lieu</b> : {event.accountData.location}
                         </p>
-                        <p>
+                        <p className="mb-2">
                             <b>Prix du Ticket</b> : {event.accountData.ticketPrice.toString()} Lamports
                         </p>
-                        <p>
-                            <b>Public Key de l'organisateur</b> : {event.accountData.organizer.toBase58()}
+                        <p className="mb-2">
+                            <b>Public Key de l'organisateur</b> :{" "}
+                            <span className="truncate bg-gray-200 p-1 rounded" title={event.accountData.organizer.toBase58()}>
+                                {event.accountData.organizer.toBase58()}
+                            </span>
                         </p>
-                        <p>
-                            <b>Public Key de l'événement</b> : {event.publicKey.toBase58()}
+                        <p className="mb-2">
+                            <b>Public Key de l'événement</b> :{" "}
+                            <span className="truncate bg-gray-200 p-1 rounded" title={event.publicKey.toBase58()}>
+                                {event.publicKey.toBase58()}
+                            </span>
                         </p>
                         <p>
                             <Link
