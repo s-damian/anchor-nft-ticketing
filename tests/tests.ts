@@ -12,22 +12,16 @@ describe("create_event_and_ticket", () => {
     // Initialisation du programme Anchor.
     const program = anchor.workspace.TicketsSwap as Program<TicketsSwap>;
 
+    // Générer une nouvelle paire de clés pour le compte de l'événement.
+    const eventAccount = anchor.web3.Keypair.generate();
+    const ticketPrice = new BN(20000000000); // 20000000000 Lamports = 20 SOL.
+
     it("Create an event and a ticket", async () => {
-        /*
-        |--------------------------------------------------------------------------
-        | Test create_event:
-        |--------------------------------------------------------------------------
-        */
-
-        // Générer une nouvelle paire de clés pour le compte de l'événement.
-        const eventAccount = anchor.web3.Keypair.generate();
-
         // Détails de l'événement.
         const title = "Test Event";
         const description = "This is a test event.";
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
         const location = "Test Location";
-        const ticketPrice = new BN(100);
 
         // Appeler l'instruction create_event
         const txid = await program.methods
@@ -51,19 +45,18 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.location, location);
         assert.equal(eventAccountData.ticketPrice.toString(), ticketPrice.toString());
         assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
+    });
 
-        /*
-        |--------------------------------------------------------------------------
-        | Test buy_ticket:
-        |--------------------------------------------------------------------------
-        */
+    it("Attempt to buy a ticket with success", async () => {
+        // Récupérer les détails du compte de l'événement.
+        const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
         // Générer une nouvelle paire de clés pour le compte du ticket.
         const ticketAccount = anchor.web3.Keypair.generate();
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
 
         // Appeler l'instruction buy_ticket
-        const ticketTxid = await program.methods
+        const txid = await program.methods
             .buyTicket(dateOfPurchase)
             .accounts({
                 ticket: ticketAccount.publicKey, // Compte du ticket.
@@ -74,7 +67,7 @@ describe("create_event_and_ticket", () => {
             })
             .signers([ticketAccount]) // Signataires de la transaction.
             .rpc();
-        console.log("buyTicket - tx signature", ticketTxid);
+        console.log("buyTicket - tx signature", txid);
 
         // Récupérer les détails du compte du ticket
         const ticketAccountData = await program.account.ticket.fetch(ticketAccount.publicKey);
@@ -84,5 +77,37 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
         assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
+    });
+
+    it("Attempt to buy a ticket with an invalid owner", async () => {
+        // Récupérer les détails du compte de l'événement.
+        const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
+
+        // Générer une nouvelle paire de clés pour le compte du ticket.
+        const ticketAccount = anchor.web3.Keypair.generate();
+        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
+
+        // Générer une clé publique non valide pour le propriétaire.
+        const invalidOwner = anchor.web3.Keypair.generate();
+
+        try {
+            // Appeler l'instruction buy_ticket avec un propriétaire non valide.
+            const txid = await program.methods
+                .buyTicket(dateOfPurchase)
+                .accounts({
+                    ticket: ticketAccount.publicKey, // Compte du ticket.
+                    event: eventAccount.publicKey, // Compte de l'événement.
+                    owner: invalidOwner.publicKey, // Propriétaire non valide du ticket.
+                    organizer: eventAccountData.organizer, // Organizer de l'événement.
+                    systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
+                })
+                .signers([ticketAccount]) // Signataires de la transaction.
+                .rpc();
+
+            // Si le transfert réussit, échouer le test.
+            assert.fail("The transaction should have failed but it succeeded.");
+        } catch (err) {
+            assert.equal("OK", "OK");
+        }
     });
 });

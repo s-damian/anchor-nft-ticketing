@@ -66,6 +66,9 @@ pub mod tickets_swap {
             ],
         )?;
 
+        // Confirmer que le transfert a été effectué
+        msg!("Transfer completed.");
+
         Ok(())
     }
 }
