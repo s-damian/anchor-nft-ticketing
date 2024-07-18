@@ -60,12 +60,6 @@ const ShowEvent: React.FC = () => {
 
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
 
-        // DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2
-        console.log("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2 :");
-        console.log(new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"));
-        console.log("eventDetails.organizer :");
-        console.log(eventDetails?.organizer);
-
         try {
             const txid = await program.methods
                 .buyTicket(dateOfPurchase)
@@ -74,7 +68,7 @@ const ShowEvent: React.FC = () => {
                     event: new web3.PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
                     organizer: eventDetails.organizer,
-                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"),
+                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom).
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])
