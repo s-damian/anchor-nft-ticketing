@@ -27,7 +27,7 @@ describe("create_event_and_ticket", () => {
         const description = "This is a test event.";
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
         const location = "Test Location";
-        const ticketPrice = new BN(100);
+        const ticketPrice = new BN(1000000000); // 1 SOL en lamports
 
         // Appeler l'instruction create_event
         const txid = await program.methods

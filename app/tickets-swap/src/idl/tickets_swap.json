@@ -63,6 +63,11 @@
           "isSigner": true
         },
         {
+          "name": "organizer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false

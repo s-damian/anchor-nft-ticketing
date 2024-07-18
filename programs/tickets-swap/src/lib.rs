@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::{program::invoke, system_instruction};
 
 // Déclare l'ID du programme
 declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
@@ -17,12 +18,14 @@ pub mod tickets_swap {
         ticket_price: u64,
     ) -> Result<()> {
         let event = &mut ctx.accounts.event; // Accède au compte de l'événement
+
         event.title = title;
         event.description = description;
         event.date = date;
         event.location = location;
         event.organizer = *ctx.accounts.organizer.key; // Définit l'organisateur de l'événement
         event.ticket_price = ticket_price;
+
         Ok(())
     }
 
@@ -34,7 +37,22 @@ pub mod tickets_swap {
         ticket.event = event.key();
         ticket.price = event.ticket_price; // Attribuer le prix du billet de l'événement.
         ticket.date_of_purchase = date_of_purchase; // Prix de quand le owner a acheté ce ticket (on conserve un log au cas où le prix joint à l'event change)
-        ticket.owner = *ctx.accounts.owner.key; // Définit le créateur (proprio) du ticket
+        ticket.owner = *ctx.accounts.owner.key; // Définit l'acheteur du ticket
+
+        // Transfer SOL from the buyer to the organizer
+        invoke(
+            &system_instruction::transfer(
+                &ctx.accounts.owner.key(),
+                &event.organizer.key(),
+                ticket.price,
+            ),
+            &[
+                ctx.accounts.owner.to_account_info(),
+                ctx.accounts.organizer.to_account_info(),
+                ctx.accounts.system_program.to_account_info(),
+            ],
+        )?;
+
         Ok(())
     }
 }
@@ -59,6 +77,8 @@ pub struct BuyTicket<'info> {
     pub event: Account<'info, Event>,
     #[account(mut)]
     pub owner: Signer<'info>,
+    #[account(mut)]
+    pub organizer: AccountInfo<'info>, // Ajouté pour le transfert SOL
     pub system_program: Program<'info, System>,
 }
 

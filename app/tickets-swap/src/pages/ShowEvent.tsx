@@ -66,6 +66,7 @@ const ShowEvent: React.FC = () => {
                     ticket: ticketAccount.publicKey,
                     event: new web3.PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
+                    organizer: eventDetails.organizer,
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])
@@ -150,10 +151,10 @@ const ShowEvent: React.FC = () => {
                                     <b>Date de l'achat</b> : {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleDateString()}
                                 </p>
                                 <p>
-                                    <b>Propriétaire</b> : {ticket.account.owner.toBase58()}
+                                    <b>Public Key de l'acheteur</b> : {ticket.account.owner.toBase58()}
                                 </p>
                                 <p>
-                                    <b>Public Key du Ticket</b> : {ticket.publicKey.toBase58()}
+                                    <b>Public Key du ticket</b> : {ticket.publicKey.toBase58()}
                                 </p>
                             </li>
                         ))}
