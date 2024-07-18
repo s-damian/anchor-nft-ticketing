@@ -12,7 +12,7 @@ export default function App() {
         <BrowserRouter>
             <div className="container mx-auto text-center">
                 <NavBar />
-                <div className="bg-gray-100 py-12 px-8">
+                <div className="min-h-screen bg-gray-100 flex flex-col py-12 px-8">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/create-event" element={<CreateEvent />} />
