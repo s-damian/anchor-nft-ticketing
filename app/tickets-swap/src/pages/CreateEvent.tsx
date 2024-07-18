@@ -57,9 +57,6 @@ const CreateEvent: React.FC = () => {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
-                            <label htmlFor="title" className="sr-only">
-                                Titre
-                            </label>
                             <input
                                 id="title"
                                 name="title"
@@ -72,9 +69,6 @@ const CreateEvent: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="description" className="sr-only">
-                                Description
-                            </label>
                             <textarea
                                 id="description"
                                 name="description"
@@ -86,9 +80,6 @@ const CreateEvent: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="date" className="sr-only">
-                                Date
-                            </label>
                             <input
                                 id="date"
                                 name="date"
@@ -101,9 +92,6 @@ const CreateEvent: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="location" className="sr-only">
-                                Lieu
-                            </label>
                             <input
                                 id="location"
                                 name="location"
@@ -117,9 +105,6 @@ const CreateEvent: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="ticketPrice" className="sr-only">
-                            Prix du Ticket
-                        </label>
                         <input
                             id="ticketPrice"
                             name="ticketPrice"
@@ -128,7 +113,7 @@ const CreateEvent: React.FC = () => {
                             onChange={(e) => setTicketPrice(e.target.value)}
                             required
                             className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Prix du Ticket"
+                            placeholder="Prix du Ticket (Lamports)"
                         />
                     </div>
                     <div>

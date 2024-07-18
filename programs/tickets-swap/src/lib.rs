@@ -24,7 +24,7 @@ pub mod tickets_swap {
         event.date = date;
         event.location = location;
         event.organizer = *ctx.accounts.organizer.key; // Définit l'organisateur de l'événement
-        event.ticket_price = ticket_price;
+        event.ticket_price = ticket_price; // Assigner en lamports
 
         Ok(())
     }
@@ -34,17 +34,30 @@ pub mod tickets_swap {
         let ticket = &mut ctx.accounts.ticket;
         let event = &ctx.accounts.event;
 
+        // Vérifiez que l'organisateur fourni (depuis le Front-End) correspond à l'organisateur de l'événement
+        if ctx.accounts.organizer.key() != event.organizer {
+            return Err(MyError::InvalidOrganizer.into());
+        }
+
         ticket.event = event.key();
         ticket.price = event.ticket_price; // Attribuer le prix du billet de l'événement.
         ticket.date_of_purchase = date_of_purchase; // Prix de quand le owner a acheté ce ticket (on conserve un log au cas où le prix joint à l'event change)
         ticket.owner = *ctx.accounts.owner.key; // Définit l'acheteur du ticket
 
         // Transfer SOL from the buyer to the organizer
+        let lamports = ticket.price; // Assuming ticket.price is already in lamports
+
+        // Log the information before the transfer
+        msg!("Buying ticket:");
+        msg!("Owner: {}", ctx.accounts.owner.key());
+        msg!("Event: {}", event.key());
+        msg!("Organizer: {}", event.organizer);
+
         invoke(
             &system_instruction::transfer(
                 &ctx.accounts.owner.key(),
-                &event.organizer.key(),
-                ticket.price,
+                &event.organizer, // ceci aussi marche : event.organizer.key()
+                lamports,
             ),
             &[
                 ctx.accounts.owner.to_account_info(),
@@ -99,4 +112,10 @@ pub struct Ticket {
     pub price: u64,
     pub date_of_purchase: i64,
     pub owner: Pubkey,
+}
+
+#[error_code]
+pub enum MyError {
+    #[msg("L'organisateur fourni ne correspond pas à l'organisateur de l'événement.")]
+    InvalidOrganizer,
 }

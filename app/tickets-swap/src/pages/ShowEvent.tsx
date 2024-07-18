@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3, BN } from "@coral-xyz/anchor";
 import { getAnchorProgram } from "../utils/anchorUtils";
+import { Connection, Commitment, clusterApiUrl, PublicKey } from "@solana/web3.js";
 
 const ShowEvent: React.FC = () => {
     const { eventPublicKey } = useParams<{ eventPublicKey: string }>();
@@ -59,6 +60,12 @@ const ShowEvent: React.FC = () => {
 
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
 
+        // DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2
+        console.log("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2 :");
+        console.log(new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"));
+        console.log("eventDetails.organizer :");
+        console.log(eventDetails?.organizer);
+
         try {
             const txid = await program.methods
                 .buyTicket(dateOfPurchase)
@@ -67,6 +74,7 @@ const ShowEvent: React.FC = () => {
                     event: new web3.PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
                     organizer: eventDetails.organizer,
+                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"),
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])
@@ -111,7 +119,7 @@ const ShowEvent: React.FC = () => {
                                 <b>Lieu</b> : {eventDetails.location}
                             </p>
                             <p className="text-center text-gray-700">
-                                <b>Prix du Ticket</b> : {eventDetails.ticketPrice.toString()} SOL
+                                <b>Prix du Ticket</b> : {eventDetails.ticketPrice.toString()} Lamports
                             </p>
                             <p className="text-center text-gray-700">
                                 <b>Public Key de l'organisateur</b> :

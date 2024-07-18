@@ -139,6 +139,13 @@
       }
     }
   ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidOrganizer",
+      "msg": "L'organisateur fourni ne correspond pas à l'organisateur de l'événement."
+    }
+  ],
   "metadata": {
     "address": "FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa"
   }

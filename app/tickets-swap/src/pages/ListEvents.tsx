@@ -71,7 +71,7 @@ const ListEvents: React.FC = () => {
                             <b>Lieu</b> : {event.accountData.location}
                         </p>
                         <p>
-                            <b>Prix du Ticket</b> : {event.accountData.ticketPrice.toString()} SOL
+                            <b>Prix du Ticket</b> : {event.accountData.ticketPrice.toString()} Lamports
                         </p>
                         <p>
                             <b>Public Key de l'organisateur</b> : {event.accountData.organizer.toBase58()}
