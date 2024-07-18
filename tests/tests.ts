@@ -27,7 +27,7 @@ describe("create_event_and_ticket", () => {
         const description = "This is a test event.";
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
         const location = "Test Location";
-        const ticketPrice = new BN(1000000000); // 1 SOL en lamports
+        const ticketPrice = new BN(100);
 
         // Appeler l'instruction create_event
         const txid = await program.methods
@@ -69,6 +69,7 @@ describe("create_event_and_ticket", () => {
                 ticket: ticketAccount.publicKey, // Compte du ticket
                 event: eventAccount.publicKey, // Compte de l'événement
                 owner: provider.wallet.publicKey, // Propriétaire du ticket
+                organizer: eventAccountData.organizer, // Organizer de l'événement
                 systemProgram: anchor.web3.SystemProgram.programId, // Programme système
             })
             .signers([ticketAccount]) // Signataires de la transaction
