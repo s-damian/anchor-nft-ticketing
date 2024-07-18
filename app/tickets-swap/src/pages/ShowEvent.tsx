@@ -7,8 +7,8 @@ import { getAnchorProgram } from "../utils/anchorUtils";
 const ShowEvent: React.FC = () => {
     const { eventPublicKey } = useParams<{ eventPublicKey: string }>();
     const navigate = useNavigate();
-    const [price, setPrice] = useState<string>("");
     const [eventDetails, setEventDetails] = useState<any>(null);
+    const [tickets, setTickets] = useState<any[]>([]);
     const wallet = useAnchorWallet();
 
     useEffect(() => {
@@ -17,16 +17,24 @@ const ShowEvent: React.FC = () => {
                 return;
             }
 
-            // Récupère le programme Anchor
             const { program } = getAnchorProgram(wallet);
 
             try {
-                // Récupère les données de l'événement
                 const event = await program.account.event.fetch(new web3.PublicKey(eventPublicKey));
-
                 setEventDetails(event);
+
+                // Récupère les tickets associés à l'événement
+                const accounts = await program.account.ticket.all([
+                    {
+                        memcmp: {
+                            offset: 8, // taille de l'en-tête de l'account
+                            bytes: eventPublicKey,
+                        },
+                    },
+                ]);
+
+                setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
             } catch (err) {
-                // Si eventPublicKey n'est pas une clé public valide
                 navigate("/");
             }
         };
@@ -34,7 +42,7 @@ const ShowEvent: React.FC = () => {
         fetchEventDetails();
     }, [wallet, eventPublicKey]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmitBuyTicket = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!wallet?.publicKey) {
@@ -46,16 +54,14 @@ const ShowEvent: React.FC = () => {
             return;
         }
 
-        // Récupère le programme Anchor et le Provider
         const { program, SystemProgram } = getAnchorProgram(wallet);
-
-        // Génère une nouvelle paire de clés pour le compte du ticket
         const ticketAccount = web3.Keypair.generate();
 
+        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
+
         try {
-            // Envoie la transaction pour créer un ticket
             const txid = await program.methods
-                .ShowEvent(new web3.PublicKey(eventPublicKey), new BN(price))
+                .buyTicket(dateOfPurchase)
                 .accounts({
                     ticket: ticketAccount.publicKey,
                     event: new web3.PublicKey(eventPublicKey),
@@ -65,73 +71,96 @@ const ShowEvent: React.FC = () => {
                 .signers([ticketAccount])
                 .rpc();
 
-            console.log("Success to create ticket");
+            console.log("Success to buy ticket");
             console.log("txid", txid);
             console.log("ticketAccount.publicKey.toBase58()", ticketAccount.publicKey.toBase58());
+
+            // Récupère les tickets après la création d'un nouveau ticket
+            const accounts = await program.account.ticket.all([
+                {
+                    memcmp: {
+                        offset: 8,
+                        bytes: eventPublicKey,
+                    },
+                },
+            ]);
+
+            setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
-            console.error("Failed to create ticket.", err);
+            console.error("Failed to buy ticket.", err);
         }
     };
 
     return (
-        <div className="flex items-center justify-center">
-            <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
-                {eventDetails && (
-                    <div className="mb-6">
-                        <h2 className="text-center text-3xl font-extrabold text-gray-900">
-                            <b>Titre</b> : {eventDetails.title}
-                        </h2>
-                        <p className="text-center text-gray-700">
-                            <b>Description</b> : {eventDetails.description}
-                        </p>
-                        <p className="text-center text-gray-700">
-                            <b>Date</b> : {new Date(eventDetails.date.toNumber() * 1000).toLocaleDateString()}
-                        </p>
-                        <p className="text-center text-gray-700">
-                            <b>Lieu</b> : {eventDetails.location}
-                        </p>
-                        <p className="text-center text-gray-700">
-                            <b>Public Key de l'organisateur</b> :
-                            <br />
-                            {eventDetails.organizer.toBase58()}
-                        </p>
-                        <p className="text-center text-gray-700">
-                            <b>Public Key de l'événement</b> :
-                            <br />
-                            {eventPublicKey}
-                        </p>
-                    </div>
-                )}
-                <h2 className="text-center text-3xl font-extrabold text-gray-900">Créer un Ticket</h2>
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div className="rounded-md shadow-sm -space-y-px">
-                        <div>
-                            <label htmlFor="price" className="sr-only">
-                                Prix
-                            </label>
-                            <input
-                                id="price"
-                                name="price"
-                                type="number"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Prix"
-                            />
+        <>
+            <div className="flex items-center justify-center">
+                <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
+                    {eventDetails && (
+                        <div className="mb-6">
+                            <h2 className="text-center text-3xl font-extrabold text-gray-900">
+                                <b>Titre</b> : {eventDetails.title}
+                            </h2>
+                            <p className="text-center text-gray-700">
+                                <b>Description</b> : {eventDetails.description}
+                            </p>
+                            <p className="text-center text-gray-700">
+                                <b>Date</b> : {new Date(eventDetails.date.toNumber() * 1000).toLocaleDateString()}
+                            </p>
+                            <p className="text-center text-gray-700">
+                                <b>Lieu</b> : {eventDetails.location}
+                            </p>
+                            <p className="text-center text-gray-700">
+                                <b>Prix du Ticket</b> : {eventDetails.ticketPrice.toString()} €
+                            </p>
+                            <p className="text-center text-gray-700">
+                                <b>Public Key de l'organisateur</b> :
+                                <br />
+                                {eventDetails.organizer.toBase58()}
+                            </p>
+                            <p className="text-center text-gray-700">
+                                <b>Public Key de l'événement</b> :
+                                <br />
+                                {eventPublicKey}
+                            </p>
                         </div>
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Créer le Ticket
-                        </button>
-                    </div>
-                </form>
+                    )}
+                    <h2 className="text-center text-3xl font-extrabold text-gray-900">Acheter un Ticket</h2>
+                    <form className="space-y-6" onSubmit={handleSubmitBuyTicket}>
+                        <div>
+                            <button
+                                type="submit"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Acheter un Ticket
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+            {tickets.length > 0 && (
+                <div className="mt-8">
+                    <h3 className="text-center text-2xl font-extrabold text-gray-900">Tickets achetés pour cet événement</h3>
+                    <ul>
+                        {tickets.map((ticket, index) => (
+                            <li key={index} className="mt-4 p-4 bg-white rounded-md shadow-sm">
+                                <p>
+                                    <b>Prix</b> : {ticket.account.price.toString()}
+                                </p>
+                                <p>
+                                    <b>Date de l'achat</b> : {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleDateString()}
+                                </p>
+                                <p>
+                                    <b>Propriétaire</b> : {ticket.account.owner.toBase58()}
+                                </p>
+                                <p>
+                                    <b>Public Key du Ticket</b> : {ticket.publicKey.toBase58()}
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </>
     );
 };
 

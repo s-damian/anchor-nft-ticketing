@@ -10,6 +10,7 @@ const CreateEvent: React.FC = () => {
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [location, setLocation] = useState<string>("");
+    const [ticketPrice, setTicketPrice] = useState<string>("");
     const wallet = useAnchorWallet();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -28,10 +29,11 @@ const CreateEvent: React.FC = () => {
 
         try {
             const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
+            const price = new BN(ticketPrice); // Convertir le prix en BN (BigNumber)
 
             // Envoie la transaction pour créer un événement
             const txid = await program.methods
-                .createEvent(title, description, inputDate, location)
+                .createEvent(title, description, inputDate, location, price)
                 .accounts({
                     event: eventAccount.publicKey,
                     organizer: wallet.publicKey,
@@ -109,10 +111,25 @@ const CreateEvent: React.FC = () => {
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Lieu"
                             />
                         </div>
+                    </div>
+                    <div>
+                        <label htmlFor="ticketPrice" className="sr-only">
+                            Prix du Ticket
+                        </label>
+                        <input
+                            id="ticketPrice"
+                            name="ticketPrice"
+                            type="number"
+                            value={ticketPrice}
+                            onChange={(e) => setTicketPrice(e.target.value)}
+                            required
+                            className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            placeholder="Prix du Ticket"
+                        />
                     </div>
                     <div>
                         <button

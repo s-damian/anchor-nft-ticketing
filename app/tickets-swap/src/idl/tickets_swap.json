@@ -37,11 +37,15 @@
         {
           "name": "location",
           "type": "string"
+        },
+        {
+          "name": "ticketPrice",
+          "type": "u64"
         }
       ]
     },
     {
-      "name": "createTicket",
+      "name": "buyTicket",
       "accounts": [
         {
           "name": "ticket",
@@ -66,12 +70,8 @@
       ],
       "args": [
         {
-          "name": "event",
-          "type": "publicKey"
-        },
-        {
-          "name": "price",
-          "type": "u64"
+          "name": "dateOfPurchase",
+          "type": "i64"
         }
       ]
     }
@@ -99,6 +99,10 @@
             "type": "string"
           },
           {
+            "name": "ticketPrice",
+            "type": "u64"
+          },
+          {
             "name": "organizer",
             "type": "publicKey"
           }
@@ -117,6 +121,10 @@
           {
             "name": "price",
             "type": "u64"
+          },
+          {
+            "name": "dateOfPurchase",
+            "type": "i64"
           },
           {
             "name": "owner",

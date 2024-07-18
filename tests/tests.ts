@@ -27,10 +27,11 @@ describe("create_event_and_ticket", () => {
         const description = "This is a test event.";
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
         const location = "Test Location";
+        const ticketPrice = new BN(100);
 
         // Appeler l'instruction create_event
         const txid = await program.methods
-            .createEvent(title, description, date, location)
+            .createEvent(title, description, date, location, ticketPrice)
             .accounts({
                 event: eventAccount.publicKey, // Compte de l'événement
                 organizer: provider.wallet.publicKey, // Organisateur de l'événement
@@ -48,21 +49,22 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.description, description);
         assert.equal(eventAccountData.date.toString(), date.toString());
         assert.equal(eventAccountData.location, location);
+        assert.equal(eventAccountData.ticketPrice.toString(), ticketPrice.toString());
         assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct
 
         /*
         |--------------------------------------------------------------------------
-        | Test create_ticket:
+        | Test buy_ticket:
         |--------------------------------------------------------------------------
         */
 
         // Générer une nouvelle paire de clés pour le compte du ticket
         const ticketAccount = anchor.web3.Keypair.generate();
-        const ticketPrice = new BN(100);
+        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes
 
-        // Appeler l'instruction create_ticket
+        // Appeler l'instruction buy_ticket
         const ticketTxid = await program.methods
-            .createTicket(eventAccount.publicKey, ticketPrice)
+            .buyTicket(dateOfPurchase)
             .accounts({
                 ticket: ticketAccount.publicKey, // Compte du ticket
                 event: eventAccount.publicKey, // Compte de l'événement
@@ -71,7 +73,7 @@ describe("create_event_and_ticket", () => {
             })
             .signers([ticketAccount]) // Signataires de la transaction
             .rpc();
-        console.log("createTicket - tx signature", ticketTxid);
+        console.log("buyTicket - tx signature", ticketTxid);
 
         // Récupérer les détails du compte du ticket
         const ticketAccountData = await program.account.ticket.fetch(ticketAccount.publicKey);
@@ -79,6 +81,7 @@ describe("create_event_and_ticket", () => {
         // Assertions pour vérifier que les détails sont corrects
         assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
+        assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
         assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct
     });
 });
