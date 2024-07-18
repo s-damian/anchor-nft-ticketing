@@ -15,20 +15,18 @@ const ListEvents: React.FC = () => {
                 return;
             }
 
-            // Récupère le programme Anchor et le Provider
+            // Récupère le programme Anchor et le Provider.
             const { connection, program } = getAnchorProgram(wallet);
 
             try {
-                // Récupère les comptes du programme
+                // Récupère les comptes du programme.
                 const accounts = await connection.getProgramAccounts(new PublicKey(idl.metadata.address));
 
-                // Récupère les données de chaque compte événement
+                // Récupère les données de chaque compte événement.
                 const eventAccounts = await Promise.all(
                     accounts.map(async ({ pubkey, account }) => {
-                        //console.log(`Public Key : ${pubkey.toBase58()}`);
-
                         try {
-                            // Décoder les données du compte avec fetch
+                            // Décoder les données du compte avec fetch.
                             const fetchedAccountData = await program.account.event.fetch(pubkey);
 
                             return {
@@ -42,7 +40,7 @@ const ListEvents: React.FC = () => {
                     }),
                 );
 
-                // Filtre les comptes valides et met à jour l'état
+                // Filtre les comptes valides et met à jour l'état.
                 setEvents(eventAccounts.filter((account) => account !== null));
             } catch (err) {
                 console.error("Failed to fetch events.", err);

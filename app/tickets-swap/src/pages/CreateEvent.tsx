@@ -5,7 +5,7 @@ import BN from "bn.js";
 import { getAnchorProgram } from "../utils/anchorUtils";
 
 const CreateEvent: React.FC = () => {
-    // État pour les champs du formulaire
+    // État pour les champs du formulaire.
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<string>("");
@@ -21,17 +21,17 @@ const CreateEvent: React.FC = () => {
             return;
         }
 
-        // Récupère le programme Anchor et le Provider
+        // Récupère le programme Anchor et le Provider.
         const { program, SystemProgram } = getAnchorProgram(wallet);
 
-        // Génère une nouvelle paire de clés pour le compte événement
+        // Génère une nouvelle paire de clés pour le compte événement.
         const eventAccount = web3.Keypair.generate();
 
         try {
-            const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
-            const price = new BN(ticketPrice); // Convertir le prix en BN (BigNumber)
+            const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
+            const price = new BN(ticketPrice); // Convertir le prix en BN (BigNumber).
 
-            // Envoie la transaction pour créer un événement
+            // Envoie la transaction pour créer un événement.
             const txid = await program.methods
                 .createEvent(title, description, inputDate, location, price)
                 .accounts({

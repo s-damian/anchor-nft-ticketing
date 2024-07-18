@@ -9,7 +9,7 @@ describe("create_event_and_ticket", () => {
     const provider = anchor.AnchorProvider.env();
     anchor.setProvider(provider);
 
-    // Initialisation du programme Anchor
+    // Initialisation du programme Anchor.
     const program = anchor.workspace.TicketsSwap as Program<TicketsSwap>;
 
     it("Create an event and a ticket", async () => {
@@ -19,13 +19,13 @@ describe("create_event_and_ticket", () => {
         |--------------------------------------------------------------------------
         */
 
-        // Générer une nouvelle paire de clés pour le compte de l'événement
+        // Générer une nouvelle paire de clés pour le compte de l'événement.
         const eventAccount = anchor.web3.Keypair.generate();
 
-        // Détails de l'événement
+        // Détails de l'événement.
         const title = "Test Event";
         const description = "This is a test event.";
-        const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
+        const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
         const location = "Test Location";
         const ticketPrice = new BN(100);
 
@@ -33,24 +33,24 @@ describe("create_event_and_ticket", () => {
         const txid = await program.methods
             .createEvent(title, description, date, location, ticketPrice)
             .accounts({
-                event: eventAccount.publicKey, // Compte de l'événement
-                organizer: provider.wallet.publicKey, // Organisateur de l'événement
-                systemProgram: anchor.web3.SystemProgram.programId, // Programme système
+                event: eventAccount.publicKey, // Compte de l'événement.
+                organizer: provider.wallet.publicKey, // Organisateur de l'événement.
+                systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
             })
-            .signers([eventAccount]) // Signataires de la transaction
+            .signers([eventAccount]) // Signataires de la transaction.
             .rpc();
         console.log("createEvent - tx signature", txid);
 
-        // Récupérer les détails du compte de l'événement
+        // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
-        // Assertions pour vérifier que les détails sont corrects
+        // Assertions pour vérifier que les détails sont corrects.
         assert.equal(eventAccountData.title, title);
         assert.equal(eventAccountData.description, description);
         assert.equal(eventAccountData.date.toString(), date.toString());
         assert.equal(eventAccountData.location, location);
         assert.equal(eventAccountData.ticketPrice.toString(), ticketPrice.toString());
-        assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct
+        assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
 
         /*
         |--------------------------------------------------------------------------
@@ -58,31 +58,31 @@ describe("create_event_and_ticket", () => {
         |--------------------------------------------------------------------------
         */
 
-        // Générer une nouvelle paire de clés pour le compte du ticket
+        // Générer une nouvelle paire de clés pour le compte du ticket.
         const ticketAccount = anchor.web3.Keypair.generate();
-        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes
+        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
 
         // Appeler l'instruction buy_ticket
         const ticketTxid = await program.methods
             .buyTicket(dateOfPurchase)
             .accounts({
-                ticket: ticketAccount.publicKey, // Compte du ticket
-                event: eventAccount.publicKey, // Compte de l'événement
-                owner: provider.wallet.publicKey, // Propriétaire du ticket
-                organizer: eventAccountData.organizer, // Organizer de l'événement
-                systemProgram: anchor.web3.SystemProgram.programId, // Programme système
+                ticket: ticketAccount.publicKey, // Compte du ticket.
+                event: eventAccount.publicKey, // Compte de l'événement.
+                owner: provider.wallet.publicKey, // Propriétaire du ticket.
+                organizer: eventAccountData.organizer, // Organizer de l'événement.
+                systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
             })
-            .signers([ticketAccount]) // Signataires de la transaction
+            .signers([ticketAccount]) // Signataires de la transaction.
             .rpc();
         console.log("buyTicket - tx signature", ticketTxid);
 
         // Récupérer les détails du compte du ticket
         const ticketAccountData = await program.account.ticket.fetch(ticketAccount.publicKey);
 
-        // Assertions pour vérifier que les détails sont corrects
+        // Assertions pour vérifier que les détails sont corrects.
         assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
-        assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct
+        assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
     });
 });

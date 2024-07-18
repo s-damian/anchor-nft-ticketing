@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3, BN } from "@coral-xyz/anchor";
 import { getAnchorProgram } from "../utils/anchorUtils";
-import { Connection, Commitment, clusterApiUrl, PublicKey } from "@solana/web3.js";
 
 const ShowEvent: React.FC = () => {
     const { eventPublicKey } = useParams<{ eventPublicKey: string }>();
@@ -24,11 +23,11 @@ const ShowEvent: React.FC = () => {
                 const event = await program.account.event.fetch(new web3.PublicKey(eventPublicKey));
                 setEventDetails(event);
 
-                // Récupère les tickets associés à l'événement
+                // Récupère les tickets associés à l'événement.
                 const accounts = await program.account.ticket.all([
                     {
                         memcmp: {
-                            offset: 8, // taille de l'en-tête de l'account
+                            offset: 8, // taille de l'en-tête de l'account.
                             bytes: eventPublicKey,
                         },
                     },
@@ -58,7 +57,7 @@ const ShowEvent: React.FC = () => {
         const { program, SystemProgram } = getAnchorProgram(wallet);
         const ticketAccount = web3.Keypair.generate();
 
-        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber)
+        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
 
         try {
             const txid = await program.methods
@@ -78,7 +77,7 @@ const ShowEvent: React.FC = () => {
             console.log("txid", txid);
             console.log("ticketAccount.publicKey.toBase58()", ticketAccount.publicKey.toBase58());
 
-            // Récupère les tickets après la création d'un nouveau ticket
+            // Récupère les tickets après la création d'un nouveau ticket.
             const accounts = await program.account.ticket.all([
                 {
                     memcmp: {
