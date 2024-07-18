@@ -4,7 +4,7 @@ import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3, BN } from "@coral-xyz/anchor";
 import { getAnchorProgram } from "../utils/anchorUtils";
 
-const CreateTicket: React.FC = () => {
+const ShowEvent: React.FC = () => {
     const { eventPublicKey } = useParams<{ eventPublicKey: string }>();
     const navigate = useNavigate();
     const [price, setPrice] = useState<string>("");
@@ -55,7 +55,7 @@ const CreateTicket: React.FC = () => {
         try {
             // Envoie la transaction pour créer un ticket
             const txid = await program.methods
-                .createTicket(new web3.PublicKey(eventPublicKey), new BN(price))
+                .ShowEvent(new web3.PublicKey(eventPublicKey), new BN(price))
                 .accounts({
                     ticket: ticketAccount.publicKey,
                     event: new web3.PublicKey(eventPublicKey),
@@ -135,4 +135,4 @@ const CreateTicket: React.FC = () => {
     );
 };
 
-export default CreateTicket;
+export default ShowEvent;

@@ -29,7 +29,7 @@ pub mod tickets_swap {
         let ticket = &mut ctx.accounts.ticket;
         ticket.event = event;
         ticket.price = price;
-        ticket.owner = *ctx.accounts.owner.key;
+        ticket.owner = *ctx.accounts.owner.key; // Définit le créateur (proprio) du ticket
         Ok(())
     }
 }
