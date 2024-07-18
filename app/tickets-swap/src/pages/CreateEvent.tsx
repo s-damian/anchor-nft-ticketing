@@ -50,10 +50,10 @@ const CreateEvent: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center">
             <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                 <h2 className="text-center text-3xl font-extrabold text-gray-900">Créer un Événement</h2>
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
                             <label htmlFor="title" className="sr-only">

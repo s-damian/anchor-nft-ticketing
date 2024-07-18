@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
     return (
         <div>
-            <h1>Welcome to the Event Tickets Marketplace</h1>
+            <h2 className="text-center text-3xl font-extrabold text-gray-900">Accueil</h2>
+            <div>
+                ...
+            </div>
         </div>
     );
 };

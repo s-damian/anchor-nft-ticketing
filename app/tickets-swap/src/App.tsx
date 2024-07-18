@@ -12,13 +12,15 @@ export default function App() {
         <BrowserRouter>
             <div className="container mx-auto text-center">
                 <NavBar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/create-event" element={<CreateEvent />} />
-                    <Route path="/list-events" element={<ListEvents />} />
-                    <Route path="/create-ticket" element={<CreateTicket />} />
-                    <Route path="/swap-ticket" element={<SwapTicket />} />
-                </Routes>
+                <div className="bg-gray-100 py-12 px-8">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/create-event" element={<CreateEvent />} />
+                        <Route path="/list-events" element={<ListEvents />} />
+                        <Route path="/create-ticket" element={<CreateTicket />} />
+                        <Route path="/swap-ticket" element={<SwapTicket />} />
+                    </Routes>
+                </div>
             </div>
         </BrowserRouter>
     );

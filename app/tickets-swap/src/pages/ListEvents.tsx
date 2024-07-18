@@ -53,18 +53,18 @@ const ListEvents: React.FC = () => {
 
     return (
         <div>
-            <h2>Liste des Événements</h2>
-            <ul>
+            <h2 className="text-center text-3xl font-extrabold text-gray-900">Liste des Événements</h2>
+            <div>
                 {events.map((event, index) => (
-                    <li key={index}>
+                    <div className="w-full p-10 mt-8 bg-white rounded-xl shadow-md" key={index}>
                         <h3>{event.accountData.title}</h3>
                         <p>{event.accountData.description}</p>
                         <p>Date: {new Date(event.accountData.date.toNumber() * 1000).toLocaleDateString()}</p>
                         <p>Lieu: {event.accountData.location}</p>
                         <p>Organisateur: {event.accountData.organizer.toBase58()}</p>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
