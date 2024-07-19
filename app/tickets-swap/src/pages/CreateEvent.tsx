@@ -103,18 +103,18 @@ const CreateEvent: React.FC = () => {
                                 placeholder="Lieu"
                             />
                         </div>
-                    </div>
-                    <div>
-                        <input
-                            id="ticketPrice"
-                            name="ticketPrice"
-                            type="number"
-                            value={ticketPrice}
-                            onChange={(e) => setTicketPrice(e.target.value)}
-                            required
-                            className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Prix du Ticket (Lamports)"
-                        />
+                        <div>
+                            <input
+                                id="ticketPrice"
+                                name="ticketPrice"
+                                type="number"
+                                value={ticketPrice}
+                                onChange={(e) => setTicketPrice(e.target.value)}
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Prix du Ticket (Lamports)"
+                            />
+                        </div>
                     </div>
                     <div>
                         <button

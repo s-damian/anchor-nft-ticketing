@@ -109,7 +109,7 @@ const ShowEvent: React.FC = () => {
                                 <b>Lieu</b> : {eventDetails.location}
                             </p>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Prix du Ticket</b> : {eventDetails.ticketPrice.toString()} Lamports
+                                <b>Prix du Ticket</b> : {(eventDetails.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
                             </p>
                             <p className="text-center text-gray-700 mb-2">
                                 <b>Public Key de l'organisateur</b> :
@@ -144,7 +144,7 @@ const ShowEvent: React.FC = () => {
                         {tickets.map((ticket, index) => (
                             <li key={index} className="mt-4 p-4 bg-white rounded-md shadow-sm">
                                 <p className="mb-2">
-                                    <b>Prix</b> : {ticket.account.price.toString()} SOL
+                                    <b>Prix</b> : {(ticket.account.price.toNumber() / 1_000_000_000).toFixed(9)} SOL
                                 </p>
                                 <p className="mb-2">
                                     <b>Date de l'achat</b> : {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleDateString()}
