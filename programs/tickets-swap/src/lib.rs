@@ -52,6 +52,7 @@ pub mod tickets_swap {
         msg!("Owner: {}", ctx.accounts.owner.key());
         msg!("Event: {}", event.key());
         msg!("Organizer: {}", event.organizer);
+        msg!("Lamports: {}", lamports);
 
         invoke(
             &system_instruction::transfer(

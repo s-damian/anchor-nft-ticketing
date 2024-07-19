@@ -78,8 +78,7 @@ const ShowEvent: React.FC = () => {
                 .rpc();
 
             console.log("Success to buy ticket");
-            console.log("txid", txid);
-            console.log("ticketAccount.publicKey.toBase58()", ticketAccount.publicKey.toBase58());
+            console.log("solana confirm -v " + txid);
 
             // Récupère les tickets après la création d'un nouveau ticket.
             const accounts = await program.account.ticket.all(getEventPublicKeyFilter(eventPublicKey));

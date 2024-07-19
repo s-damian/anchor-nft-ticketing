@@ -43,8 +43,7 @@ const CreateEvent: React.FC = () => {
                 .rpc();
 
             console.log("Success to create event");
-            console.log("txid", txid);
-            console.log("eventAccount.publicKey.toBase58()", eventAccount.publicKey.toBase58());
+            console.log("solana confirm -v " + txid);
         } catch (err) {
             console.error("Failed to create event.", err);
         }
