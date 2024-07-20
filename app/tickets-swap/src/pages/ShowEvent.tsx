@@ -71,7 +71,7 @@ const ShowEvent: React.FC = () => {
                     event: new web3.PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
                     organizer: eventDetails.organizer,
-                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour MyError::InvalidOrganizer).
+                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour CustomError::InvalidOrganizer).
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])

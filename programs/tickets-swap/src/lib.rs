@@ -1,14 +1,16 @@
+mod kernel;
+
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program::{program::invoke, system_instruction};
 
 use anchor_spl::{
     associated_token::AssociatedToken,
     metadata::Metadata,
     token::{Mint, Token, TokenAccount},
 };
-use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
-mod kernel;
+use kernel::event_manager::EventManager;
 use kernel::nft_manager::NftManager;
+use kernel::ticket_manager::TicketManager;
+use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
 
 // Déclare l'ID du programme.
 declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
@@ -26,59 +28,12 @@ pub mod tickets_swap {
         location: String,
         ticket_price: u64,
     ) -> Result<()> {
-        let event = &mut ctx.accounts.event; // Accède au compte de l'événement.
-
-        event.title = title;
-        event.description = description;
-        event.date = date;
-        event.location = location;
-        event.organizer = *ctx.accounts.organizer.key; // Définit l'organisateur de l'événement.
-        event.ticket_price = ticket_price; // Assigner en lamports.
-
-        Ok(())
+        EventManager::run_create_event(ctx, title, description, date, location, ticket_price)
     }
 
     // Instruction permettant de créer un ticket pour un événement.
     pub fn buy_ticket(ctx: Context<BuyTicket>, date_of_purchase: i64) -> Result<()> {
-        let ticket = &mut ctx.accounts.ticket;
-        let event = &ctx.accounts.event;
-
-        // Sécurité importante : vérifier que l'organisateur fourni (depuis le Front-End) correspond à l'organisateur de l'événement.
-        if ctx.accounts.organizer.key() != event.organizer {
-            return Err(MyError::InvalidOrganizer.into());
-        }
-
-        ticket.event = event.key();
-        ticket.price = event.ticket_price; // Assigner au ticket le prix actuel du billet de l'événement.
-        ticket.date_of_purchase = date_of_purchase; // Date de quand le owner a acheté ce ticket.
-        ticket.owner = *ctx.accounts.owner.key; // Définit l'acheteur du ticket.
-
-        let lamports = ticket.price;
-
-        // Logger les informations avant le transfert.
-        msg!("Buying ticket:");
-        msg!("Owner: {}", ctx.accounts.owner.key());
-        msg!("Event: {}", event.key());
-        msg!("Organizer: {}", event.organizer);
-        msg!("Lamports: {}", lamports);
-
-        // Transférer SOL de l'acheteur à l'organisateur.
-        invoke(
-            &system_instruction::transfer(
-                &ctx.accounts.owner.key(),
-                &event.organizer, // Ceci marche aussi : event.organizer.key()
-                lamports,
-            ),
-            &[
-                ctx.accounts.owner.to_account_info(),
-                ctx.accounts.organizer.to_account_info(),
-                ctx.accounts.system_program.to_account_info(),
-            ],
-        )?;
-
-        msg!("Success.");
-
-        Ok(())
+        TicketManager::run_buy_ticket(ctx, date_of_purchase)
     }
 
     // Déclare la fonction create_nft et appelle la fonction externalisée
@@ -177,7 +132,7 @@ pub struct Ticket {
 }
 
 #[error_code]
-pub enum MyError {
+pub enum CustomError {
     #[msg("L'organisateur fourni ne correspond pas à l'organisateur de l'événement.")]
     InvalidOrganizer,
 }
