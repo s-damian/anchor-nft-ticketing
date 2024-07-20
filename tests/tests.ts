@@ -124,13 +124,6 @@ describe("create_event_and_ticket", () => {
     });
 
     it("Attempt to create a NFT", async () => {
-        // Récupérer les détails du compte de l'événement.
-        const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
-
-        // Générer une nouvelle paire de clés pour le compte du ticket.
-        const ticketAccount = anchor.web3.Keypair.generate();
-        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
-
         const signer = provider.wallet;
 
         const umi = createUmi("https://api.devnet.solana.com").use(walletAdapterIdentity(signer)).use(mplTokenMetadata());
@@ -158,11 +151,11 @@ describe("create_event_and_ticket", () => {
 
         console.log("AAAAAAAAAAAAAAAAAAAA");
 
-        // Appeler l'instruction buy_ticket
+        // Appeler l'instruction create_nft
         const txid = await program.methods
             .createNft(metadata.name, metadata.symbol, metadata.uri)
             .accounts({
-                signer: provider.publicKey,
+                signer: signer.publicKey,
                 mint: mint.publicKey,
                 associatedTokenAccount: associatedTokenAccount,
                 metadataAccount: metadataAccount,
@@ -177,15 +170,6 @@ describe("create_event_and_ticket", () => {
             .rpc();
 
         console.log("BBBBBBBBBBBBBBBBBBBB");
-        console.log("buyTicket - tx signature", txid);
-
-        // Récupérer les détails du compte du ticket
-        const ticketAccountData = await program.account.ticket.fetch(ticketAccount.publicKey);
-
-        // Assertions pour vérifier que les détails sont corrects.
-        assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
-        assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
-        assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
-        assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
+        console.log("createNft - tx signature", txid);
     });
 });
