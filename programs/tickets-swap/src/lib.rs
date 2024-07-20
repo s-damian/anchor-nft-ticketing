@@ -3,14 +3,12 @@ use anchor_lang::solana_program::{program::invoke, system_instruction};
 
 use anchor_spl::{
     associated_token::AssociatedToken,
-    metadata::{
-        create_master_edition_v3, create_metadata_accounts_v3, CreateMasterEditionV3,
-        CreateMetadataAccountsV3, Metadata,
-    },
-    token::{mint_to, Mint, MintTo, Token, TokenAccount},
+    metadata::Metadata,
+    token::{Mint, Token, TokenAccount},
 };
 use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
-use mpl_token_metadata::types::DataV2;
+mod kernel;
+use kernel::nft_manager::NftManager;
 
 // Déclare l'ID du programme.
 declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
@@ -83,69 +81,14 @@ pub mod tickets_swap {
         Ok(())
     }
 
+    // Déclare la fonction create_nft et appelle la fonction externalisée
     pub fn create_nft(
         ctx: Context<CreateNft>,
         name: String,
         symbol: String,
         uri: String,
     ) -> Result<()> {
-        // Initialiser le NFT
-        let cpi_context = CpiContext::new(
-            ctx.accounts.token_program.to_account_info(),
-            MintTo {
-                mint: ctx.accounts.mint.to_account_info(),
-                to: ctx.accounts.associated_token_account.to_account_info(),
-                authority: ctx.accounts.signer.to_account_info(),
-            },
-        );
-
-        mint_to(cpi_context, 1)?;
-
-        // Créer le compte de metadata
-        let cpi_context = CpiContext::new(
-            ctx.accounts.token_metadata_program.to_account_info(),
-            CreateMetadataAccountsV3 {
-                metadata: ctx.accounts.metadata_account.to_account_info(),
-                mint: ctx.accounts.mint.to_account_info(),
-                mint_authority: ctx.accounts.signer.to_account_info(),
-                update_authority: ctx.accounts.signer.to_account_info(),
-                payer: ctx.accounts.signer.to_account_info(),
-                system_program: ctx.accounts.system_program.to_account_info(),
-                rent: ctx.accounts.rent.to_account_info(),
-            },
-        );
-
-        let data_v2 = DataV2 {
-            name,
-            symbol,
-            uri,
-            seller_fee_basis_points: 0,
-            creators: None,
-            collection: None,
-            uses: None,
-        };
-
-        create_metadata_accounts_v3(cpi_context, data_v2, true, true, None)?;
-
-        // Créer le compte de master edition
-        let cpi_context = CpiContext::new(
-            ctx.accounts.token_metadata_program.to_account_info(),
-            CreateMasterEditionV3 {
-                edition: ctx.accounts.master_edition_account.to_account_info(),
-                mint: ctx.accounts.mint.to_account_info(),
-                update_authority: ctx.accounts.signer.to_account_info(),
-                mint_authority: ctx.accounts.signer.to_account_info(),
-                payer: ctx.accounts.signer.to_account_info(),
-                metadata: ctx.accounts.metadata_account.to_account_info(),
-                token_program: ctx.accounts.token_program.to_account_info(),
-                system_program: ctx.accounts.system_program.to_account_info(),
-                rent: ctx.accounts.rent.to_account_info(),
-            },
-        );
-
-        create_master_edition_v3(cpi_context, None)?;
-
-        Ok(())
+        NftManager::run_create_nft(ctx, name, symbol, uri)
     }
 }
 
