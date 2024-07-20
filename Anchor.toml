@@ -5,7 +5,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-tickets_swap = "FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa"
+tickets_swap = "FxqDp1TKF7DTsdRQZeppkQZyMcMBbR26KQMGK1AmQisF"
 
 [registry]
 url = "https://api.apr.dev"
