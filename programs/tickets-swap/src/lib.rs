@@ -70,11 +70,16 @@ pub struct BuyTicket<'info> {
     pub system_program: Program<'info, System>,
 }
 
+// Structure de comptes nécessaire pour l'instruction `create_nft`.
 #[derive(Accounts)]
 pub struct CreateNft<'info> {
-    // CHECK: ok, nous passons ce compte nous-mêmes
+    // Compte du signataire (celui qui initialise la transaction). Ce compte doit être mutable et signer la transaction.
     #[account(mut, signer)]
     pub signer: Signer<'info>,
+
+    // Compte représentant la monnaie à frapper. Ce compte est initialisé ici.
+    // Le PDA est à la fois l'adresse du compte de la monnaie et l'autorité de la monnaie.
+    // La monnaie aura 0 décimales (typique pour les NFTs), avec l'autorité et l'autorité de gel définies comme le signataire.
     #[account(
         init,
         payer = signer,
@@ -83,6 +88,9 @@ pub struct CreateNft<'info> {
         mint::freeze_authority = signer.key(),
     )]
     pub mint: Account<'info, Mint>,
+
+    // Compte représentant le compte associé au token. Ce compte est initialisé si nécessaire.
+    // Le compte est initialisé avec la monnaie et l'autorité définies comme le signataire.
     #[account(
         init_if_needed,
         payer = signer,
@@ -90,23 +98,43 @@ pub struct CreateNft<'info> {
         associated_token::authority = signer
     )]
     pub associated_token_account: Account<'info, TokenAccount>,
-    // CHECK - address
+
+    // Compte de métadonnées pour le NFT. Ce compte est vérifié par son adresse.
+    // "find_pda" est utilisé pour trouver le PDA du compte de métadonnées basé sur la clé publique de la monnaie.
+    // Nous utilisons `AccountInfo` car nous savons que cette vérification est sécurisée en raison de l'utilisation de l'adresse calculée.
+    // Le compte de métadonnées contient toutes les informations relatives au NFT, telles que son nom, son symbole,
+    // son URI de métadonnées (lien vers des informations détaillées sur le NFT,
+    // souvent un fichier JSON hébergé quelque part), et d'autres informations supplémentaires.
     #[account(
         mut,
         address = MetadataAccount::find_pda(&mint.key()).0,
     )]
     pub metadata_account: AccountInfo<'info>,
-    // CHECK: address
+
+    // Compte de master edition pour le NFT. Ce compte est vérifié par son adresse.
+    // "find_pda" est utilisé pour trouver le PDA du compte de master edition basé sur la clé publique de la monnaie.
+    // Nous utilisons `AccountInfo` car nous savons que cette vérification est sécurisée en raison de l'utilisation de l'adresse calculée.
+    // Le compte de master edition est utilisé pour représenter une édition unique du NFT.
+    // Cela est particulièrement utile lorsque vous avez des éditions limitées ou des copies numérotées d'un même NFT.
     #[account(
         mut,
         address = MasterEdition::find_pda(&mint.key()).0,
     )]
     pub master_edition_account: AccountInfo<'info>,
 
+    // Programme de token SPL, nécessaire pour les appels CPI qui manipulent les tokens SPL.
     pub token_program: Program<'info, Token>,
+
+    // Programme de token associé SPL, nécessaire pour initialiser les comptes de token associés si nécessaire.
     pub associated_token_program: Program<'info, AssociatedToken>,
+
+    // Programme de métadonnées de token, nécessaire pour les appels CPI qui manipulent les métadonnées de token.
     pub token_metadata_program: Program<'info, Metadata>,
+
+    // Programme système de Solana, nécessaire pour les appels CPI qui effectuent des actions telles que la création de comptes.
     pub system_program: Program<'info, System>,
+
+    // Sysvar représentant les frais de location (rent) de Solana. Utilisé pour vérifier et payer les frais de location lors de la création de comptes.
     pub rent: Sysvar<'info, Rent>,
 }
 
