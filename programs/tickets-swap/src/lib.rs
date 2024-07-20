@@ -1,7 +1,5 @@
 mod kernel;
-
 use anchor_lang::prelude::*;
-
 use anchor_spl::{
     associated_token::AssociatedToken,
     metadata::Metadata,
