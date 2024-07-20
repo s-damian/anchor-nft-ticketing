@@ -9,7 +9,7 @@ use anchor_spl::{
     },
     token::{mint_to, Mint, MintTo, Token, TokenAccount},
 };
-use mpl_token_metadata::accounts::{ MasterEdition, Metadata as MetadataAccount };
+use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
 use mpl_token_metadata::types::DataV2;
 
 // Déclare l'ID du programme.
@@ -83,9 +83,6 @@ pub mod tickets_swap {
         Ok(())
     }
 
-
-
-
     pub fn init_nft(
         ctx: Context<InitNFT>,
         name: String,
@@ -152,10 +149,6 @@ pub mod tickets_swap {
 
         Ok(())
     }
-
-
-
-
 }
 
 // Contexte de l'instruction permettant de créer un événement.
@@ -182,8 +175,6 @@ pub struct BuyTicket<'info> {
     pub organizer: AccountInfo<'info>, // Ajouté spécialement afin de pouvoir effectuer le transfert des lamports.
     pub system_program: Program<'info, System>,
 }
-
-
 
 #[derive(Accounts)]
 pub struct InitNFT<'info> {
@@ -224,8 +215,6 @@ pub struct InitNFT<'info> {
     pub system_program: Program<'info, System>,
     pub rent: Sysvar<'info, Rent>,
 }
-
-
 
 // Structure pour stocker les informations de l'événement.
 #[account]

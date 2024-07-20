@@ -11,7 +11,7 @@ const CreateEvent: React.FC = () => {
     const [date, setDate] = useState<string>("");
     const [location, setLocation] = useState<string>("");
     const [ticketPrice, setTicketPrice] = useState<string>("");
-    
+
     const [ticketPriceInSOL, setTicketPriceInSOL] = useState<string>("");
     const wallet = useAnchorWallet();
 
@@ -125,9 +125,7 @@ const CreateEvent: React.FC = () => {
                                 placeholder="Prix du Ticket (Lamports)"
                             />
                         </div>
-                        <span className="ml-4 text-gray-500">
-                                ({ticketPriceInSOL} SOL)
-                        </span>
+                        <span className="ml-4 text-gray-500">({ticketPriceInSOL} SOL)</span>
                     </div>
                     <div>
                         <button
