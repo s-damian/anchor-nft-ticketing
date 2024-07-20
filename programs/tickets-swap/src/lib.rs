@@ -95,7 +95,7 @@ pub mod tickets_swap {
             MintTo {
                 mint: ctx.accounts.mint.to_account_info(),
                 to: ctx.accounts.associated_token_account.to_account_info(),
-                authority: ctx.accounts.owner.to_account_info(),
+                authority: ctx.accounts.signer.to_account_info(),
             },
         );
 
@@ -107,9 +107,9 @@ pub mod tickets_swap {
             CreateMetadataAccountsV3 {
                 metadata: ctx.accounts.metadata_account.to_account_info(),
                 mint: ctx.accounts.mint.to_account_info(),
-                mint_authority: ctx.accounts.owner.to_account_info(),
-                update_authority: ctx.accounts.owner.to_account_info(),
-                payer: ctx.accounts.owner.to_account_info(),
+                mint_authority: ctx.accounts.signer.to_account_info(),
+                update_authority: ctx.accounts.signer.to_account_info(),
+                payer: ctx.accounts.signer.to_account_info(),
                 system_program: ctx.accounts.system_program.to_account_info(),
                 rent: ctx.accounts.rent.to_account_info(),
             },
@@ -133,9 +133,9 @@ pub mod tickets_swap {
             CreateMasterEditionV3 {
                 edition: ctx.accounts.master_edition_account.to_account_info(),
                 mint: ctx.accounts.mint.to_account_info(),
-                update_authority: ctx.accounts.owner.to_account_info(),
-                mint_authority: ctx.accounts.owner.to_account_info(),
-                payer: ctx.accounts.owner.to_account_info(),
+                update_authority: ctx.accounts.signer.to_account_info(),
+                mint_authority: ctx.accounts.signer.to_account_info(),
+                payer: ctx.accounts.signer.to_account_info(),
                 metadata: ctx.accounts.metadata_account.to_account_info(),
                 token_program: ctx.accounts.token_program.to_account_info(),
                 system_program: ctx.accounts.system_program.to_account_info(),
