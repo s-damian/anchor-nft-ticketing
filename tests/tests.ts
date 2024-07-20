@@ -65,7 +65,7 @@ describe("create_event_and_ticket", () => {
         const ticketAccount = anchor.web3.Keypair.generate();
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
 
-        // Appeler l'instruction buy_ticket
+        // Appeler l'instruction buy_ticket du programme Anchor.
         const txid = await program.methods
             .buyTicket(dateOfPurchase)
             .accounts({
@@ -101,7 +101,8 @@ describe("create_event_and_ticket", () => {
         const invalidOwner = anchor.web3.Keypair.generate();
 
         try {
-            // Appeler l'instruction buy_ticket avec un propriétaire non valide.
+            // Appeler l'instruction buy_ticket du programme Anchor.
+            // Le faire avec un propriétaire non valide.
             const txid = await program.methods
                 .buyTicket(dateOfPurchase)
                 .accounts({
@@ -124,64 +125,78 @@ describe("create_event_and_ticket", () => {
     it("Attempt to create a NFT", async () => {
         const signer = provider.wallet;
 
+        // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
         const umi = createUmi("https://api.devnet.solana.com").use(walletAdapterIdentity(signer)).use(mplTokenMetadata());
 
+        // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = anchor.web3.Keypair.generate();
 
-        // Derive the associated token address account for the mint
+        // Dérivez le compte d'adresse de jeton associé à l'atelier monétaire.
+        // Calculer l'adresse du compte de token associé pour le mint.
         const associatedTokenAccount = await getAssociatedTokenAddress(mint.publicKey, signer.publicKey);
 
-        // derive the metadata account
+        // Dérivez le compte de metadata PDA.
+        // Calculer l'adresse du compte de metadata pour le mint.
         let metadataAccount = findMetadataPda(umi, {
             mint: publicKey(mint.publicKey),
         })[0];
 
-        //derive the master edition pda
+        // Dérivez l'édition principale PDA.
+        // Calculer l'adresse du compte de master edition pour le mint.
         let masterEditionAccount = findMasterEditionPda(umi, {
             mint: publicKey(mint.publicKey),
         })[0];
 
+        // Définir les informations du metadata pour le NFT.
         const metadata = {
             name: "Stephen",
             symbol: "STE",
             uri: "https://raw.githubusercontent.com/687c/solana-nft-native-client/main/metadata.json",
         };
 
-        // Appeler l'instruction create_nft
+        // Appeler l'instruction create_nft du programme Anchor.
         const txid = await program.methods
             .createNft(metadata.name, metadata.symbol, metadata.uri)
             .accounts({
-                signer: signer.publicKey,
-                mint: mint.publicKey,
-                associatedTokenAccount: associatedTokenAccount,
-                metadataAccount: metadataAccount,
-                masterEditionAccount: masterEditionAccount,
-                tokenProgram: TOKEN_PROGRAM_ID,
-                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-                tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID,
-                systemProgram: anchor.web3.SystemProgram.programId,
-                rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+                signer: signer.publicKey, // Signataire de la transaction.
+                mint: mint.publicKey, // Clé publique du mint (NFT).
+                associatedTokenAccount: associatedTokenAccount, // Compte de token associé au mint.
+                metadataAccount: metadataAccount, // Compte de metadata.
+                masterEditionAccount: masterEditionAccount, // Compte de master edition.
+                tokenProgram: TOKEN_PROGRAM_ID, // Programme de token SPL.
+                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID, // Programme de token associé SPL.
+                tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
+                systemProgram: anchor.web3.SystemProgram.programId, // Programme système Solana.
+                rent: anchor.web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
             })
-            .signers([mint])
+            .signers([mint]) // Signer la transaction avec la clé du mint.
             .rpc();
+
+        // Afficher la signature de la transaction.
         console.log("createNft - tx signature", txid);
 
-        // Assertions to check the NFT creation
+        // Assertions pour vérifier la création NFT :
+
+        // Vérifier l'existence du compte de metadata.
         const metadataAccountInfo = await provider.connection.getAccountInfo(new PublicKey(metadataAccount));
         assert.isNotNull(metadataAccountInfo, "Metadata account should exist");
         assert.isTrue(metadataAccountInfo.data.length > 0, "Metadata account data should not be empty");
 
+        // Vérifier l'existence du compte de master edition.
         const masterEditionAccountInfo = await provider.connection.getAccountInfo(new PublicKey(masterEditionAccount));
         assert.isNotNull(masterEditionAccountInfo, "Master edition account should exist");
         assert.isTrue(masterEditionAccountInfo.data.length > 0, "Master edition account data should not be empty");
 
-        // Vérifier les informations du compte token associé
+        // Vérifier les informations du compte token associé.
         const tokenAccountInfo = await provider.connection.getParsedAccountInfo(associatedTokenAccount);
         assert.isNotNull(tokenAccountInfo.value, "Associated token account should exist");
+
+        // Vérifier si les données analysées sont présentes dans le compte token associé.
         if ("parsed" in tokenAccountInfo.value.data) {
-            console.log("tokenAccountInfo", tokenAccountInfo);
             const parsedInfo = tokenAccountInfo.value.data.parsed.info;
+            // Vérifier que le mint du compte de token associé correspond au mint créé.
             assert.equal(parsedInfo.mint, mint.publicKey.toString(), "Token account mint should match the created mint");
+            // Vérifier que le propriétaire du compte de token associé est le signataire.
             assert.equal(parsedInfo.owner, signer.publicKey.toString(), "Token account owner should be the signer");
         } else {
             assert.fail("Parsed account data is not in the expected format");
