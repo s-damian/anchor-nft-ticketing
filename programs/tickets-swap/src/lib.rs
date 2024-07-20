@@ -44,8 +44,7 @@ pub mod tickets_swap {
         ticket.date_of_purchase = date_of_purchase; // Prix de quand le owner a acheté ce ticket.
         ticket.owner = *ctx.accounts.owner.key; // Définit l'acheteur du ticket.
 
-        //Transférer SOL de l'acheteur à l'organisateur.
-        let lamports = ticket.price; // En supposant que ticket.price soit déjà dans les lamports.
+        let lamports = ticket.price;
 
         // Logger les informations avant le transfert.
         msg!("Buying ticket:");
@@ -54,6 +53,7 @@ pub mod tickets_swap {
         msg!("Organizer: {}", event.organizer);
         msg!("Lamports: {}", lamports);
 
+        // Transférer SOL de l'acheteur à l'organisateur.
         invoke(
             &system_instruction::transfer(
                 &ctx.accounts.owner.key(),
@@ -67,8 +67,7 @@ pub mod tickets_swap {
             ],
         )?;
 
-        // Confirmer que le transfert a été effectué
-        msg!("Transfer completed.");
+        msg!("Success.");
 
         Ok(())
     }

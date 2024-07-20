@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3 } from "@coral-xyz/anchor";
 import BN from "bn.js";
@@ -11,7 +11,18 @@ const CreateEvent: React.FC = () => {
     const [date, setDate] = useState<string>("");
     const [location, setLocation] = useState<string>("");
     const [ticketPrice, setTicketPrice] = useState<string>("");
+    
+    const [ticketPriceInSOL, setTicketPriceInSOL] = useState<string>("");
     const wallet = useAnchorWallet();
+
+    useEffect(() => {
+        const priceInLamports = parseFloat(ticketPrice);
+        if (!isNaN(priceInLamports)) {
+            setTicketPriceInSOL((priceInLamports / web3.LAMPORTS_PER_SOL).toFixed(9));
+        } else {
+            setTicketPriceInSOL("");
+        }
+    }, [ticketPrice]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -114,6 +125,9 @@ const CreateEvent: React.FC = () => {
                                 placeholder="Prix du Ticket (Lamports)"
                             />
                         </div>
+                        <span className="ml-4 text-gray-500">
+                                ({ticketPriceInSOL} SOL)
+                        </span>
                     </div>
                     <div>
                         <button
