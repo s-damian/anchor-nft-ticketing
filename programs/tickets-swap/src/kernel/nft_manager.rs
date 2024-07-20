@@ -54,7 +54,7 @@ impl NftManager {
             uses: None,
         };
 
-        create_metadata_accounts_v3(cpi_context, data_v2, true, true, None)?;
+        create_metadata_accounts_v3(cpi_context, data_v2, false, true, None)?;
 
         // Créer le compte de master edition
         let cpi_context = CpiContext::new(
