@@ -12,8 +12,6 @@ import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_META
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { publicKey } from "@metaplex-foundation/umi";
 
-const MPL_TOKEN_METADATA_PROGRAM_ID_PUBKEY = new PublicKey(MPL_TOKEN_METADATA_PROGRAM_ID);
-
 // ********** /Ajoutés pour le NFT **********
 
 describe("create_event_and_ticket", () => {
@@ -149,11 +147,6 @@ describe("create_event_and_ticket", () => {
             uri: "https://raw.githubusercontent.com/687c/solana-nft-native-client/main/metadata.json",
         };
 
-        console.log("AAAAAAAAAAAAAAAAAAAA");
-
-        console.log("metadataAccount", metadataAccount)
-        console.log("masterEditionAccount", masterEditionAccount)
-
         // Appeler l'instruction create_nft
         const txid = await program.methods
             .createNft(metadata.name, metadata.symbol, metadata.uri)
@@ -166,14 +159,32 @@ describe("create_event_and_ticket", () => {
                 tokenProgram: TOKEN_PROGRAM_ID,
                 associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
                 tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID,
-                //tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID_PUBKEY,
                 systemProgram: anchor.web3.SystemProgram.programId,
                 rent: anchor.web3.SYSVAR_RENT_PUBKEY,
             })
             .signers([mint])
             .rpc();
-
-        console.log("BBBBBBBBBBBBBBBBBBBB");
         console.log("createNft - tx signature", txid);
+
+        // Assertions to check the NFT creation
+        const metadataAccountInfo = await provider.connection.getAccountInfo(new PublicKey(metadataAccount));
+        assert.isNotNull(metadataAccountInfo, "Metadata account should exist");
+        assert.isTrue(metadataAccountInfo.data.length > 0, "Metadata account data should not be empty");
+
+        const masterEditionAccountInfo = await provider.connection.getAccountInfo(new PublicKey(masterEditionAccount));
+        assert.isNotNull(masterEditionAccountInfo, "Master edition account should exist");
+        assert.isTrue(masterEditionAccountInfo.data.length > 0, "Master edition account data should not be empty");
+
+        // Vérifier les informations du compte token associé
+        const tokenAccountInfo = await provider.connection.getParsedAccountInfo(associatedTokenAccount);
+        assert.isNotNull(tokenAccountInfo.value, "Associated token account should exist");
+        if ("parsed" in tokenAccountInfo.value.data) {
+            console.log("tokenAccountInfo", tokenAccountInfo);
+            const parsedInfo = tokenAccountInfo.value.data.parsed.info;
+            assert.equal(parsedInfo.mint, mint.publicKey.toString(), "Token account mint should match the created mint");
+            assert.equal(parsedInfo.owner, signer.publicKey.toString(), "Token account owner should be the signer");
+        } else {
+            assert.fail("Parsed account data is not in the expected format");
+        }
     });
 });
