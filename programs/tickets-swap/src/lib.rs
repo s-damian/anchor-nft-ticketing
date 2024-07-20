@@ -11,7 +11,6 @@ use anchor_spl::{
 };
 use mpl_token_metadata::accounts::{ MasterEdition, Metadata as MetadataAccount };
 use mpl_token_metadata::types::DataV2;
-// https://solana.stackexchange.com/questions/13408/could-not-find-pda-and-state-in-mpl-token-metadata
 
 // Déclare l'ID du programme.
 declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
@@ -41,19 +40,19 @@ pub mod tickets_swap {
         Ok(())
     }
 
-    // Instruction permettant de créer un ticker pour un X événement.
+    // Instruction permettant de créer un ticket pour un événement.
     pub fn buy_ticket(ctx: Context<BuyTicket>, date_of_purchase: i64) -> Result<()> {
         let ticket = &mut ctx.accounts.ticket;
         let event = &ctx.accounts.event;
 
-        // Sécurité importane : vérifier que l'organisateur fourni (depuis le Front-End) correspond à l'organisateur de l'événement.
+        // Sécurité importante : vérifier que l'organisateur fourni (depuis le Front-End) correspond à l'organisateur de l'événement.
         if ctx.accounts.organizer.key() != event.organizer {
             return Err(MyError::InvalidOrganizer.into());
         }
 
         ticket.event = event.key();
-        ticket.price = event.ticket_price; // Assigner au ticker le prix actuel du billet de l'événement.
-        ticket.date_of_purchase = date_of_purchase; // Prix de quand le owner a acheté ce ticket.
+        ticket.price = event.ticket_price; // Assigner au ticket le prix actuel du billet de l'événement.
+        ticket.date_of_purchase = date_of_purchase; // Date de quand le owner a acheté ce ticket.
         ticket.owner = *ctx.accounts.owner.key; // Définit l'acheteur du ticket.
 
         let lamports = ticket.price;
@@ -69,7 +68,7 @@ pub mod tickets_swap {
         invoke(
             &system_instruction::transfer(
                 &ctx.accounts.owner.key(),
-                &event.organizer, // PS : ceci aussi marche : event.organizer.key()
+                &event.organizer, // Ceci marche aussi : event.organizer.key()
                 lamports,
             ),
             &[
@@ -166,8 +165,9 @@ pub struct BuyTicket<'info> {
     #[account(mut)]
     pub owner: Signer<'info>,
     #[account(mut)]
-    pub organizer: AccountInfo<'info>, // Ajouté spécialement afin de pouvoir effectuer le transfert les lamports.
+    pub organizer: AccountInfo<'info>, // Ajouté spécialement afin de pouvoir effectuer le transfert des lamports.
     pub system_program: Program<'info, System>,
+
 
     #[account(mut)]
     pub mint: Account<'info, Mint>,
@@ -181,15 +181,13 @@ pub struct BuyTicket<'info> {
     /// CHECK - address
     #[account(
         mut,
-        //address=find_metadata_account(&mint.key()).0, // OLD
-        address = MetadataAccount::find_pda(&mint.key()).0, // NEW with mpl-token-metadata = "4.1.2"
+        address = MetadataAccount::find_pda(&mint.key()).0,
     )]
     pub metadata_account: AccountInfo<'info>,
     /// CHECK: address
     #[account(
         mut,
-        //address=find_master_edition_account(&mint.key()).0, // OLD
-        address = MasterEdition::find_pda(&mint.key()).0, // NEW with mpl-token-metadata = "4.1.2"
+        address = MasterEdition::find_pda(&mint.key()).0,
     )]
     pub master_edition_account: AccountInfo<'info>,
 
@@ -197,6 +195,8 @@ pub struct BuyTicket<'info> {
     pub associated_token_program: Program<'info, AssociatedToken>,
     pub token_metadata_program: Program<'info, Metadata>,
     pub rent: Sysvar<'info, Rent>,
+
+
 }
 
 // Structure pour stocker les informations de l'événement.
