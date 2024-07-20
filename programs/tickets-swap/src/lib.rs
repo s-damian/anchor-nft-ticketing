@@ -1,6 +1,23 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::{program::invoke, system_instruction};
 
+
+
+use anchor_spl::{
+    associated_token::AssociatedToken,
+    metadata::{
+        create_master_edition_v3, create_metadata_accounts_v3, CreateMasterEditionV3,
+        CreateMetadataAccountsV3, Metadata,
+    },
+    token::{mint_to, Mint, MintTo, Token, TokenAccount},
+};
+use mpl_token_metadata::{
+    pda::{find_master_edition_account, find_metadata_account},
+    state::DataV2,
+};
+
+
+
 // Déclare l'ID du programme.
 declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
 
@@ -67,6 +84,66 @@ pub mod tickets_swap {
             ],
         )?;
 
+
+
+        // Initialiser le NFT
+        let cpi_context = CpiContext::new(
+            ctx.accounts.token_program.to_account_info(),
+            MintTo {
+                mint: ctx.accounts.mint.to_account_info(),
+                to: ctx.accounts.associated_token_account.to_account_info(),
+                authority: ctx.accounts.owner.to_account_info(),
+            },
+        );
+
+        mint_to(cpi_context, 1)?;
+
+        // Créer le compte de metadata
+        let cpi_context = CpiContext::new(
+            ctx.accounts.token_metadata_program.to_account_info(),
+            CreateMetadataAccountsV3 {
+                metadata: ctx.accounts.metadata_account.to_account_info(),
+                mint: ctx.accounts.mint.to_account_info(),
+                mint_authority: ctx.accounts.owner.to_account_info(),
+                update_authority: ctx.accounts.owner.to_account_info(),
+                payer: ctx.accounts.owner.to_account_info(),
+                system_program: ctx.accounts.system_program.to_account_info(),
+                rent: ctx.accounts.rent.to_account_info(),
+            },
+        );
+
+        let data_v2 = DataV2 {
+            name: "Ticket".to_string(), // TODO : ajouter plus tard un argument dans buy_ticket.
+            symbol: "TICKET".to_string(), // TODO : ajouter plus tard un argument dans buy_ticket.
+            uri: "https://example.com/ticket-metadata.json".to_string(), // TODO : ajouter plus tard un argument dans buy_ticket.
+            seller_fee_basis_points: 0,
+            creators: None,
+            collection: None,
+            uses: None,
+        };
+
+        create_metadata_accounts_v3(cpi_context, data_v2, false, true, None)?;
+
+        // Créer le compte de master edition
+        let cpi_context = CpiContext::new(
+            ctx.accounts.token_metadata_program.to_account_info(),
+            CreateMasterEditionV3 {
+                edition: ctx.accounts.master_edition_account.to_account_info(),
+                mint: ctx.accounts.mint.to_account_info(),
+                update_authority: ctx.accounts.owner.to_account_info(),
+                mint_authority: ctx.accounts.owner.to_account_info(),
+                payer: ctx.accounts.owner.to_account_info(),
+                metadata: ctx.accounts.metadata_account.to_account_info(),
+                token_program: ctx.accounts.token_program.to_account_info(),
+                system_program: ctx.accounts.system_program.to_account_info(),
+                rent: ctx.accounts.rent.to_account_info(),
+            },
+        );
+
+        create_master_edition_v3(cpi_context, None)?;
+
+
+
         msg!("Success.");
 
         Ok(())
@@ -84,7 +161,7 @@ pub struct CreateEvent<'info> {
     pub system_program: Program<'info, System>,
 }
 
-// Contexte de l'instruction permettant de créer un ticker pour un X événement.
+// Contexte de l'instruction permettant de créer un ticket pour un événement.
 #[derive(Accounts)]
 pub struct BuyTicket<'info> {
     // Initialise le compte du ticket, en spécifiant le payeur et l'espace nécessaire.
@@ -96,6 +173,33 @@ pub struct BuyTicket<'info> {
     #[account(mut)]
     pub organizer: AccountInfo<'info>, // Ajouté spécialement afin de pouvoir effectuer le transfert les lamports.
     pub system_program: Program<'info, System>,
+
+    #[account(mut)]
+    pub mint: Account<'info, Mint>,
+    #[account(
+        init_if_needed,
+        payer = owner,
+        associated_token::mint = mint,
+        associated_token::authority = owner,
+    )]
+    pub associated_token_account: Account<'info, TokenAccount>,
+    /// CHECK - address
+    #[account(
+        mut,
+        address=find_metadata_account(&mint.key()).0,
+    )]
+    pub metadata_account: AccountInfo<'info>,
+    /// CHECK: address
+    #[account(
+        mut,
+        address=find_master_edition_account(&mint.key()).0,
+    )]
+    pub master_edition_account: AccountInfo<'info>,
+
+    pub token_program: Program<'info, Token>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
+    pub token_metadata_program: Program<'info, Metadata>,
+    pub rent: Sysvar<'info, Rent>,
 }
 
 // Structure pour stocker les informations de l'événement.
