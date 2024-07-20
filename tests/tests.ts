@@ -12,8 +12,8 @@ import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_META
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { publicKey } from "@metaplex-foundation/umi";
 
-//const MPL_TOKEN_METADATA_PROGRAM_ID = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
-//const MPL_TOKEN_METADATA_PROGRAM_ID = mplTokenMetadata.PROGRAM_ID;
+const MPL_TOKEN_METADATA_PROGRAM_ID_PUBKEY = new PublicKey(MPL_TOKEN_METADATA_PROGRAM_ID);
+
 // ********** /Ajoutés pour le NFT **********
 
 describe("create_event_and_ticket", () => {
@@ -151,6 +151,9 @@ describe("create_event_and_ticket", () => {
 
         console.log("AAAAAAAAAAAAAAAAAAAA");
 
+        console.log("metadataAccount", metadataAccount)
+        console.log("masterEditionAccount", masterEditionAccount)
+
         // Appeler l'instruction create_nft
         const txid = await program.methods
             .createNft(metadata.name, metadata.symbol, metadata.uri)
@@ -163,6 +166,7 @@ describe("create_event_and_ticket", () => {
                 tokenProgram: TOKEN_PROGRAM_ID,
                 associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
                 tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID,
+                //tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID_PUBKEY,
                 systemProgram: anchor.web3.SystemProgram.programId,
                 rent: anchor.web3.SYSVAR_RENT_PUBKEY,
             })
