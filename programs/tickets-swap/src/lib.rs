@@ -83,8 +83,8 @@ pub mod tickets_swap {
         Ok(())
     }
 
-    pub fn init_nft(
-        ctx: Context<InitNFT>,
+    pub fn create_nft(
+        ctx: Context<CreateNft>,
         name: String,
         symbol: String,
         uri: String,
@@ -175,7 +175,7 @@ pub struct BuyTicket<'info> {
 }
 
 #[derive(Accounts)]
-pub struct InitNFT<'info> {
+pub struct CreateNft<'info> {
     /// CHECK: ok, we are passing in this account ourselves
     #[account(mut, signer)]
     pub signer: AccountInfo<'info>,
