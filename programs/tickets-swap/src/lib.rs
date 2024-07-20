@@ -177,7 +177,7 @@ pub struct BuyTicket<'info> {
 #[derive(Accounts)]
 pub struct CreateNft<'info> {
     // CHECK: ok, nous passons ce compte nous-mêmes
-    #[account(mut)]
+    #[account(mut, signer)]
     pub signer: Signer<'info>,
     #[account(
         init,
