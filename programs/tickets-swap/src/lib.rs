@@ -78,8 +78,21 @@ pub mod tickets_swap {
             ],
         )?;
 
+        msg!("Success.");
+
+        Ok(())
+    }
 
 
+
+
+    pub fn init_nft(
+        ctx: Context<InitNFT>,
+        name: String,
+        symbol: String,
+        uri: String,
+    ) -> Result<()> {
+        // ********** Ajoutés pour le NFT **********
         // Initialiser le NFT
         let cpi_context = CpiContext::new(
             ctx.accounts.token_program.to_account_info(),
@@ -135,13 +148,14 @@ pub mod tickets_swap {
         );
 
         create_master_edition_v3(cpi_context, None)?;
-
-
-
-        msg!("Success.");
+        // ********** /Ajoutés pour le NFT **********
 
         Ok(())
     }
+
+
+
+
 }
 
 // Contexte de l'instruction permettant de créer un événement.
@@ -155,7 +169,7 @@ pub struct CreateEvent<'info> {
     pub system_program: Program<'info, System>,
 }
 
-// Contexte de l'instruction permettant de créer un ticket pour un événement.
+// Contexte de l'instruction permettant de créer un ticker pour un X événement.
 #[derive(Accounts)]
 pub struct BuyTicket<'info> {
     // Initialise le compte du ticket, en spécifiant le payeur et l'espace nécessaire.
@@ -167,15 +181,28 @@ pub struct BuyTicket<'info> {
     #[account(mut)]
     pub organizer: AccountInfo<'info>, // Ajouté spécialement afin de pouvoir effectuer le transfert des lamports.
     pub system_program: Program<'info, System>,
+}
 
 
-    #[account(mut)]
+
+#[derive(Accounts)]
+pub struct InitNFT<'info> {
+    /// CHECK: ok, we are passing in this account ourselves
+    #[account(mut, signer)]
+    pub signer: AccountInfo<'info>,
+    #[account(
+        init,
+        payer = signer,
+        mint::decimals = 0,
+        mint::authority = signer.key(),
+        mint::freeze_authority = signer.key(),
+    )]
     pub mint: Account<'info, Mint>,
     #[account(
         init_if_needed,
-        payer = owner,
+        payer = signer,
         associated_token::mint = mint,
-        associated_token::authority = owner,
+        associated_token::authority = signer
     )]
     pub associated_token_account: Account<'info, TokenAccount>,
     /// CHECK - address
@@ -194,10 +221,11 @@ pub struct BuyTicket<'info> {
     pub token_program: Program<'info, Token>,
     pub associated_token_program: Program<'info, AssociatedToken>,
     pub token_metadata_program: Program<'info, Metadata>,
+    pub system_program: Program<'info, System>,
     pub rent: Sysvar<'info, Rent>,
-
-
 }
+
+
 
 // Structure pour stocker les informations de l'événement.
 #[account]

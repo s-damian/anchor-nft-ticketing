@@ -3,16 +3,6 @@ import { Program } from "@coral-xyz/anchor";
 import { TicketsSwap } from "../target/types/tickets_swap";
 import { assert } from "chai";
 import BN from "bn.js";
-import { PublicKey } from "@solana/web3.js";
-import {
-    TOKEN_PROGRAM_ID,
-    ASSOCIATED_TOKEN_PROGRAM_ID,
-    getAssociatedTokenAddress
-} from "@solana/spl-token";
-import * as mplTokenMetadata from "@metaplex-foundation/mpl-token-metadata";
-
-const MPL_TOKEN_METADATA_PROGRAM_ID = new PublicKey("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa"); // Ajoutez l'ID du programme manuellement
-
 
 describe("create_event_and_ticket", () => {
     // Configure le client pour utiliser le cluster local.
@@ -26,7 +16,7 @@ describe("create_event_and_ticket", () => {
     const eventAccount = anchor.web3.Keypair.generate();
     const ticketPrice = new BN(20000000000); // 20000000000 Lamports = 20 SOL.
 
-    it("Create an event and a ticket with NFT", async () => {
+    it("Create an event and a ticket", async () => {
         // Détails de l'événement.
         const title = "Test Event";
         const description = "This is a test event.";
@@ -57,38 +47,13 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
     });
 
-    it("Attempt to buy a ticket with success and generate NFT", async () => {
+    it("Attempt to buy a ticket with success", async () => {
         // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
         // Générer une nouvelle paire de clés pour le compte du ticket.
         const ticketAccount = anchor.web3.Keypair.generate();
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
-
-        // ********** Ajoutés pour le NFT **********
-        const mintAccount = anchor.web3.Keypair.generate();
-
-        const [metadataPda] = await PublicKey.findProgramAddress(
-            [
-                Buffer.from("metadata"),
-                MPL_TOKEN_METADATA_PROGRAM_ID.toBuffer(),
-                mintAccount.publicKey.toBuffer(),
-            ],
-            MPL_TOKEN_METADATA_PROGRAM_ID
-        );
-
-        const [masterEditionPda] = await PublicKey.findProgramAddress(
-            [
-                Buffer.from("metadata"),
-                MPL_TOKEN_METADATA_PROGRAM_ID.toBuffer(),
-                mintAccount.publicKey.toBuffer(),
-                Buffer.from("edition"),
-            ],
-            MPL_TOKEN_METADATA_PROGRAM_ID
-        );
-        // ********** /Ajoutés pour le NFT **********
-
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
         // Appeler l'instruction buy_ticket
         const txid = await program.methods
@@ -97,26 +62,11 @@ describe("create_event_and_ticket", () => {
                 ticket: ticketAccount.publicKey, // Compte du ticket.
                 event: eventAccount.publicKey, // Compte de l'événement.
                 owner: provider.wallet.publicKey, // Propriétaire du ticket.
-                organizer: eventAccountData.organizer, // Organisateur de l'événement.
+                organizer: eventAccountData.organizer, // Organizer de l'événement.
                 systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
-                // ********** Ajoutés pour le NFT **********
-                mint: mintAccount.publicKey,
-                associatedTokenAccount: await getAssociatedTokenAddress(
-                    mintAccount.publicKey,
-                    provider.wallet.publicKey
-                ),
-                metadataAccount: metadataPda,
-                masterEditionAccount: masterEditionPda,
-                tokenProgram: TOKEN_PROGRAM_ID,
-                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-                tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID,
-                rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-                // ********** /Ajoutés pour le NFT **********
             })
-            .signers([ticketAccount, mintAccount]) // Signataires de la transaction. mintAccount : ajouté pour le NFT:.
+            .signers([ticketAccount]) // Signataires de la transaction.
             .rpc();
-
-        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
         console.log("buyTicket - tx signature", txid);
 
         // Récupérer les détails du compte du ticket
@@ -127,15 +77,6 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
         assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
-
-        // ********** Ajoutés pour le NFT **********
-        // Vérifier l'existence des comptes de metadata et de master edition
-        const metadataAccountInfo = await provider.connection.getAccountInfo(metadataPda);
-        const masterEditionAccountInfo = await provider.connection.getAccountInfo(masterEditionPda);
-
-        assert.isNotNull(metadataAccountInfo);
-        assert.isNotNull(masterEditionAccountInfo);
-        // ********** /Ajoutés pour le NFT **********
     });
 
     it("Attempt to buy a ticket with an invalid owner", async () => {
@@ -157,7 +98,7 @@ describe("create_event_and_ticket", () => {
                     ticket: ticketAccount.publicKey, // Compte du ticket.
                     event: eventAccount.publicKey, // Compte de l'événement.
                     owner: invalidOwner.publicKey, // Propriétaire non valide du ticket.
-                    organizer: eventAccountData.organizer, // Organisateur de l'événement.
+                    organizer: eventAccountData.organizer, // Organizer de l'événement.
                     systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
                 })
                 .signers([ticketAccount]) // Signataires de la transaction.
