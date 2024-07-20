@@ -176,9 +176,9 @@ pub struct BuyTicket<'info> {
 
 #[derive(Accounts)]
 pub struct CreateNft<'info> {
-    /// CHECK: ok, we are passing in this account ourselves
-    #[account(mut, signer)]
-    pub signer: AccountInfo<'info>,
+    // CHECK: ok, nous passons ce compte nous-mêmes
+    #[account(mut)]
+    pub signer: Signer<'info>,
     #[account(
         init,
         payer = signer,
@@ -194,13 +194,13 @@ pub struct CreateNft<'info> {
         associated_token::authority = signer
     )]
     pub associated_token_account: Account<'info, TokenAccount>,
-    /// CHECK - address
+    // CHECK - address
     #[account(
         mut,
         address = MetadataAccount::find_pda(&mint.key()).0,
     )]
     pub metadata_account: AccountInfo<'info>,
-    /// CHECK: address
+    // CHECK: address
     #[account(
         mut,
         address = MasterEdition::find_pda(&mint.key()).0,
