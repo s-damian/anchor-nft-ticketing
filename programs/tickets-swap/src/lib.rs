@@ -89,7 +89,6 @@ pub mod tickets_swap {
         symbol: String,
         uri: String,
     ) -> Result<()> {
-        // ********** Ajoutés pour le NFT **********
         // Initialiser le NFT
         let cpi_context = CpiContext::new(
             ctx.accounts.token_program.to_account_info(),
@@ -117,9 +116,9 @@ pub mod tickets_swap {
         );
 
         let data_v2 = DataV2 {
-            name: "Ticket".to_string(), // TODO : ajouter plus tard un argument dans buy_ticket.
-            symbol: "TICKET".to_string(), // TODO : ajouter plus tard un argument dans buy_ticket.
-            uri: "https://example.com/ticket-metadata.json".to_string(), // TODO : ajouter plus tard un argument dans buy_ticket.
+            name,
+            symbol,
+            uri,
             seller_fee_basis_points: 0,
             creators: None,
             collection: None,
@@ -145,7 +144,6 @@ pub mod tickets_swap {
         );
 
         create_master_edition_v3(cpi_context, None)?;
-        // ********** /Ajoutés pour le NFT **********
 
         Ok(())
     }
