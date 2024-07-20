@@ -1,8 +1,6 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::{program::invoke, system_instruction};
 
-
-
 use anchor_spl::{
     associated_token::AssociatedToken,
     metadata::{
@@ -11,12 +9,9 @@ use anchor_spl::{
     },
     token::{mint_to, Mint, MintTo, Token, TokenAccount},
 };
-use mpl_token_metadata::{
-    pda::{find_master_edition_account, find_metadata_account},
-    state::DataV2,
-};
-
-
+use mpl_token_metadata::accounts::{ MasterEdition, Metadata as MetadataAccount };
+use mpl_token_metadata::types::DataV2;
+// https://solana.stackexchange.com/questions/13408/could-not-find-pda-and-state-in-mpl-token-metadata
 
 // Déclare l'ID du programme.
 declare_id!("FDpDx1vfXUn9FNPWip6VVr2HrUC5Mq6Lb6P73rQPtQMa");
@@ -122,7 +117,7 @@ pub mod tickets_swap {
             uses: None,
         };
 
-        create_metadata_accounts_v3(cpi_context, data_v2, false, true, None)?;
+        create_metadata_accounts_v3(cpi_context, data_v2, true, true, None)?;
 
         // Créer le compte de master edition
         let cpi_context = CpiContext::new(
@@ -186,13 +181,15 @@ pub struct BuyTicket<'info> {
     /// CHECK - address
     #[account(
         mut,
-        address=find_metadata_account(&mint.key()).0,
+        //address=find_metadata_account(&mint.key()).0, // OLD
+        address = MetadataAccount::find_pda(&mint.key()).0, // NEW with mpl-token-metadata = "4.1.2"
     )]
     pub metadata_account: AccountInfo<'info>,
     /// CHECK: address
     #[account(
         mut,
-        address=find_master_edition_account(&mint.key()).0,
+        //address=find_master_edition_account(&mint.key()).0, // OLD
+        address = MasterEdition::find_pda(&mint.key()).0, // NEW with mpl-token-metadata = "4.1.2"
     )]
     pub master_edition_account: AccountInfo<'info>,
 
