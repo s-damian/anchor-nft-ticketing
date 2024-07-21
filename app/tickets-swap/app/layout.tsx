@@ -1,5 +1,6 @@
 import "./globals.css";
 import AppWalletProvider from "../src/components/AppWalletProvider";
+import ClientOnly from "../src/components/ClientOnly";
 
 export default function RootLayout({
     children,
@@ -10,7 +11,9 @@ export default function RootLayout({
         <html lang="fr">
             <body>
                 <title>Tickets Swap</title>
-                <AppWalletProvider>{children}</AppWalletProvider>
+                <ClientOnly>
+                    <AppWalletProvider>{children}</AppWalletProvider>
+                </ClientOnly>
             </body>
         </html>
     );

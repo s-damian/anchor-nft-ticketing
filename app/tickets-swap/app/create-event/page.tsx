@@ -81,7 +81,7 @@ const CreateEvent: React.FC = () => {
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm"
+                                    className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm"
                                     placeholder="Titre"
                                 />
                             </div>
@@ -92,7 +92,7 @@ const CreateEvent: React.FC = () => {
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+                                    className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
                                     placeholder="Description"
                                 />
                             </div>
@@ -104,7 +104,7 @@ const CreateEvent: React.FC = () => {
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+                                    className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
                                     placeholder="Date"
                                 />
                             </div>
@@ -116,7 +116,7 @@ const CreateEvent: React.FC = () => {
                                     value={time}
                                     onChange={(e) => setTime(e.target.value)}
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+                                    className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
                                     placeholder="Heure"
                                 />
                             </div>
@@ -128,7 +128,7 @@ const CreateEvent: React.FC = () => {
                                     value={location}
                                     onChange={(e) => setLocation(e.target.value)}
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+                                    className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
                                     placeholder="Lieu"
                                 />
                             </div>
@@ -140,7 +140,7 @@ const CreateEvent: React.FC = () => {
                                     value={ticketPrice}
                                     onChange={(e) => setTicketPrice(e.target.value)}
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md sm:text-sm"
+                                    className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md sm:text-sm"
                                     placeholder="Prix du Ticket (Lamports)"
                                 />
                             </div>
