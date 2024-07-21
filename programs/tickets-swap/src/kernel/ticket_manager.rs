@@ -12,7 +12,7 @@ impl TicketManager {
 
         // Sécurité : vérifier que l'organisateur fourni (depuis le Front-End) correspond à l'organisateur de l'événement.
         if ctx.accounts.organizer.key() != event.organizer {
-            return Err(CustomError::InvalidOrganizer.into());
+            return Err(CustomError::TicketInvalidOrganizer.into());
         }
 
         ticket.event = event.key(); // Faire la jointure (un ticket doit être joint à un event, un event peut avoir plusieurs tickets).

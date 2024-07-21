@@ -1,4 +1,5 @@
 use crate::CreateNft;
+use crate::CustomError;
 use anchor_lang::prelude::*;
 use anchor_spl::{
     metadata::{
@@ -18,6 +19,13 @@ impl NftManager {
         symbol: String,
         uri: String,
     ) -> Result<()> {
+        let ticket = &mut ctx.accounts.ticket;
+
+        // Sécurité : vérifier que le signataire est le propriétaire du ticket.
+        if ctx.accounts.signer.key() != ticket.owner {
+            return Err(CustomError::NftUnauthorizedSigner.into());
+        }
+
         // Initialiser le NFT
         let cpi_context = CpiContext::new(
             ctx.accounts.token_program.to_account_info(),
@@ -77,7 +85,6 @@ impl NftManager {
         //// [pour joindre le NFT au ticket]
         // Faire la jointure (un ticket peut optionnellement avoir un NFT, un NFT doit être joint à un ticket).
         // Lier le NFT au ticket.
-        let ticket = &mut ctx.accounts.ticket;
         ticket.nft_mint = Some(ctx.accounts.mint.key());
 
         Ok(())

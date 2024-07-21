@@ -80,7 +80,7 @@ const ShowEvent: React.FC = () => {
                     //event: new PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
                     organizer: eventDetails.organizer,
-                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour CustomError::InvalidOrganizer).
+                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour CustomError::TicketInvalidOrganizer).
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])
@@ -99,22 +99,15 @@ const ShowEvent: React.FC = () => {
     };
 
     const handleSubmitCreateNft = async (ticketPublicKey: PublicKey) => {
-        /*if (!wallet?.publicKey) {
+        if (!wallet?.publicKey) {
             alert("Veuillez connecter votre portefeuille !");
             return;
         }
 
         const { program } = getAnchorProgram(wallet);
 
-        console.log("ASSOCIATED_TOKEN_PROGRAM_ID :")
-        console.log(ASSOCIATED_TOKEN_PROGRAM_ID)
-        console.log('new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s") :')
-        console.log(new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"))
-
-
-
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
-        const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
+        /*const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
         //const umi = createUmi("https://api.devnet.solana.com").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
 
 
@@ -142,7 +135,7 @@ const ShowEvent: React.FC = () => {
         const metadata = {
             name: "Stephen",
             symbol: "STE",
-            uri: "https://raw.githubusercontent.com/687c/solana-nft-native-client/main/metadata.json",
+            uri: "https://example.com/my-nft.json",
         };
 
         try {

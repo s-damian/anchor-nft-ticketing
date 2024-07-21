@@ -155,7 +155,7 @@ describe("create_event_and_ticket", () => {
         const metadata = {
             name: "Stephen",
             symbol: "STE",
-            uri: "https://raw.githubusercontent.com/687c/solana-nft-native-client/main/metadata.json",
+            uri: "https://example.com/my-nft.json",
         };
 
         // Appeler l'instruction create_nft du programme Anchor.

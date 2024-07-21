@@ -174,5 +174,7 @@ pub struct Ticket {
 #[error_code]
 pub enum CustomError {
     #[msg("L'organisateur fourni ne correspond pas à l'organisateur de l'événement.")]
-    InvalidOrganizer,
+    TicketInvalidOrganizer,
+    #[msg("Le signataire fourni ne correspond pas au propriétaire du ticket.")]
+    NftUnauthorizedSigner,
 }
