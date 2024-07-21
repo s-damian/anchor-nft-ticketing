@@ -40,7 +40,7 @@ export const handleSubmitBuyTicket = async (
             .signers([ticketAccount])
             .rpc();
 
-        toast.success("aaaTicket acheté avec succès !");
+        toast.success("Ticket acheté avec succès !");
         console.log(`solana confirm -v ${txid}`);
 
         // Récupère les tickets après la création d'un nouveau ticket.

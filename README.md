@@ -60,11 +60,7 @@ cd /[your-path]/tickets-swap
 ```
 
 ```
-npm run ledger-persist
-```
-
-```
-npm run ledger-persist-after
+npm run test-ledger-st
 ```
 
 ### Build/Deploy program :

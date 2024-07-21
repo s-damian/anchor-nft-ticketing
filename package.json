@@ -6,8 +6,8 @@
     "build": "anchor build && ./sh/copy-idl.sh",
     "full-lint": "cargo fmt && npm run lint:fix",
     "deploy": "anchor build && anchor deploy && ./sh/copy-idl.sh",
-    "ledger-persist": "./sh/ledger-persist.sh",
-    "ledger-persist-after": "./sh/ledger-persist-after.sh"
+    "test-ledger": "./sh/test-ledger.sh",
+    "test-ledger-after": "./sh/test-ledger-after.sh"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.29.0",

@@ -4,7 +4,6 @@ target
 **/*.rs.bk
 node_modules
 test-ledger
-ledger-persist
 .yarn
 _OLD
-sh/ledger-persist-after.sh
+sh/test-ledger-after.sh
