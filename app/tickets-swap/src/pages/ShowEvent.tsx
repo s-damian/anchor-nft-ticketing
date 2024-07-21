@@ -6,7 +6,7 @@ import { getAnchorProgram } from "../utils/anchorUtils";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
 // Imports ajoutés pour le NFT :
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
-import { findMasterEditionPda, findMetadataPda, mplTokenMetadata } from "@metaplex-foundation/mpl-token-metadata";
+import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_METADATA_PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 import { publicKey } from "@metaplex-foundation/umi";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
@@ -98,19 +98,26 @@ const ShowEvent: React.FC = () => {
         }
     };
 
-
-
     const handleSubmitCreateNft = async (ticketPublicKey: PublicKey) => {
-        if (!wallet?.publicKey) {
+        /*if (!wallet?.publicKey) {
             alert("Veuillez connecter votre portefeuille !");
             return;
         }
 
         const { program } = getAnchorProgram(wallet);
 
+        console.log("ASSOCIATED_TOKEN_PROGRAM_ID :")
+        console.log(ASSOCIATED_TOKEN_PROGRAM_ID)
+        console.log('new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s") :')
+        console.log(new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"))
+
+
+
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
-        //const umi = createUmi("http://127.0.0.1:8899").use(walletAdapterIdentity(wallet)).use(mplTokenMetadata());
-        const umi = createUmi("https://api.devnet.solana.com").use(walletAdapterIdentity(wallet)).use(mplTokenMetadata());
+        const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
+        //const umi = createUmi("https://api.devnet.solana.com").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
+
+
 
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = web3.Keypair.generate();
@@ -150,7 +157,8 @@ const ShowEvent: React.FC = () => {
                     masterEditionAccount: masterEditionAccount, // Compte de master edition.
                     tokenProgram: TOKEN_PROGRAM_ID, // Programme de token SPL.
                     associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID, // Programme de token associé SPL.
-                    tokenMetadataProgram: new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"), // Programme de metadata de token.
+                    //tokenMetadataProgram: new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"), // Programme de metadata de token.
+                    tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
                     systemProgram: SystemProgram.programId, // Programme système Solana.
                     rent: web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
                     ticket: ticketPublicKey, // Compte du ticket.
@@ -165,10 +173,8 @@ const ShowEvent: React.FC = () => {
             setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
             console.error("Failed to create NFT.", err);
-        }
+        }*/
     };
-
-    
 
     return (
         <>
@@ -209,7 +215,7 @@ const ShowEvent: React.FC = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                             >
                                 Acheter un Ticket
                             </button>
@@ -252,7 +258,7 @@ const ShowEvent: React.FC = () => {
                                 ) : (
                                     <button
                                         onClick={() => handleSubmitCreateNft(ticket.publicKey)}
-                                        className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                        className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
                                     >
                                         Générer mon NFT
                                     </button>
