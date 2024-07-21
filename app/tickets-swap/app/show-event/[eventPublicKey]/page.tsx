@@ -7,6 +7,7 @@ import { web3, BN } from "@coral-xyz/anchor";
 import { getAnchorProgram, umiUrl } from "../../../src/utils/anchorUtils";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
 import Layout from "../../../src/components/Layout";
+import { toast } from "react-toastify";
 // Imports ajoutés pour le NFT :
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
 import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_METADATA_PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
@@ -43,8 +44,7 @@ const ShowEvent: React.FC = () => {
             const { program } = getAnchorProgram(wallet);
 
             try {
-                const event = await program.account.event.fetch(new web3.PublicKey(eventPublicKey));
-                //const event = await program.account.event.fetch(new PublicKey(eventPublicKey));
+                const event = await program.account.event.fetch(new PublicKey(eventPublicKey));
                 setEventDetails(event);
 
                 // Récupère les tickets associés à l'événement.
@@ -81,24 +81,23 @@ const ShowEvent: React.FC = () => {
                 .buyTicket(dateOfPurchase)
                 .accounts({
                     ticket: ticketAccount.publicKey,
-                    event: new web3.PublicKey(eventPublicKey),
-                    //event: new PublicKey(eventPublicKey),
+                    event: new PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
                     organizer: eventDetails.organizer,
-                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour CustomError::CreateTicketInvalidOrganizer).
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])
                 .rpc();
 
-            console.log("Success to buy ticket");
-            console.log("solana confirm -v " + txid);
+            toast.success("Ticket acheté avec succès !");
+            console.log(`solana confirm -v ${txid}`);
 
             // Récupère les tickets après la création d'un nouveau ticket.
             const accounts = await program.account.ticket.all(getEventPublicKeyFilter(eventPublicKey as string));
 
             setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
+            toast.error("Échec de l'achat du ticket.");
             console.error("Failed to buy ticket.", err);
         }
     };
@@ -160,13 +159,14 @@ const ShowEvent: React.FC = () => {
                 .signers([mint]) // Signer la transaction avec la clé du mint.
                 .rpc();
 
-            console.log("Success to create NFT");
-            console.log("solana confirm -v " + txid);
+            toast.success("NFT avec succès !");
+            console.log(`solana confirm -v ${txid}`);
 
             // Mettre à jour les tickets après la création du NFT.
             const accounts = await program.account.ticket.all(getEventPublicKeyFilter(eventPublicKey!));
             setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
+            toast.error("Échec de l'achat du NFT.");
             console.error("Failed to create NFT.", err);
         }
     };

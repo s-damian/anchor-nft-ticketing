@@ -6,6 +6,7 @@ import { web3 } from "@coral-xyz/anchor";
 import BN from "bn.js";
 import { getAnchorProgram } from "../../src/utils/anchorUtils";
 import Layout from "../../src/components/Layout";
+import { toast } from "react-toastify";
 
 const CreateEvent: React.FC = () => {
     // État pour les champs du formulaire.
@@ -57,9 +58,10 @@ const CreateEvent: React.FC = () => {
                 .signers([eventAccount])
                 .rpc();
 
-            console.log("Success to create event");
-            console.log("solana confirm -v " + txid);
+            toast.success("Événement créé avec succès !");
+            console.log(`solana confirm -v ${txid}`);
         } catch (err) {
+            toast.error("Échec de la création de l'événement.");
             console.error("Failed to create event.", err);
         }
     };
