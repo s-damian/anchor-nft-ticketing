@@ -239,24 +239,23 @@ const ShowEvent: React.FC = () => {
                                         {ticket.account.owner.toBase58()}
                                     </span>
                                 </p>
-                                <p>
+                                <p className="mb-2">
                                     <b>Public Key du ticket</b> :{" "}
                                     <span className="truncate bg-gray-200 p-1 rounded" title={ticket.publicKey.toBase58()}>
                                         {ticket.publicKey.toBase58()}
                                     </span>
                                 </p>
-
                                 {ticket.account.nftMint ? (
                                     <p>
                                         <b>NFT Mint</b> :{" "}
-                                        <span className="truncate bg-gray-200 p-1 rounded" title={ticket.account.nftMint.toBase58()}>
+                                        <span className="truncate bg-yellow-200 p-1 rounded" title={ticket.account.nftMint.toBase58()}>
                                             {ticket.account.nftMint.toBase58()}
                                         </span>
                                     </p>
                                 ) : (
                                     <button
                                         onClick={() => handleSubmitCreateNft(ticket.publicKey)}
-                                        className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                                        className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
                                     >
                                         Générer mon NFT
                                     </button>
