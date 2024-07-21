@@ -104,8 +104,11 @@ const ShowEvent: React.FC = () => {
         }
     };
 
+
+
+
     const handleSubmitCreateNft = async (ticketPublicKey: PublicKey) => {
-        /*if (!wallet?.publicKey) {
+        if (!wallet?.publicKey) {
             alert("Veuillez connecter votre portefeuille !");
             return;
         }
@@ -142,24 +145,28 @@ const ShowEvent: React.FC = () => {
             uri: "https://example.com/my-nft.json",
         };
 
+        const data = {
+            signer: wallet.publicKey, // Signataire de la transaction.
+            mint: mint.publicKey, // Clé publique du mint (NFT).
+            associatedTokenAccount: associatedTokenAccount, // Compte de token associé au mint.
+            metadataAccount: metadataAccount, // Compte de metadata.
+            masterEditionAccount: masterEditionAccount, // Compte de master edition.
+            tokenProgram: TOKEN_PROGRAM_ID, // Programme de token SPL.
+            associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID, // Programme de token associé SPL.
+            //tokenMetadataProgram: new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"), // Programme de metadata de token.
+            tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
+            systemProgram: SystemProgram.programId, // Programme système Solana.
+            rent: web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
+            ticket: ticketPublicKey, // Compte du ticket.
+        };
+
+        console.log(data)
+
         try {
             // Appeler l'instruction create_nft du programme Anchor.
             const txid = await program.methods
                 .createNft(metadata.name, metadata.symbol, metadata.uri)
-                .accounts({
-                    signer: wallet.publicKey, // Signataire de la transaction.
-                    mint: mint.publicKey, // Clé publique du mint (NFT).
-                    associatedTokenAccount: associatedTokenAccount, // Compte de token associé au mint.
-                    metadataAccount: metadataAccount, // Compte de metadata.
-                    masterEditionAccount: masterEditionAccount, // Compte de master edition.
-                    tokenProgram: TOKEN_PROGRAM_ID, // Programme de token SPL.
-                    associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID, // Programme de token associé SPL.
-                    //tokenMetadataProgram: new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"), // Programme de metadata de token.
-                    tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
-                    systemProgram: SystemProgram.programId, // Programme système Solana.
-                    rent: web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
-                    ticket: ticketPublicKey, // Compte du ticket.
-                })
+                .accounts(data)
                 .signers([mint]) // Signer la transaction avec la clé du mint.
                 .rpc();
 
@@ -170,8 +177,11 @@ const ShowEvent: React.FC = () => {
             setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
             console.error("Failed to create NFT.", err);
-        }*/
+        }
     };
+
+
+
 
     return (
         <Layout>
