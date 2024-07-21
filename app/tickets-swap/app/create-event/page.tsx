@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3 } from "@coral-xyz/anchor";

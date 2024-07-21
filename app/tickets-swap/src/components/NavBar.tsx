@@ -32,5 +32,3 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
-
-// <WalletMultiButton className="btn btn-primary" />
