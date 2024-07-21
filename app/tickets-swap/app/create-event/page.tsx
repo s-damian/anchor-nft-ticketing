@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3 } from "@coral-xyz/anchor";
-import { handleSubmitCreateEvent } from "../../src/utils/handle/HandleCreateEvent";
+import { handleSubmitCreateEvent } from "../../src/utils/handlers/HandleCreateEvent";
 import Layout from "../../src/components/Layout";
 
 const CreateEvent: React.FC = () => {
