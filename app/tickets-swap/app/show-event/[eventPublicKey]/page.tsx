@@ -3,19 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { web3, BN } from "@coral-xyz/anchor";
-import { getAnchorProgram, getNetworkUrl } from "../../../src/utils/anchorUtils";
+import { getAnchorProgram } from "../../../src/utils/anchorUtils";
 import { handleSubmitBuyTicket } from "../../../src/utils/handlers/HandleBuyTicket";
 import { handleSubmitCreateNft } from "../../../src/utils/handlers/HandleCreateNft";
-import { PublicKey, SystemProgram } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import Layout from "../../../src/components/Layout";
-import { toast } from "react-toastify";
-// Imports ajoutés pour le NFT :
-import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
-import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_METADATA_PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
-import { publicKey } from "@metaplex-foundation/umi";
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 
 const ShowEvent: React.FC = () => {
     const router = useRouter();

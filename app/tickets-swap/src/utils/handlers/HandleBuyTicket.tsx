@@ -1,5 +1,5 @@
 import { web3, BN } from "@coral-xyz/anchor";
-import { PublicKey, SystemProgram } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { toast } from "react-toastify";
 import { getAnchorProgram } from "../../utils/anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";

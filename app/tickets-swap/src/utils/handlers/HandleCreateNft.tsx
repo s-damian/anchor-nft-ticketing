@@ -3,6 +3,7 @@ import { PublicKey, SystemProgram } from "@solana/web3.js";
 import { toast } from "react-toastify";
 import { getAnchorProgram, getNetworkUrl } from "../../utils/anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
+// Imports ajoutés pour le NFT :
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
 import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_METADATA_PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 import { publicKey } from "@metaplex-foundation/umi";
