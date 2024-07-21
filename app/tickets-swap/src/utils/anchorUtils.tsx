@@ -16,6 +16,23 @@ export const getNetworkUrl = (network: string): string => {
         case "localnet":
             return "http://127.0.0.1:8899";
         case "devnet-custom-rpc":
+            return "http://127.0.0.1:8899";
+        case "devnet":
+            return "https://api.devnet.solana.com";
+        case "testnet":
+            return "https://api.testnet.solana.com";
+        case "mainnet":
+            return "https://api.mainnet-beta.solana.com";
+        default:
+            throw new Error(`Unsupported network: ${network}`);
+    }
+};
+
+export const getNetworkAdapterUrl = (network: string): string => {
+    switch (network) {
+        case "localnet":
+            return "http://127.0.0.1:8899";
+        case "devnet-custom-rpc":
             if (process.env.CUSTOM_RPC_URL) {
                 return JSON.parse(process.env.CUSTOM_RPC_URL);
             }
@@ -32,7 +49,7 @@ export const getNetworkUrl = (network: string): string => {
 };
 
 const network = process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK!;
-const networkUrl = getNetworkUrl(network); // URL du validateur.
+const networkUrl = getNetworkAdapterUrl(network); // URL du validateur.
 
 const opts = {
     preflightCommitment: process.env.NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT as Commitment,
@@ -55,21 +72,4 @@ export const getAnchorProgram = (wallet: Wallet) => {
     const program = new Program(idl as Idl, new PublicKey(idl.metadata.address), provider); // for "@coral-xyz/anchor": "0.29.0"
 
     return { program, provider, connection, SystemProgram };
-};
-
-export const umiUrl = (network: string): string => {
-    switch (network) {
-        case "localnet":
-            return "http://127.0.0.1:8899";
-        case "devnet-custom-rpc":
-            return "http://127.0.0.1:8899";
-        case "devnet":
-            return "https://api.devnet.solana.com";
-        case "testnet":
-            return "https://api.testnet.solana.com";
-        case "mainnet":
-            return "https://api.mainnet-beta.solana.com";
-        default:
-            throw new Error(`Unsupported network: ${network}`);
-    }
 };
