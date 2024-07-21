@@ -48,6 +48,7 @@ pub mod tickets_swap {
 // Contexte de l'instruction permettant de créer un événement.
 #[derive(Accounts)]
 pub struct CreateEvent<'info> {
+    // event: web3.Keypair.generate()
     // Initialise le compte de l'événement, en spécifiant le payeur et l'espace nécessaire.
     #[account(init, payer = organizer, space = 8 + 32 + 4 + 100 + 4 + 256 + 8 + 4 + 100 + 8)]
     pub event: Account<'info, Event>,
@@ -59,9 +60,11 @@ pub struct CreateEvent<'info> {
 // Contexte de l'instruction permettant de créer un ticker pour un X événement.
 #[derive(Accounts)]
 pub struct BuyTicket<'info> {
+    // ticket: web3.Keypair.generate()
     // Initialise le compte du ticket, en spécifiant le payeur et l'espace nécessaire.
     #[account(init, payer = owner, space = 8 + 32 + 32 + 8 + 8)]
     pub ticket: Account<'info, Ticket>,
+    // event: pour joindre le ticket à un X event.
     pub event: Account<'info, Event>,
     #[account(mut)]
     pub owner: Signer<'info>,
@@ -136,6 +139,13 @@ pub struct CreateNft<'info> {
 
     // Sysvar représentant les frais de location (rent) de Solana. Utilisé pour vérifier et payer les frais de location lors de la création de comptes.
     pub rent: Sysvar<'info, Rent>,
+
+    // ticket: pour joindre le NFT à un X ticket.
+    // (un ticket peut optionnellement avoir un NFT, un NFT doit être joint à un ticket).
+    // Compte de ticket. Ce compte doit exister et être mutable.
+    // Doit être mutable, car on joint le NFT au ticket (on ne peut pas faire le contraire : joindre le ticket au ticket).
+    ////#[account(mut)]
+    ////pub ticket: Account<'info, Ticket>,
 }
 
 // Structure pour stocker les informations de l'événement.
@@ -155,6 +165,9 @@ pub struct Ticket {
     pub price: u64,
     pub date_of_purchase: i64,
     pub owner: Pubkey,
+    // nft_mint: pour éventuellement joindre un NFT au ticket.
+    // (un ticket peut optionnellement avoir un NFT, un NFT doit être joint à un ticket).
+    ////pub nft_mint: Option<Pubkey>,
 }
 
 #[error_code]

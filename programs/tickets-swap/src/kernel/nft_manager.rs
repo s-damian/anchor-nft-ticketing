@@ -74,6 +74,11 @@ impl NftManager {
 
         create_master_edition_v3(cpi_context, None)?;
 
+        // Faire la jointure (un ticket peut optionnellement avoir un NFT, un NFT doit être joint à un ticket).
+        // Lier le NFT au ticket.
+        ////let ticket = &mut ctx.accounts.ticket;
+        ////ticket.nft_mint = Some(ctx.accounts.mint.key());
+
         Ok(())
     }
 }

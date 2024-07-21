@@ -4,15 +4,12 @@ import { TicketsSwap } from "../target/types/tickets_swap";
 import { assert } from "chai";
 import BN from "bn.js";
 import { PublicKey } from "@solana/web3.js";
-
-// ********** Ajoutés pour le NFT **********
+// Imports ajoutés pour le NFT :
 import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
 import { findMasterEditionPda, findMetadataPda, mplTokenMetadata, MPL_TOKEN_METADATA_PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { publicKey } from "@metaplex-foundation/umi";
-
-// ********** /Ajoutés pour le NFT **********
 
 describe("create_event_and_ticket", () => {
     // Configure le client pour utiliser le cluster local.
@@ -87,6 +84,7 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
         assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
+        ////assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
     });
 
     it("Attempt to buy a ticket with an invalid owner", async () => {
