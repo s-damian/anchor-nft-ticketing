@@ -70,13 +70,13 @@ const ShowEvent: React.FC = () => {
                                 <b>Prix du Ticket</b> : {(eventDetails.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
                             </p>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Public Key de l'organisateur</b> :
+                                <b>PublicKey de l'organisateur</b> :
                                 <span className="block truncate bg-gray-200 p-1 rounded" title={eventDetails.organizer.toBase58()}>
                                     {eventDetails.organizer.toBase58()}
                                 </span>
                             </p>
                             <p className="text-center text-gray-700">
-                                <b>Public Key de l'événement</b> :
+                                <b>PublicKey de l'événement</b> :
                                 <span className="block truncate bg-gray-200 p-1 rounded" title={eventPublicKey as string}>
                                     {eventPublicKey}
                                 </span>
@@ -102,19 +102,19 @@ const ShowEvent: React.FC = () => {
                         {tickets.map((ticket, index) => (
                             <li key={index} className="mt-4 p-4 bg-white rounded-md shadow-sm">
                                 <p className="mb-2">
-                                    <b>Prix</b> : {(ticket.account.price.toNumber() / 1_000_000_000).toFixed(9)} SOL
+                                    <b>Prix payé</b> : {(ticket.account.price.toNumber() / 1_000_000_000).toFixed(9)} SOL
                                 </p>
                                 <p className="mb-2">
                                     <b>Date et heure de l'achat</b> : {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleString()}
                                 </p>
                                 <p className="mb-2">
-                                    <b>Public Key de l'acheteur</b> :{" "}
+                                    <b>PublicKey de l'acheteur</b> :{" "}
                                     <span className="truncate bg-gray-200 p-1 rounded" title={ticket.account.owner.toBase58()}>
                                         {ticket.account.owner.toBase58()}
                                     </span>
                                 </p>
                                 <p className="mb-2">
-                                    <b>Public Key du ticket</b> :{" "}
+                                    <b>PublicKey du ticket</b> :{" "}
                                     <span className="truncate bg-gray-200 p-1 rounded" title={ticket.publicKey.toBase58()}>
                                         {ticket.publicKey.toBase58()}
                                     </span>

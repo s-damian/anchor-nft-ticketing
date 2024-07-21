@@ -75,13 +75,13 @@ const ListEvents: React.FC = () => {
                                 <b>Prix du Ticket</b> : {(event.accountData.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
                             </p>
                             <p className="mb-2">
-                                <b>Public Key de l'organisateur</b> :{" "}
+                                <b>PublicKey de l'organisateur</b> :{" "}
                                 <span className="truncate bg-gray-200 p-1 rounded" title={event.accountData.organizer.toBase58()}>
                                     {event.accountData.organizer.toBase58()}
                                 </span>
                             </p>
                             <p className="mb-2">
-                                <b>Public Key de l'événement</b> :{" "}
+                                <b>PublicKey de l'événement</b> :{" "}
                                 <span className="truncate bg-gray-200 p-1 rounded" title={event.publicKey.toBase58()}>
                                     {event.publicKey.toBase58()}
                                 </span>
