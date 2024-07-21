@@ -106,18 +106,18 @@ const CreateEvent: React.FC = () => {
                                     placeholder="Date"
                                 />
                             </div>
-                        <div>
-                            <input
-                                id="time"
-                                name="time"
-                                type="time"
-                                value={time}
-                                onChange={(e) => setTime(e.target.value)}
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
-                                placeholder="Heure"
-                            />
-                        </div>
+                            <div>
+                                <input
+                                    id="time"
+                                    name="time"
+                                    type="time"
+                                    value={time}
+                                    onChange={(e) => setTime(e.target.value)}
+                                    required
+                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+                                    placeholder="Heure"
+                                />
+                            </div>
                             <div>
                                 <input
                                     id="location"

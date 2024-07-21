@@ -4,6 +4,7 @@
     "lint:fix": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" -w",
     "lint": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" --check",
     "build": "anchor build && ./sh/copy-idl.sh",
+    "full-lint": "cargo fmt && npm run lint:fix",
     "deploy": "anchor build && anchor deploy && ./sh/copy-idl.sh",
     "ledger-persist": "./sh/ledger-persist.sh",
     "ledger-persist-after": "./sh/ledger-persist-after.sh"

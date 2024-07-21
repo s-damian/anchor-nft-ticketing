@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3, BN } from "@coral-xyz/anchor";
-import { getAnchorProgram } from "../../../src/utils/anchorUtils";
+import { getAnchorProgram, umiUrl } from "../../../src/utils/anchorUtils";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
 import Layout from "../../../src/components/Layout";
 // Imports ajoutés pour le NFT :
@@ -111,10 +111,8 @@ const ShowEvent: React.FC = () => {
 
         const { program } = getAnchorProgram(wallet);
 
-        // solana-test-validator --clone-upgradeable-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s --url https://api.mainnet-beta.solana.com
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
-        const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
-        //const umi = createUmi("https://api.devnet.solana.com").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
+        const umi = createUmi(umiUrl(process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK!)).use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
 
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = web3.Keypair.generate();

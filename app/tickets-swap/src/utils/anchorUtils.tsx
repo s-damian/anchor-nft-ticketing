@@ -6,6 +6,11 @@ import idl from "../idl/tickets_swap.json";
 
 const { SystemProgram } = web3;
 
+// Assurez-vous que les variables d'environnement sont définies.
+if (!process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK || !process.env.NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT) {
+    throw new Error("NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK and NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT must be defined");
+}
+
 export const getNetworkUrl = (network: string): string => {
     switch (network) {
         case "localnet":
@@ -25,11 +30,6 @@ export const getNetworkUrl = (network: string): string => {
             throw new Error(`Unsupported network: ${network}`);
     }
 };
-
-// Assurez-vous que les variables d'environnement sont définies.
-if (!process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK || !process.env.NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT) {
-    throw new Error("NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK and NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT must be defined");
-}
 
 const network = process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK!;
 const networkUrl = getNetworkUrl(network); // URL du validateur.
@@ -55,4 +55,21 @@ export const getAnchorProgram = (wallet: Wallet) => {
     const program = new Program(idl as Idl, new PublicKey(idl.metadata.address), provider); // for "@coral-xyz/anchor": "0.29.0"
 
     return { program, provider, connection, SystemProgram };
+};
+
+export const umiUrl = (network: string): string => {
+    switch (network) {
+        case "localnet":
+            return "http://127.0.0.1:8899";
+        case "devnet-custom-rpc":
+            return "http://127.0.0.1:8899";
+        case "devnet":
+            return "https://api.devnet.solana.com";
+        case "testnet":
+            return "https://api.testnet.solana.com";
+        case "mainnet":
+            return "https://api.mainnet-beta.solana.com";
+        default:
+            throw new Error(`Unsupported network: ${network}`);
+    }
 };

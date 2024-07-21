@@ -134,7 +134,6 @@ describe("create_event_and_ticket", () => {
 
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
         const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(signer));
-        //const umi = createUmi("https://api.devnet.solana.com").use(mplTokenMetadata()).use(walletAdapterIdentity(signer));
 
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = anchor.web3.Keypair.generate();
