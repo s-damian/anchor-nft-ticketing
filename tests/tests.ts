@@ -175,7 +175,7 @@ describe("create_event_and_ticket", () => {
                 tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
                 systemProgram: anchor.web3.SystemProgram.programId, // Programme système Solana.
                 rent: anchor.web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
-                ticket: ticketAccountForNft.publicKey, // Compte du ticket. //// [pour joindre le NFT au ticket]
+                ticket: ticketAccountForNft.publicKey, // Compte du ticket. // Pour joindre le NFT au ticket.
             })
             .signers([mint]) // Signer la transaction avec la clé du mint.
             .rpc();
@@ -210,7 +210,7 @@ describe("create_event_and_ticket", () => {
             assert.fail("Parsed account data is not in the expected format");
         }
 
-        //// [pour joindre le NFT au ticket]
+        // Pour joindre le NFT au ticket.
         // Vérifier que le champ nft_mint du ticket est mis à jour correctement.
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
         assert.equal(ticketAccountData.nftMint.toBase58(), mint.publicKey.toBase58(), "The nft_mint should match the created mint");

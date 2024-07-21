@@ -140,7 +140,7 @@ pub struct CreateNft<'info> {
     // Sysvar représentant les frais de location (rent) de Solana. Utilisé pour vérifier et payer les frais de location lors de la création de comptes.
     pub rent: Sysvar<'info, Rent>,
 
-    //// [pour joindre le NFT au ticket]
+    // Pour joindre le NFT au ticket.
     // ticket: pour joindre le NFT à un X ticket.
     // (un ticket peut optionnellement avoir un NFT, un NFT doit être joint à un ticket).
     // Compte de ticket. Ce compte doit exister et être mutable.
