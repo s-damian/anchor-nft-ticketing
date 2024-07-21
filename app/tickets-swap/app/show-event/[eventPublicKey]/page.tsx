@@ -18,17 +18,6 @@ const ShowEvent: React.FC = () => {
     const [tickets, setTickets] = useState<any[]>([]);
     const wallet = useAnchorWallet();
 
-    const getEventPublicKeyFilter = (eventPublicKey: string) => {
-        return [
-            {
-                memcmp: {
-                    offset: 8, // taille de l'en-tête de l'account.
-                    bytes: eventPublicKey,
-                },
-            },
-        ];
-    };
-
     useEffect(() => {
         const fetchEventDetails = async () => {
             if (!wallet?.publicKey || !eventPublicKey) {
@@ -42,7 +31,14 @@ const ShowEvent: React.FC = () => {
                 setEventDetails(event);
 
                 // Récupère les tickets associés à l'événement.
-                const accounts = await program.account.ticket.all(getEventPublicKeyFilter(eventPublicKey as string));
+                const accounts = await program.account.ticket.all([
+                    {
+                        memcmp: {
+                            offset: 8, // taille de l'en-tête de l'account.
+                            bytes: eventPublicKey,
+                        },
+                    },
+                ]);
                 setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
             } catch (err) {
                 router.push("/");

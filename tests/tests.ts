@@ -1,5 +1,4 @@
-import * as anchor from "@coral-xyz/anchor";
-import { Program } from "@coral-xyz/anchor";
+import { AnchorProvider, Program, setProvider, web3, workspace } from "@coral-xyz/anchor";
 import { TicketsSwap } from "../target/types/tickets_swap";
 import { assert } from "chai";
 import BN from "bn.js";
@@ -13,20 +12,20 @@ import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-ad
 
 describe("create_event_and_ticket", () => {
     // Configure le client pour utiliser le cluster local.
-    const provider = anchor.AnchorProvider.env();
-    anchor.setProvider(provider);
+    const provider = AnchorProvider.env();
+    setProvider(provider);
 
     // Initialisation du programme Anchor.
-    const program = anchor.workspace.TicketsSwap as Program<TicketsSwap>;
+    const program = workspace.TicketsSwap as Program<TicketsSwap>;
 
     // Générer une nouvelle paire de clés pour le compte de l'événement.
-    const eventAccount = anchor.web3.Keypair.generate();
+    const eventAccount = web3.Keypair.generate();
 
     // 20000000000 Lamports = 20 SOL.
     const ticketPrice = new BN(20000000000);
 
     // Paire de clés pour le compte du ticketAccount qui sera utilisé pour tester le success, et pour tester la création du NFT.
-    const ticketAccountForNft = anchor.web3.Keypair.generate();
+    const ticketAccountForNft = web3.Keypair.generate();
 
     // SUCCESS create_event
     it("Create an event and a ticket", async () => {
@@ -42,7 +41,7 @@ describe("create_event_and_ticket", () => {
             .accounts({
                 event: eventAccount.publicKey, // Compte de l'événement.
                 organizer: provider.wallet.publicKey, // Organisateur de l'événement.
-                systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
+                systemProgram: web3.SystemProgram.programId, // Programme système.
             })
             .signers([eventAccount]) // Signataires de la transaction.
             .rpc();
@@ -66,11 +65,11 @@ describe("create_event_and_ticket", () => {
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
         // Générer une nouvelle paire de clés pour le compte du ticket.
-        const ticketAccount = anchor.web3.Keypair.generate();
+        const ticketAccount = web3.Keypair.generate();
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
 
         // Générer une clé publique non valide pour le propriétaire.
-        const invalidOwner = anchor.web3.Keypair.generate();
+        const invalidOwner = web3.Keypair.generate();
 
         try {
             // Appeler l'instruction buy_ticket du programme Anchor.
@@ -82,7 +81,7 @@ describe("create_event_and_ticket", () => {
                     event: eventAccount.publicKey, // Compte de l'événement.
                     owner: invalidOwner.publicKey, // Propriétaire non valide du ticket.
                     organizer: eventAccountData.organizer, // Organizer de l'événement.
-                    systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
+                    systemProgram: web3.SystemProgram.programId, // Programme système.
                 })
                 .signers([ticketAccount]) // Signataires de la transaction.
                 .rpc();
@@ -100,7 +99,7 @@ describe("create_event_and_ticket", () => {
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
         // Générer une nouvelle paire de clés pour le compte du ticket.
-        //const ticketAccount = anchor.web3.Keypair.generate();
+        //const ticketAccount = web3.Keypair.generate();
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
 
         // Appeler l'instruction buy_ticket du programme Anchor.
@@ -111,7 +110,7 @@ describe("create_event_and_ticket", () => {
                 event: eventAccount.publicKey, // Compte de l'événement.
                 owner: provider.wallet.publicKey, // Propriétaire du ticket.
                 organizer: eventAccountData.organizer, // Organizer de l'événement.
-                systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
+                systemProgram: web3.SystemProgram.programId, // Programme système.
             })
             .signers([ticketAccountForNft]) // Signataires de la transaction.
             .rpc();
@@ -136,7 +135,7 @@ describe("create_event_and_ticket", () => {
         const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(signer));
 
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
-        const mint = anchor.web3.Keypair.generate();
+        const mint = web3.Keypair.generate();
 
         // Dérivez le compte d'adresse de jeton associé à l'atelier monétaire.
         // Calculer l'adresse du compte de token associé pour le mint.
@@ -173,8 +172,8 @@ describe("create_event_and_ticket", () => {
                 tokenProgram: TOKEN_PROGRAM_ID, // Programme de token SPL.
                 associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID, // Programme de token associé SPL.
                 tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
-                systemProgram: anchor.web3.SystemProgram.programId, // Programme système Solana.
-                rent: anchor.web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
+                systemProgram: web3.SystemProgram.programId, // Programme système Solana.
+                rent: web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
                 ticket: ticketAccountForNft.publicKey, // Compte du ticket. // Pour joindre le NFT au ticket.
             })
             .signers([mint]) // Signer la transaction avec la clé du mint.
