@@ -157,8 +157,8 @@ describe("create_event_and_ticket", () => {
 
         // Définir les informations du metadata pour le NFT.
         const metadata = {
-            name: "Stephen",
-            symbol: "STE",
+            name: "AlyraSOL",
+            symbol: "ASOL",
             uri: "https://example.com/my-nft.json",
         };
 
