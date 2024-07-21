@@ -80,7 +80,7 @@ const ShowEvent: React.FC = () => {
                     //event: new PublicKey(eventPublicKey),
                     owner: wallet.publicKey,
                     organizer: eventDetails.organizer,
-                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour CustomError::TicketInvalidOrganizer).
+                    //organizer: new PublicKey("DXGaLHJ2w4Q4Jer5gH6qcscKdjNpP8gPadjdRY7Tm3D2"), // (Mon "Compte 3" Phantom, pour CustomError::CreateTicketInvalidOrganizer).
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([ticketAccount])
