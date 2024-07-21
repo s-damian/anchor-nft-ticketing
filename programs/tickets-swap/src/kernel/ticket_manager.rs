@@ -19,6 +19,8 @@ impl TicketManager {
         ticket.price = event.ticket_price; // Assigner au ticket le prix actuel du billet de l'événement.
         ticket.date_of_purchase = date_of_purchase; // Date de quand le owner a acheté ce ticket.
         ticket.owner = *ctx.accounts.owner.key; // Définit l'acheteur du ticket.
+
+        //// [pour joindre le NFT au ticket]
         ticket.nft_mint = None; // Initialiser avec None pour indiquer qu'il n'y a pas encore de NFT associé (ce n'est visiblement pas obligatoire de mettre cette ligne).
 
         let lamports = ticket.price;

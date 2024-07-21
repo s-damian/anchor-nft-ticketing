@@ -21,7 +21,12 @@ describe("create_event_and_ticket", () => {
 
     // Générer une nouvelle paire de clés pour le compte de l'événement.
     const eventAccount = anchor.web3.Keypair.generate();
-    const ticketPrice = new BN(20000000000); // 20000000000 Lamports = 20 SOL.
+
+    // 20000000000 Lamports = 20 SOL.
+    const ticketPrice = new BN(20000000000);
+
+    // Paire de clés pour le compte du ticketAccount qui sera utilisé pour tester le success, et pour tester la création du NFT.
+    const ticketAccountForNft = anchor.web3.Keypair.generate();
 
     it("Create an event and a ticket", async () => {
         // Détails de l'événement.
@@ -52,39 +57,6 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.location, location);
         assert.equal(eventAccountData.ticketPrice.toString(), ticketPrice.toString());
         assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
-    });
-
-    it("Attempt to buy a ticket with success", async () => {
-        // Récupérer les détails du compte de l'événement.
-        const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
-
-        // Générer une nouvelle paire de clés pour le compte du ticket.
-        const ticketAccount = anchor.web3.Keypair.generate();
-        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
-
-        // Appeler l'instruction buy_ticket du programme Anchor.
-        const txid = await program.methods
-            .buyTicket(dateOfPurchase)
-            .accounts({
-                ticket: ticketAccount.publicKey, // Compte du ticket.
-                event: eventAccount.publicKey, // Compte de l'événement.
-                owner: provider.wallet.publicKey, // Propriétaire du ticket.
-                organizer: eventAccountData.organizer, // Organizer de l'événement.
-                systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
-            })
-            .signers([ticketAccount]) // Signataires de la transaction.
-            .rpc();
-        console.log("buyTicket - tx signature", txid);
-
-        // Récupérer les détails du compte du ticket
-        const ticketAccountData = await program.account.ticket.fetch(ticketAccount.publicKey);
-
-        // Assertions pour vérifier que les détails sont corrects.
-        assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
-        assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
-        assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
-        assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
-        assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
     });
 
     it("Attempt to buy a ticket with an invalid owner", async () => {
@@ -118,6 +90,39 @@ describe("create_event_and_ticket", () => {
         } catch (err) {
             assert.equal("OK", "OK");
         }
+    });
+
+    it("Attempt to buy a ticket with success", async () => {
+        // Récupérer les détails du compte de l'événement.
+        const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
+
+        // Générer une nouvelle paire de clés pour le compte du ticket.
+        //const ticketAccount = anchor.web3.Keypair.generate();
+        const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
+
+        // Appeler l'instruction buy_ticket du programme Anchor.
+        const txid = await program.methods
+            .buyTicket(dateOfPurchase)
+            .accounts({
+                ticket: ticketAccountForNft.publicKey, // Compte du ticket.
+                event: eventAccount.publicKey, // Compte de l'événement.
+                owner: provider.wallet.publicKey, // Propriétaire du ticket.
+                organizer: eventAccountData.organizer, // Organizer de l'événement.
+                systemProgram: anchor.web3.SystemProgram.programId, // Programme système.
+            })
+            .signers([ticketAccountForNft]) // Signataires de la transaction.
+            .rpc();
+        console.log("buyTicket - tx signature", txid);
+
+        // Récupérer les détails du compte du ticket
+        const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
+
+        // Assertions pour vérifier que les détails sont corrects.
+        assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
+        assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
+        assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
+        assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
+        assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
     });
 
     it("Attempt to create a NFT", async () => {
@@ -166,6 +171,7 @@ describe("create_event_and_ticket", () => {
                 tokenMetadataProgram: MPL_TOKEN_METADATA_PROGRAM_ID, // Programme de metadata de token.
                 systemProgram: anchor.web3.SystemProgram.programId, // Programme système Solana.
                 rent: anchor.web3.SYSVAR_RENT_PUBKEY, // Sysvar pour les frais de location.
+                ticket: ticketAccountForNft.publicKey, // Compte du ticket. //// [pour joindre le NFT au ticket]
             })
             .signers([mint]) // Signer la transaction avec la clé du mint.
             .rpc();
