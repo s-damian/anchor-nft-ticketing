@@ -9,6 +9,7 @@ export default function RootLayout({
     return (
         <html lang="fr">
             <body>
+                <title>Tickets Swap</title>
                 <AppWalletProvider>{children}</AppWalletProvider>
             </body>
         </html>

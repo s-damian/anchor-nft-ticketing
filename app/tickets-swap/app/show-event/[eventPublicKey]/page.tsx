@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-//import { useRouter } from "next/router";
 import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3, BN } from "@coral-xyz/anchor";
