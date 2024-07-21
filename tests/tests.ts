@@ -84,7 +84,7 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
         assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
-        ////assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
+        assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
     });
 
     it("Attempt to buy a ticket with an invalid owner", async () => {

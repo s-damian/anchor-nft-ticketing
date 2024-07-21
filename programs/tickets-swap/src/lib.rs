@@ -62,7 +62,7 @@ pub struct CreateEvent<'info> {
 pub struct BuyTicket<'info> {
     // ticket: web3.Keypair.generate()
     // Initialise le compte du ticket, en spécifiant le payeur et l'espace nécessaire.
-    #[account(init, payer = owner, space = 8 + 32 + 32 + 8 + 8)]
+    #[account(init, payer = owner, space = 8 + 32 + 8 + 8 + 32 + 33)]
     pub ticket: Account<'info, Ticket>,
     // event: pour joindre le ticket à un X event.
     pub event: Account<'info, Event>,
@@ -167,7 +167,7 @@ pub struct Ticket {
     pub owner: Pubkey,
     // nft_mint: pour éventuellement joindre un NFT au ticket.
     // (un ticket peut optionnellement avoir un NFT, un NFT doit être joint à un ticket).
-    ////pub nft_mint: Option<Pubkey>,
+    pub nft_mint: Option<Pubkey>,
 }
 
 #[error_code]
