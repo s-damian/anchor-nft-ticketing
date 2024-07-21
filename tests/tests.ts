@@ -28,6 +28,7 @@ describe("create_event_and_ticket", () => {
     // Paire de clés pour le compte du ticketAccount qui sera utilisé pour tester le success, et pour tester la création du NFT.
     const ticketAccountForNft = anchor.web3.Keypair.generate();
 
+    // SUCCESS create_event
     it("Create an event and a ticket", async () => {
         // Détails de l'événement.
         const title = "Test Event";
@@ -59,6 +60,7 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
     });
 
+    // ERROR buy_ticket
     it("Attempt to buy a ticket with an invalid owner", async () => {
         // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
@@ -73,7 +75,7 @@ describe("create_event_and_ticket", () => {
         try {
             // Appeler l'instruction buy_ticket du programme Anchor.
             // Le faire avec un propriétaire non valide.
-            const txid = await program.methods
+            await program.methods
                 .buyTicket(dateOfPurchase)
                 .accounts({
                     ticket: ticketAccount.publicKey, // Compte du ticket.
@@ -92,6 +94,7 @@ describe("create_event_and_ticket", () => {
         }
     });
 
+    // SUCCESS buy_ticket
     it("Attempt to buy a ticket with success", async () => {
         // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
@@ -125,6 +128,7 @@ describe("create_event_and_ticket", () => {
         assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
     });
 
+    // SUCCESS create_nft
     it("Attempt to create a NFT", async () => {
         const signer = provider.wallet;
 
