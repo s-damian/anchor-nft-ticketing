@@ -159,14 +159,14 @@ const ShowEvent: React.FC = () => {
                 .signers([mint]) // Signer la transaction avec la clé du mint.
                 .rpc();
 
-            toast.success("NFT avec succès !");
+            toast.success("NFT généré avec succès !");
             console.log(`solana confirm -v ${txid}`);
 
             // Mettre à jour les tickets après la création du NFT.
             const accounts = await program.account.ticket.all(getEventPublicKeyFilter(eventPublicKey!));
             setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
-            toast.error("Échec de l'achat du NFT.");
+            toast.error("Échec de de la génération du NFT.");
             console.error("Failed to create NFT.", err);
         }
     };

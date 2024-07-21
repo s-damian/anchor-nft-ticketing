@@ -37,7 +37,6 @@ const ListEvents: React.FC = () => {
                                 accountData: fetchedAccountData,
                             };
                         } catch (e) {
-                            console.error("Failed to fetch or decode account data:", e);
                             return null;
                         }
                     }),
