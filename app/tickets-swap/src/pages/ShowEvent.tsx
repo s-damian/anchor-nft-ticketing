@@ -99,7 +99,7 @@ const ShowEvent: React.FC = () => {
     };
 
     const handleSubmitCreateNft = async (ticketPublicKey: PublicKey) => {
-        if (!wallet?.publicKey) {
+        /*if (!wallet?.publicKey) {
             alert("Veuillez connecter votre portefeuille !");
             return;
         }
@@ -164,7 +164,7 @@ const ShowEvent: React.FC = () => {
             setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
         } catch (err) {
             console.error("Failed to create NFT.", err);
-        }
+        }*/
     };
 
     return (
