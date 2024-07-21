@@ -4,7 +4,9 @@
     "lint:fix": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" -w",
     "lint": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" --check",
     "build": "anchor build && ./sh/copy-idl.sh",
-    "deploy": "anchor build && anchor deploy && ./sh/copy-idl.sh"
+    "deploy": "anchor build && anchor deploy && ./sh/copy-idl.sh",
+    "ledger-persist": "./sh/ledger-persist.sh",
+    "ledger-persist-after": "./sh/ledger-persist-after.sh"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.29.0",

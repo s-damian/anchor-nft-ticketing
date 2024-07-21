@@ -53,6 +53,20 @@ Lint and format the code :
 npm run lint:fix
 ```
 
+### Run Localnet Validator :
+
+```
+cd /[your-path]/tickets-swap
+```
+
+```
+npm run ledger-persist
+```
+
+```
+npm run ledger-persist-after
+```
+
 ### Build/Deploy program :
 
 ```
