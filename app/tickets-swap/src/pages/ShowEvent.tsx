@@ -98,8 +98,6 @@ const ShowEvent: React.FC = () => {
         }
     };
 
-
-
     const handleSubmitCreateNft = async (ticketPublicKey: PublicKey) => {
         if (!wallet?.publicKey) {
             alert("Veuillez connecter votre portefeuille !");
@@ -111,8 +109,6 @@ const ShowEvent: React.FC = () => {
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
         const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
         //const umi = createUmi("https://api.devnet.solana.com").use(mplTokenMetadata()).use(walletAdapterIdentity(wallet));
-
-
 
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = web3.Keypair.generate();
@@ -170,8 +166,6 @@ const ShowEvent: React.FC = () => {
             console.error("Failed to create NFT.", err);
         }
     };
-
-
 
     return (
         <>
