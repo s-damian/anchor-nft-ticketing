@@ -222,8 +222,18 @@
   "errors": [
     {
       "code": 6000,
-      "name": "InvalidOrganizer",
+      "name": "CreateTicketInvalidOrganizer",
       "msg": "L'organisateur fourni ne correspond pas à l'organisateur de l'événement."
+    },
+    {
+      "code": 6001,
+      "name": "CreateNftUnauthorizedSigner",
+      "msg": "Le signataire fourni ne correspond pas au propriétaire du ticket."
+    },
+    {
+      "code": 6002,
+      "name": "TicketAlreadyHasNft",
+      "msg": "Le ticket a déjà un NFT."
     }
   ],
   "metadata": {

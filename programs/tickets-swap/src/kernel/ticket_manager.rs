@@ -33,6 +33,7 @@ impl TicketManager {
         msg!("Lamports: {}", lamports);
 
         // Transférer SOL de l'acheteur à l'organisateur.
+        // OPTIMISATION : ajouter un test pour tester le transfert de lamports.
         invoke(
             &system_instruction::transfer(
                 &ctx.accounts.owner.key(),
