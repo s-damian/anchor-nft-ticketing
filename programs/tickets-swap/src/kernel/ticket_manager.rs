@@ -25,13 +25,6 @@ impl TicketManager {
 
         let lamports = ticket.price;
 
-        // Logger les informations avant le transfert.
-        msg!("Buying ticket:");
-        msg!("Owner: {}", ctx.accounts.owner.key());
-        msg!("Event: {}", event.key());
-        msg!("Organizer: {}", event.organizer);
-        msg!("Lamports: {}", lamports);
-
         // Transférer SOL de l'acheteur à l'organisateur.
         // OPTIMISATION : ajouter un test pour tester le transfert de lamports.
         invoke(
@@ -46,8 +39,6 @@ impl TicketManager {
                 ctx.accounts.system_program.to_account_info(),
             ],
         )?;
-
-        msg!("Success.");
 
         Ok(())
     }
