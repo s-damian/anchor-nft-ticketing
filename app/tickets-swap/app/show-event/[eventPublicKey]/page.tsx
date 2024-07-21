@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 //import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3, BN } from "@coral-xyz/anchor";
 import { getAnchorProgram } from "../../../src/utils/anchorUtils";
@@ -16,6 +16,7 @@ import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 
 const ShowEvent: React.FC = () => {
+    const router = useRouter();
     const pathname = usePathname();
     const eventPublicKey = pathname.split("/").pop(); // Récupère la clé publique de l'URL
 
