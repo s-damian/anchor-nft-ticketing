@@ -67,7 +67,7 @@ const ListEvents: React.FC = () => {
                                 <b>Description</b> : {event.accountData.description}
                             </p>
                             <p className="mb-2">
-                                <b>Date</b> : {new Date(event.accountData.date.toNumber() * 1000).toLocaleDateString()}
+                                <b>Date et heure</b> : {new Date(event.accountData.date.toNumber() * 1000).toLocaleString()}
                             </p>
                             <p className="mb-2">
                                 <b>Lieu</b> : {event.accountData.location}

@@ -12,6 +12,7 @@ const CreateEvent: React.FC = () => {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<string>("");
+    const [time, setTime] = useState<string>(""); // État pour l'heure
     const [location, setLocation] = useState<string>("");
     const [ticketPrice, setTicketPrice] = useState<string>("");
 
@@ -42,12 +43,12 @@ const CreateEvent: React.FC = () => {
         const eventAccount = web3.Keypair.generate();
 
         try {
-            const inputDate = new BN(new Date(date).getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
+            const inputDateTime = new BN(new Date(`${date}T${time}`).getTime() / 1000); // Combiner date et heure, puis convertir en secondes et en BN.
             const price = new BN(ticketPrice); // Convertir le prix en BN (BigNumber).
 
             // Envoie la transaction pour créer un événement.
             const txid = await program.methods
-                .createEvent(title, description, inputDate, location, price)
+                .createEvent(title, description, inputDateTime, location, price)
                 .accounts({
                     event: eventAccount.publicKey,
                     organizer: wallet.publicKey,
@@ -105,6 +106,18 @@ const CreateEvent: React.FC = () => {
                                     placeholder="Date"
                                 />
                             </div>
+                        <div>
+                            <input
+                                id="time"
+                                name="time"
+                                type="time"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
+                                placeholder="Heure"
+                            />
+                        </div>
                             <div>
                                 <input
                                     id="location"
