@@ -132,6 +132,11 @@
           "name": "rent",
           "isMut": false,
           "isSigner": false
+        },
+        {
+          "name": "ticket",
+          "isMut": true,
+          "isSigner": false
         }
       ],
       "args": [
@@ -203,6 +208,12 @@
           {
             "name": "owner",
             "type": "publicKey"
+          },
+          {
+            "name": "nftMint",
+            "type": {
+              "option": "publicKey"
+            }
           }
         ]
       }
