@@ -63,7 +63,7 @@ const ShowEvent: React.FC = () => {
         e.preventDefault();
 
         if (!wallet?.publicKey) {
-            alert("Veuillez connecter votre portefeuille !");
+            toast.error("Veuillez connecter votre portefeuille !");
             return;
         }
 
@@ -104,7 +104,7 @@ const ShowEvent: React.FC = () => {
 
     const handleSubmitCreateNft = async (ticketPublicKey: PublicKey) => {
         if (!wallet?.publicKey) {
-            alert("Veuillez connecter votre portefeuille !");
+            toast.error("Veuillez connecter votre portefeuille !");
             return;
         }
 

@@ -3,10 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3 } from "@coral-xyz/anchor";
-import BN from "bn.js";
-import { getAnchorProgram } from "../../src/utils/anchorUtils";
+import { handleCreateEvent } from "../../src/utils/handle/HandleCreateEvent";
 import Layout from "../../src/components/Layout";
-import { toast } from "react-toastify";
 
 const CreateEvent: React.FC = () => {
     // État pour les champs du formulaire.
@@ -29,49 +27,13 @@ const CreateEvent: React.FC = () => {
         }
     }, [ticketPrice]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (!wallet?.publicKey) {
-            alert("Veuillez connecter votre portefeuille !");
-            return;
-        }
-
-        // Récupère le programme Anchor et le Provider.
-        const { program, SystemProgram } = getAnchorProgram(wallet);
-
-        // Génère une nouvelle paire de clés pour le compte événement.
-        const eventAccount = web3.Keypair.generate();
-
-        try {
-            const inputDateTime = new BN(new Date(`${date}T${time}`).getTime() / 1000); // Combiner date et heure, puis convertir en secondes et en BN.
-            const price = new BN(ticketPrice); // Convertir le prix en BN (BigNumber).
-
-            // Envoie la transaction pour créer un événement.
-            const txid = await program.methods
-                .createEvent(title, description, inputDateTime, location, price)
-                .accounts({
-                    event: eventAccount.publicKey,
-                    organizer: wallet.publicKey,
-                    systemProgram: SystemProgram.programId,
-                })
-                .signers([eventAccount])
-                .rpc();
-
-            toast.success("Événement créé avec succès !");
-            console.log(`solana confirm -v ${txid}`);
-        } catch (err) {
-            toast.error("Échec de la création de l'événement.");
-            console.error("Failed to create event.", err);
-        }
-    };
-
     return (
         <Layout>
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                     <h2 className="text-center text-3xl font-extrabold text-gray-900">Créer un Événement</h2>
-                    <form className="space-y-6" onSubmit={handleSubmit}>
+
+                    <form className="space-y-6" onSubmit={(e) => handleCreateEvent(e, title, description, date, time, location, ticketPrice, wallet)}>
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <input
