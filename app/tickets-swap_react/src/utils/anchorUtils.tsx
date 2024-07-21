@@ -6,7 +6,7 @@ import idl from "../idl/tickets_swap.json";
 
 const { SystemProgram } = web3;
 
-export const getNetworkUrl = (network: string): string => {
+const getNetworkUrl = (network: string): string => {
     switch (network) {
         case "localnet":
             return "http://127.0.0.1:8899";
@@ -27,15 +27,16 @@ export const getNetworkUrl = (network: string): string => {
 };
 
 // Assurez-vous que les variables d'environnement sont définies.
-if (!process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK || !process.env.NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT) {
-    throw new Error("NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK and NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT must be defined");
+if (!process.env.REACT_APP_SOLANA_NETWORK || !process.env.REACT_APP_SOLANA_COMMITMENT) {
+    throw new Error("REACT_APP_SOLANA_NETWORK and REACT_APP_SOLANA_COMMITMENT must be defined");
 }
 
-const network = process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK!;
+const network = process.env.REACT_APP_SOLANA_NETWORK!; // URL du validateur local.
+
 const networkUrl = getNetworkUrl(network); // URL du validateur.
 
 const opts = {
-    preflightCommitment: process.env.NEXT_PUBLIC_REACT_APP_SOLANA_COMMITMENT as Commitment,
+    preflightCommitment: process.env.REACT_APP_SOLANA_COMMITMENT as Commitment,
 };
 
 export const getAnchorProgram = (wallet: Wallet) => {

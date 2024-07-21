@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 const NavBar: React.FC = () => {
@@ -7,37 +9,22 @@ const NavBar: React.FC = () => {
         <nav className="bg-blue-600 p-4">
             <ul className="flex justify-around items-center list-none p-0 m-0">
                 <li>
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) =>
-                            `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
-                        }
-                    >
+                    <Link href="/" className="text-white no-underline p-2 hover:border-b-2 hover:border-gray-300">
                         Accueil
-                    </NavLink>
+                    </Link>
                 </li>
                 <li>
-                    <NavLink
-                        to="/create-event"
-                        className={({ isActive }) =>
-                            `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
-                        }
-                    >
+                    <Link href="/create-event" className="text-white no-underline p-2 hover:border-b-2 hover:border-gray-300">
                         Créer un Événement
-                    </NavLink>
+                    </Link>
                 </li>
                 <li>
-                    <NavLink
-                        to="/list-events"
-                        className={({ isActive }) =>
-                            `text-white no-underline p-2 ${isActive ? "border-b-2 border-white" : "hover:border-b-2 hover:border-gray-300"}`
-                        }
-                    >
+                    <Link href="/list-events" className="text-white no-underline p-2 hover:border-b-2 hover:border-gray-300">
                         Liste des Événements
-                    </NavLink>
+                    </Link>
                 </li>
                 <li className="ml-auto">
-                    <WalletMultiButton className="btn btn-primary" />
+                    <WalletMultiButton style={{}} />
                 </li>
             </ul>
         </nav>
@@ -45,3 +32,5 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
+
+// <WalletMultiButton className="btn btn-primary" />
