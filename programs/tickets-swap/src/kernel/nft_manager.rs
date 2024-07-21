@@ -22,13 +22,13 @@ impl NftManager {
         let ticket = &mut ctx.accounts.ticket;
 
         // Sécurité : vérifier que le signataire est le propriétaire du ticket.
-        // TODO : ajouter un test pour tester cette erreur.
+        // OPTIMISATION : ajouter un test pour tester cette erreur.
         if ctx.accounts.signer.key() != ticket.owner {
             return Err(CustomError::CreateNftUnauthorizedSigner.into());
         }
 
         // Sécurité : vérifier si le ticket est déjà joint à un NFT.
-        // TODO : ajouter un test pour tester cette erreur.
+        // OPTIMISATION : ajouter un test pour tester cette erreur.
         if ticket.nft_mint.is_some() {
             return Err(CustomError::TicketAlreadyHasNft.into());
         }
