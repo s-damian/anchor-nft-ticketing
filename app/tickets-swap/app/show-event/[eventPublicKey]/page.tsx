@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../../../src/utils/anchorUtils";
+import { handleCopyToClipboard } from "../../../src/utils/various";
 import { handleBuyTicket } from "../../../src/utils/handlers/HandleBuyTicket";
 import { handleCreateNft } from "../../../src/utils/handlers/HandleCreateNft";
 import { PublicKey } from "@solana/web3.js";
@@ -71,13 +72,21 @@ const ShowEvent: React.FC = () => {
                             </p>
                             <p className="text-center text-gray-700 mb-2">
                                 <b>PublicKey de l'organisateur</b> :
-                                <span className="block truncate bg-gray-200 p-1 rounded" title={eventDetails.organizer.toBase58()}>
+                                <span
+                                    className="block truncate bg-gray-200 p-1 rounded cursor-pointer"
+                                    title={eventDetails.organizer.toBase58()}
+                                    onClick={() => handleCopyToClipboard(eventDetails.organizer.toBase58())}
+                                >
                                     {eventDetails.organizer.toBase58()}
                                 </span>
                             </p>
                             <p className="text-center text-gray-700">
                                 <b>PublicKey de l'événement</b> :
-                                <span className="block truncate bg-gray-200 p-1 rounded" title={eventPublicKey as string}>
+                                <span
+                                    className="block truncate bg-gray-200 p-1 rounded cursor-pointer"
+                                    title={eventPublicKey as string}
+                                    onClick={() => handleCopyToClipboard(eventPublicKey as string)}
+                                >
                                     {eventPublicKey}
                                 </span>
                             </p>
@@ -109,20 +118,32 @@ const ShowEvent: React.FC = () => {
                                 </p>
                                 <p className="mb-2">
                                     <b>PublicKey de l'acheteur</b> :{" "}
-                                    <span className="truncate bg-gray-200 p-1 rounded" title={ticket.account.owner.toBase58()}>
+                                    <span
+                                        className="truncate bg-gray-200 p-1 rounded cursor-pointer"
+                                        title={ticket.account.owner.toBase58()}
+                                        onClick={() => handleCopyToClipboard(ticket.account.owner.toBase58())}
+                                    >
                                         {ticket.account.owner.toBase58()}
                                     </span>
                                 </p>
                                 <p className="mb-2">
                                     <b>PublicKey du ticket</b> :{" "}
-                                    <span className="truncate bg-gray-200 p-1 rounded" title={ticket.publicKey.toBase58()}>
+                                    <span
+                                        className="truncate bg-gray-200 p-1 rounded cursor-pointer"
+                                        title={ticket.publicKey.toBase58()}
+                                        onClick={() => handleCopyToClipboard(ticket.publicKey.toBase58())}
+                                    >
                                         {ticket.publicKey.toBase58()}
                                     </span>
                                 </p>
                                 {ticket.account.nftMint ? (
                                     <p>
                                         <b>PublicKey NFT Mint</b> :{" "}
-                                        <span className="truncate bg-yellow-200 p-1 rounded" title={ticket.account.nftMint.toBase58()}>
+                                        <span
+                                            className="truncate bg-yellow-200 p-1 rounded cursor-pointer"
+                                            title={ticket.account.nftMint.toBase58()}
+                                            onClick={() => handleCopyToClipboard(ticket.account.nftMint.toBase58())}
+                                        >
                                             {ticket.account.nftMint.toBase58()}
                                         </span>
                                     </p>

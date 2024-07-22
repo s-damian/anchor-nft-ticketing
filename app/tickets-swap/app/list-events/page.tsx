@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../../src/utils/anchorUtils";
+import { handleCopyToClipboard } from "../../src/utils/various";
 import { PublicKey } from "@solana/web3.js";
 import idl from "../../src/idl/tickets_swap.json";
 import Layout from "../../src/components/Layout";
@@ -76,13 +77,21 @@ const ListEvents: React.FC = () => {
                             </p>
                             <p className="mb-2">
                                 <b>PublicKey de l'organisateur</b> :{" "}
-                                <span className="truncate bg-gray-200 p-1 rounded" title={event.accountData.organizer.toBase58()}>
+                                <span
+                                    className="truncate bg-gray-200 p-1 rounded cursor-pointer"
+                                    title={event.accountData.organizer.toBase58()}
+                                    onClick={() => handleCopyToClipboard(event.accountData.organizer.toBase58())}
+                                >
                                     {event.accountData.organizer.toBase58()}
                                 </span>
                             </p>
                             <p className="mb-2">
                                 <b>PublicKey de l'événement</b> :{" "}
-                                <span className="truncate bg-gray-200 p-1 rounded" title={event.publicKey.toBase58()}>
+                                <span
+                                    className="truncate bg-gray-200 p-1 rounded cursor-pointer"
+                                    title={event.publicKey.toBase58()}
+                                    onClick={() => handleCopyToClipboard(event.publicKey.toBase58())}
+                                >
                                     {event.publicKey.toBase58()}
                                 </span>
                             </p>
