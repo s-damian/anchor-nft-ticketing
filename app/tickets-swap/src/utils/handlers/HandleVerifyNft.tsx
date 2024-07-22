@@ -50,14 +50,13 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
     }
 };
 
-// Fonction pour obtenir la clé publique du propriétaire
+// Fonction pour obtenir la clé publique du propriétaire.
 const getOwnerPublicKey = (accountInfo: any): PublicKey | null => {
     if (accountInfo.data instanceof Buffer) {
         const tokenAccount = AccountLayout.decode(accountInfo.data);
         return new PublicKey(tokenAccount.owner);
     } else if ("parsed" in accountInfo.data) {
         const parsedInfo = accountInfo.data.parsed.info;
-
         if (parsedInfo && parsedInfo.owner) {
             return new PublicKey(parsedInfo.owner);
         } else {
