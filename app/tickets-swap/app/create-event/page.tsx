@@ -27,12 +27,25 @@ const CreateEvent: React.FC = () => {
         }
     }, [ticketPrice]);
 
+    const resetForm = () => {
+        setTitle("");
+        setDescription("");
+        setDate("");
+        setTime("");
+        setLocation("");
+        setTicketPrice("");
+        setTicketPriceInSOL("");
+    };
+
     return (
         <Layout>
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                     <h2 className="text-center text-3xl font-extrabold text-gray-900">Créer un Événement</h2>
-                    <form className="space-y-6" onSubmit={(e) => handleCreateEvent(e, title, description, date, time, location, ticketPrice, wallet)}>
+                    <form
+                        className="space-y-6"
+                        onSubmit={(e) => handleCreateEvent(e, title, description, date, time, location, ticketPrice, wallet, resetForm)}
+                    >
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <input
@@ -105,9 +118,7 @@ const CreateEvent: React.FC = () => {
                                     placeholder="Prix du Ticket (Lamports)"
                                 />
                             </div>
-                            {ticketPrice && (
-                                <span className="text-gray-600">({ticketPriceInSOL} SOL)</span>
-                            )}
+                            {ticketPrice && <span className="text-gray-600">({ticketPriceInSOL} SOL)</span>}
                         </div>
                         <div>
                             <button

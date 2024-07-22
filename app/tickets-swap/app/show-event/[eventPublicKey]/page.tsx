@@ -133,7 +133,6 @@ const ShowEvent: React.FC = () => {
                                     <b>PublicKey de l'acheteur</b> :{" "}
                                     <span
                                         className="truncate bg-gray-200 p-1 rounded cursor-pointer"
-                                        title={ticket.account.owner.toBase58()}
                                         onClick={() => handleCopyToClipboard(ticket.account.owner.toBase58())}
                                     >
                                         {ticket.account.owner.toBase58()}
@@ -143,7 +142,6 @@ const ShowEvent: React.FC = () => {
                                     <b>PublicKey du ticket</b> :{" "}
                                     <span
                                         className="truncate bg-gray-200 p-1 rounded cursor-pointer"
-                                        title={ticket.publicKey.toBase58()}
                                         onClick={() => handleCopyToClipboard(ticket.publicKey.toBase58())}
                                     >
                                         {ticket.publicKey.toBase58()}
@@ -157,7 +155,6 @@ const ShowEvent: React.FC = () => {
                                         <p className="mt-2 mb-3">
                                             <span
                                                 className="truncate bg-yellow-200 p-1 rounded cursor-pointer"
-                                                title={ticket.account.nftMint.toBase58()}
                                                 onClick={() => handleCopyToClipboard(ticket.account.nftMint.toBase58())}
                                             >
                                                 {ticket.account.nftMint.toBase58()}
@@ -178,7 +175,7 @@ const ShowEvent: React.FC = () => {
                                     ticket.account.owner.equals(wallet?.publicKey) && (
                                         <button
                                             onClick={() => handleCreateNft(ticket.publicKey, wallet, eventPublicKey!, setTickets)}
-                                            className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
+                                            className="group relative inline-flex justify-center mt-1 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
                                         >
                                             Générer mon NFT
                                         </button>

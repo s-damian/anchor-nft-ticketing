@@ -13,6 +13,7 @@ export const handleCreateEvent = async (
     location: string,
     ticketPrice: string,
     wallet: ReturnType<typeof useAnchorWallet>,
+    resetForm: () => void, // Ajoutez ce callback
 ) => {
     e.preventDefault();
 
@@ -44,6 +45,8 @@ export const handleCreateEvent = async (
 
         toast.success("Événement créé avec succès !");
         console.log(`solana confirm -v ${txid}`);
+
+        resetForm(); // Reset le formulaire.
     } catch (err) {
         toast.error("Échec de la création de l'événement.");
         console.error("Failed to create event.", err);

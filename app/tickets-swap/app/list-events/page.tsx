@@ -79,7 +79,6 @@ const ListEvents: React.FC = () => {
                                 <b>PublicKey de l'organisateur</b> :{" "}
                                 <span
                                     className="truncate bg-gray-200 p-1 rounded cursor-pointer"
-                                    title={event.accountData.organizer.toBase58()}
                                     onClick={() => handleCopyToClipboard(event.accountData.organizer.toBase58())}
                                 >
                                     {event.accountData.organizer.toBase58()}
@@ -89,7 +88,6 @@ const ListEvents: React.FC = () => {
                                 <b>PublicKey de l'événement</b> :{" "}
                                 <span
                                     className="truncate bg-gray-200 p-1 rounded cursor-pointer"
-                                    title={event.publicKey.toBase58()}
                                     onClick={() => handleCopyToClipboard(event.publicKey.toBase58())}
                                 >
                                     {event.publicKey.toBase58()}
