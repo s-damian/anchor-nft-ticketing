@@ -4,9 +4,6 @@ import { getAnchorProgram } from "../anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { AccountLayout, getAssociatedTokenAddress } from "@solana/spl-token";
 
-// Remplacez par votre URL de connexion
-const connection = new Connection("http://127.0.0.1:8899");
-
 export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: string, eventPublicKey: string, wallet: ReturnType<typeof useAnchorWallet>) => {
     e.preventDefault();
 
@@ -16,7 +13,7 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
     }
 
     try {
-        const { program } = getAnchorProgram(wallet);
+        const { connection, program } = getAnchorProgram(wallet);
 
         // Vérifier que l'événement existe.
         const eventAccount = await program.account.event.fetch(new PublicKey(eventPublicKey));
