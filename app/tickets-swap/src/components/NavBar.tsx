@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
                 </li>
                 <li>
                     <Link href="/verify-nft" className="text-white no-underline p-2 hover:border-b-2 hover:border-gray-300">
-                        Vérifier NFT
+                        Vérifier un NFT
                     </Link>
                 </li>
                 <li className="ml-auto">

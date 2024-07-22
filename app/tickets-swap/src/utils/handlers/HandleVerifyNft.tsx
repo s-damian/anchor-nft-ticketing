@@ -48,14 +48,11 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
                 },
             },
         ]);
-
-        //const ticket = tickets.find((t) => t.account.nftMint && t.account.nftMint.equals(new PublicKey(nftPublicKey)));
         // Trouver le ticket avec le mint NFT correspondant.
         const ticket = tickets.find((t) => {
             const nftMint = t.account.nftMint as PublicKey | undefined;
             return nftMint && nftMint.equals(new PublicKey(nftPublicKey));
         });
-
         if (!ticket) {
             toast.error("Aucun ticket associé à cet événement pour ce NFT.");
             return;
@@ -69,12 +66,9 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
 };
 
 // Fonction pour obtenir la clé publique du propriétaire.
-const getOwnerPublicKey = (accountInfo: any): PublicKey | null => {
-    if (accountInfo.data instanceof Buffer) {
-        const tokenAccount = AccountLayout.decode(accountInfo.data);
-        return new PublicKey(tokenAccount.owner);
-    } else if ("parsed" in accountInfo.data) {
-        const parsedInfo = accountInfo.data.parsed.info;
+const getOwnerPublicKey = (accountInfoValue: any): PublicKey | null => {
+    if ("parsed" in accountInfoValue.data) {
+        const parsedInfo = accountInfoValue.data.parsed.info;
         if (parsedInfo && parsedInfo.owner) {
             return new PublicKey(parsedInfo.owner);
         } else {
@@ -83,3 +77,4 @@ const getOwnerPublicKey = (accountInfo: any): PublicKey | null => {
     }
     return null;
 };
+
