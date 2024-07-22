@@ -150,11 +150,11 @@ const ShowEvent: React.FC = () => {
                                     </span>
                                 </p>
                                 {ticket.account.nftMint ? (
-                                    <div className="border border-grey-700 p-2 rounded-md text-center">
-                                        <p className="mb-3">
+                                    <div className="border border-grey-600 p-2 rounded-md text-center">
+                                        <p>
                                             <b>PublicKey NFT Mint</b> :
                                         </p>
-                                        <p>
+                                        <p className="mt-2 mb-3">
                                             <span
                                                 className="truncate bg-yellow-200 p-1 rounded cursor-pointer"
                                                 title={ticket.account.nftMint.toBase58()}
@@ -163,7 +163,6 @@ const ShowEvent: React.FC = () => {
                                                 {ticket.account.nftMint.toBase58()}
                                             </span>
                                         </p>
-
                                         <div
                                             ref={(el) => {
                                                 qrCodeRefs.current[ticket.account.nftMint.toBase58()] = el;
