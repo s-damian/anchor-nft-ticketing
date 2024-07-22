@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import Layout from "../../src/components/Layout";
-import { handleVerifyNft } from "../../src/utils/handlers/HandleVerifyNft";
+import { handleVerifyNft } from "../../src/handlers/HandleVerifyNft";
 
 const VerifyNft: React.FC = () => {
     const [eventPublicKey, setEventPublicKey] = useState<string>("");
