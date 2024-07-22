@@ -24,11 +24,9 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
 
         // Obtenir l'adresse du compte de token associé pour le mint du NFT.
         const associatedTokenAccount = await getAssociatedTokenAddress(new PublicKey(nftPublicKey), wallet.publicKey);
-        console.log("associatedTokenAccount", associatedTokenAccount.toBase58());
 
         // Vérifier que le compte de token associé existe, et récupérer les informations du compte.
         const tokenAccountInfo = await connection.getParsedAccountInfo(associatedTokenAccount);
-        console.log("tokenAccountInfo", tokenAccountInfo);
         if (!tokenAccountInfo.value) {
             toast.error("Compte de token associé au NFT introuvable.");
             return;
@@ -50,7 +48,14 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
                 },
             },
         ]);
-        const ticket = tickets.find((t) => t.account.nftMint && t.account.nftMint.equals(new PublicKey(nftPublicKey)));
+
+        //const ticket = tickets.find((t) => t.account.nftMint && t.account.nftMint.equals(new PublicKey(nftPublicKey)));
+        // Trouver le ticket avec le mint NFT correspondant.
+        const ticket = tickets.find((t) => {
+            const nftMint = t.account.nftMint as PublicKey | undefined;
+            return nftMint && nftMint.equals(new PublicKey(nftPublicKey));
+        });
+
         if (!ticket) {
             toast.error("Aucun ticket associé à cet événement pour ce NFT.");
             return;
