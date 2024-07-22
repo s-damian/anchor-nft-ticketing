@@ -225,13 +225,13 @@ describe("create_event_and_ticket", () => {
         const eventPublicKey = eventAccount.publicKey;
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
 
-        // Ensure the ticket belongs to the event
+        // S'assurer que le ticket appartient à l'événement.
         assert.equal(ticketAccountData.event.toBase58(), eventPublicKey.toBase58(), "The ticket should be associated with the correct event");
 
-        // Ensure the NFT mint field is populated
+        // S'assurer que le champ nftMint est renseigné.
         assert.isNotNull(ticketAccountData.nftMint, "The ticket should have an associated NFT mint");
 
-        // Verify the NFT mint is correct
+        // Vérifier que le mint du NFT est correct.
         const nftPublicKey = ticketAccountData.nftMint.toBase58(); // Define nftPublicKey for use in the verification step
 
         // Vérifier que le ticket est associé à l'événement fourni.
