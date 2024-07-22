@@ -36,11 +36,27 @@ export const handleSubmitVerifyNft = async (e: React.FormEvent, nftPublicKey: st
 
         // Vérifier que le propriétaire du compte de token associé est bien le détenteur du portefeuille connecté.
         const ownerPublicKey = getOwnerPublicKey(tokenAccountInfo.value);
-        if (ownerPublicKey && ownerPublicKey.equals(wallet.publicKey)) {
-            toast.success("NFT vérifié avec succès !");
-        } else {
+        if (!ownerPublicKey || !ownerPublicKey.equals(wallet.publicKey)) {
             toast.error("Le portefeuille connecté n'est pas le propriétaire du NFT.");
+            return;
         }
+
+        // Vérifier que le ticket est associé à l'événement fourni.
+        const tickets = await program.account.ticket.all([
+            {
+                memcmp: {
+                    offset: 8, // taille de l'en-tête de l'account.
+                    bytes: eventPublicKey,
+                },
+            },
+        ]);
+        const ticket = tickets.find((t) => t.account.nftMint && t.account.nftMint.equals(new PublicKey(nftPublicKey)));
+        if (!ticket) {
+            toast.error("Aucun ticket associé à cet événement pour ce NFT.");
+            return;
+        }
+
+        toast.success("NFT vérifié avec succès !");
     } catch (err) {
         toast.error("Échec de la vérification du NFT.");
         console.error("Failed to verify NFT.", err);
