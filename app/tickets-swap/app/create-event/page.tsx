@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { web3 } from "@coral-xyz/anchor";
-import { handleSubmitCreateEvent } from "../../src/utils/handlers/HandleCreateEvent";
+import { handleCreateEvent } from "../../src/utils/handlers/HandleCreateEvent";
 import Layout from "../../src/components/Layout";
 
 const CreateEvent: React.FC = () => {
@@ -32,7 +32,7 @@ const CreateEvent: React.FC = () => {
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                     <h2 className="text-center text-3xl font-extrabold text-gray-900">Créer un Événement</h2>
-                    <form className="space-y-6" onSubmit={(e) => handleSubmitCreateEvent(e, title, description, date, time, location, ticketPrice, wallet)}>
+                    <form className="space-y-6" onSubmit={(e) => handleCreateEvent(e, title, description, date, time, location, ticketPrice, wallet)}>
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <input

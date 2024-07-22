@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../../../src/utils/anchorUtils";
-import { handleSubmitBuyTicket } from "../../../src/utils/handlers/HandleBuyTicket";
-import { handleSubmitCreateNft } from "../../../src/utils/handlers/HandleCreateNft";
+import { handleBuyTicket } from "../../../src/utils/handlers/HandleBuyTicket";
+import { handleCreateNft } from "../../../src/utils/handlers/HandleCreateNft";
 import { PublicKey } from "@solana/web3.js";
 import Layout from "../../../src/components/Layout";
 
@@ -83,7 +83,7 @@ const ShowEvent: React.FC = () => {
                             </p>
                         </div>
                     )}
-                    <form className="space-y-6" onSubmit={(e) => handleSubmitBuyTicket(e, eventPublicKey!, eventDetails, wallet, setTickets)}>
+                    <form className="space-y-6" onSubmit={(e) => handleBuyTicket(e, eventPublicKey!, eventDetails, wallet, setTickets)}>
                         <div>
                             <button
                                 type="submit"
@@ -129,7 +129,7 @@ const ShowEvent: React.FC = () => {
                                 ) : (
                                     ticket.account.owner.equals(wallet?.publicKey) && (
                                         <button
-                                            onClick={() => handleSubmitCreateNft(ticket.publicKey, wallet, eventPublicKey!, setTickets)}
+                                            onClick={() => handleCreateNft(ticket.publicKey, wallet, eventPublicKey!, setTickets)}
                                             className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
                                         >
                                             Générer mon NFT

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import Layout from "../../src/components/Layout";
-import { handleSubmitVerifyNft } from "../../src/utils/handlers/HandleVerifyNft";
+import { handleVerifyNft } from "../../src/utils/handlers/HandleVerifyNft";
 
 const VerifyNft: React.FC = () => {
     const [eventPublicKey, setEventPublicKey] = useState<string>("");
@@ -15,7 +15,7 @@ const VerifyNft: React.FC = () => {
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                     <h2 className="text-center text-3xl font-extrabold text-gray-900">Vérifier un NFT</h2>
-                    <form className="space-y-6" onSubmit={(e) => handleSubmitVerifyNft(e, nftPublicKey, eventPublicKey, wallet)}>
+                    <form className="space-y-6" onSubmit={(e) => handleVerifyNft(e, nftPublicKey, eventPublicKey, wallet)}>
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <input

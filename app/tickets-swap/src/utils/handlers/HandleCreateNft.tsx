@@ -10,7 +10,7 @@ import { publicKey } from "@metaplex-foundation/umi";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 
-export const handleSubmitCreateNft = async (
+export const handleCreateNft = async (
     ticketPublicKey: PublicKey,
     wallet: ReturnType<typeof useAnchorWallet>,
     eventPublicKey: string,

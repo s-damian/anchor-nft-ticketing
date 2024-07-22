@@ -4,7 +4,7 @@ import { getAnchorProgram } from "../anchorUtils";
 import BN from "bn.js";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
-export const handleSubmitCreateEvent = async (
+export const handleCreateEvent = async (
     e: React.FormEvent,
     title: string,
     description: string,

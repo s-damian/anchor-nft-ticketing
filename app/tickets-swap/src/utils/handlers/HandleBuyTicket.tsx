@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { getAnchorProgram } from "../../utils/anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
-export const handleSubmitBuyTicket = async (
+export const handleBuyTicket = async (
     e: React.FormEvent,
     eventPublicKey: string,
     eventDetails: any,
