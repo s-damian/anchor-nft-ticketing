@@ -32,7 +32,6 @@ const CreateEvent: React.FC = () => {
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
                     <h2 className="text-center text-3xl font-extrabold text-gray-900">Créer un Événement</h2>
-
                     <form className="space-y-6" onSubmit={(e) => handleSubmitCreateEvent(e, title, description, date, time, location, ticketPrice, wallet)}>
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>

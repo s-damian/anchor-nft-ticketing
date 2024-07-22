@@ -23,6 +23,11 @@ const NavBar: React.FC = () => {
                         Liste des Événements
                     </Link>
                 </li>
+                <li>
+                    <Link href="/verify-nft" className="text-white no-underline p-2 hover:border-b-2 hover:border-gray-300">
+                        Vérifier NFT
+                    </Link>
+                </li>
                 <li className="ml-auto">
                     <WalletMultiButton style={{}} />
                 </li>

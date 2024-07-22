@@ -121,7 +121,7 @@ const ShowEvent: React.FC = () => {
                                 </p>
                                 {ticket.account.nftMint ? (
                                     <p>
-                                        <b>NFT Mint</b> :{" "}
+                                        <b>PublicKey NFT Mint</b> :{" "}
                                         <span className="truncate bg-yellow-200 p-1 rounded" title={ticket.account.nftMint.toBase58()}>
                                             {ticket.account.nftMint.toBase58()}
                                         </span>
