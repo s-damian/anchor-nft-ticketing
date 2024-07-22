@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../../../src/utils/anchorUtils";
@@ -9,6 +9,7 @@ import { handleBuyTicket } from "../../../src/utils/handlers/HandleBuyTicket";
 import { handleCreateNft } from "../../../src/utils/handlers/HandleCreateNft";
 import { PublicKey } from "@solana/web3.js";
 import Layout from "../../../src/components/Layout";
+import QRCode from "qrcode.react";
 
 const ShowEvent: React.FC = () => {
     const router = useRouter();
@@ -18,6 +19,8 @@ const ShowEvent: React.FC = () => {
     const [eventDetails, setEventDetails] = useState<any>(null);
     const [tickets, setTickets] = useState<any[]>([]);
     const wallet = useAnchorWallet();
+
+    const qrCodeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -48,6 +51,16 @@ const ShowEvent: React.FC = () => {
 
         fetchEventDetails();
     }, [wallet, eventPublicKey]);
+
+    const handleDownloadQrCode = (nftMint: string) => {
+        const qrCodeCanvas = qrCodeRef.current?.querySelector(`canvas[data-nft-mint="${nftMint}"]`);
+        if (qrCodeCanvas) {
+            const link = document.createElement("a");
+            link.href = qrCodeCanvas.toDataURL("image/png");
+            link.download = `qrcode-${nftMint}.png`;
+            link.click();
+        }
+    };
 
     return (
         <Layout>
@@ -137,16 +150,27 @@ const ShowEvent: React.FC = () => {
                                     </span>
                                 </p>
                                 {ticket.account.nftMint ? (
-                                    <p>
-                                        <b>PublicKey NFT Mint</b> :{" "}
-                                        <span
-                                            className="truncate bg-yellow-200 p-1 rounded cursor-pointer"
-                                            title={ticket.account.nftMint.toBase58()}
-                                            onClick={() => handleCopyToClipboard(ticket.account.nftMint.toBase58())}
+                                    <>
+                                        <p>
+                                            <b>PublicKey NFT Mint</b> :{" "}
+                                            <span
+                                                className="truncate bg-yellow-200 p-1 rounded cursor-pointer"
+                                                title={ticket.account.nftMint.toBase58()}
+                                                onClick={() => handleCopyToClipboard(ticket.account.nftMint.toBase58())}
+                                            >
+                                                {ticket.account.nftMint.toBase58()}
+                                            </span>
+                                        </p>
+                                        <div ref={qrCodeRef}>
+                                            <QRCode value={ticket.account.nftMint.toBase58()} size={128} data-nft-mint={ticket.account.nftMint.toBase58()} />
+                                        </div>
+                                        <button
+                                            onClick={() => handleDownloadQrCode(ticket.account.nftMint.toBase58())}
+                                            className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
                                         >
-                                            {ticket.account.nftMint.toBase58()}
-                                        </span>
-                                    </p>
+                                            Télécharger mon QR code
+                                        </button>
+                                    </>
                                 ) : (
                                     ticket.account.owner.equals(wallet?.publicKey) && (
                                         <button
