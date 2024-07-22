@@ -219,7 +219,7 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.nftMint.toBase58(), mint.publicKey.toBase58(), "The nft_mint should match the created mint");
     });
 
-    // SUCCESS verify NFT.
+    // SUCCESS verify NFT (tester juste de la même manière dont le Front-End se comporte).
     it("Verify NFT is associated with the correct ticket and event", async () => {
         // Assume we have already created an event and a ticket, and minted an NFT in previous tests
         const eventPublicKey = eventAccount.publicKey;

@@ -105,7 +105,9 @@ const CreateEvent: React.FC = () => {
                                     placeholder="Prix du Ticket (Lamports)"
                                 />
                             </div>
-                            <span className="ml-4 text-gray-500">({ticketPriceInSOL} SOL)</span>
+                            {ticketPrice && (
+                                <span className="text-gray-600">({ticketPriceInSOL} SOL)</span>
+                            )}
                         </div>
                         <div>
                             <button
