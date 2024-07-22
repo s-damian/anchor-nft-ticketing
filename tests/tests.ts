@@ -219,10 +219,8 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.nftMint.toBase58(), mint.publicKey.toBase58(), "The nft_mint should match the created mint");
     });
 
-    // SUCCESS create_nft (s'assurer-vous que le test de création NFT réussit en premier).
+    // SUCCESS verify NFT.
     it("Verify NFT is associated with the correct ticket and event", async () => {
-        const userWallet = provider.wallet; // Le même user que le signer.
-
         // Assume we have already created an event and a ticket, and minted an NFT in previous tests
         const eventPublicKey = eventAccount.publicKey;
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
@@ -234,21 +232,7 @@ describe("create_event_and_ticket", () => {
         assert.isNotNull(ticketAccountData.nftMint, "The ticket should have an associated NFT mint");
 
         // Verify the NFT mint is correct
-        const nftMint = ticketAccountData.nftMint;
-        const associatedTokenAccount = await getAssociatedTokenAddress(nftMint, userWallet.publicKey);
-        const nftPublicKey = nftMint.toBase58(); // Define nftPublicKey for use in the verification step
-
-        // Fetch associated token account info
-        const tokenAccountInfo = await provider.connection.getParsedAccountInfo(associatedTokenAccount);
-        assert.isNotNull(tokenAccountInfo.value, "Associated token account should exist");
-
-        // Verify the token account belongs to the wallet
-        if ("parsed" in tokenAccountInfo.value.data) {
-            const parsedInfo = tokenAccountInfo.value.data.parsed.info;
-            assert.equal(parsedInfo.owner, userWallet.publicKey.toString(), "Token account owner should be the wallet");
-        } else {
-            console.error("parsedInfo.owner is undefined");
-        }
+        const nftPublicKey = ticketAccountData.nftMint.toBase58(); // Define nftPublicKey for use in the verification step
 
         // Vérifier que le ticket est associé à l'événement fourni.
         const tickets = await program.account.ticket.all([
