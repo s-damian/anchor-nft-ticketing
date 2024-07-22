@@ -60,7 +60,7 @@ cd /[your-path]/tickets-swap
 ```
 
 ```
-npm run test-ledger-st
+npm run test-ledger
 ```
 
 ### Build/Deploy program :

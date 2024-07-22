@@ -20,7 +20,7 @@ const ShowEvent: React.FC = () => {
     const [tickets, setTickets] = useState<any[]>([]);
     const wallet = useAnchorWallet();
 
-    const qrCodeRef = useRef<HTMLDivElement>(null);
+    const qrCodeRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -53,7 +53,7 @@ const ShowEvent: React.FC = () => {
     }, [wallet, eventPublicKey]);
 
     const handleDownloadQrCode = (nftMint: string) => {
-        const qrCodeCanvas = qrCodeRef.current?.querySelector(`canvas[data-nft-mint="${nftMint}"]`);
+        const qrCodeCanvas = qrCodeRefs.current[nftMint]?.querySelector("canvas");
         if (qrCodeCanvas) {
             const link = document.createElement("a");
             link.href = qrCodeCanvas.toDataURL("image/png");
@@ -161,15 +161,17 @@ const ShowEvent: React.FC = () => {
                                                 {ticket.account.nftMint.toBase58()}
                                             </span>
                                         </p>
-                                        <div ref={qrCodeRef}>
+
+                                        <div
+                                            ref={(el) => {
+                                                qrCodeRefs.current[ticket.account.nftMint.toBase58()] = el;
+                                            }}
+                                            onClick={() => handleDownloadQrCode(ticket.account.nftMint.toBase58())}
+                                            className="cursor-pointer"
+                                            title="Télécharger le QR code"
+                                        >
                                             <QRCode value={ticket.account.nftMint.toBase58()} size={128} data-nft-mint={ticket.account.nftMint.toBase58()} />
                                         </div>
-                                        <button
-                                            onClick={() => handleDownloadQrCode(ticket.account.nftMint.toBase58())}
-                                            className="group relative inline-flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                                        >
-                                            Télécharger mon QR code
-                                        </button>
                                     </>
                                 ) : (
                                     ticket.account.owner.equals(wallet?.publicKey) && (
