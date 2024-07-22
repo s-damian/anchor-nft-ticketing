@@ -29,6 +29,8 @@ describe("create_event_and_ticket", () => {
 
     // SUCCESS create_event
     it("Create an event and a ticket", async () => {
+        const organizerWallet = provider.wallet;
+
         // Détails de l'événement.
         const title = "Test Event";
         const description = "This is a test event.";
@@ -40,7 +42,7 @@ describe("create_event_and_ticket", () => {
             .createEvent(title, description, date, location, ticketPrice)
             .accounts({
                 event: eventAccount.publicKey, // Compte de l'événement.
-                organizer: provider.wallet.publicKey, // Organisateur de l'événement.
+                organizer: organizerWallet.publicKey, // Organisateur de l'événement.
                 systemProgram: web3.SystemProgram.programId, // Programme système.
             })
             .signers([eventAccount]) // Signataires de la transaction.
@@ -56,7 +58,7 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.date.toString(), date.toString());
         assert.equal(eventAccountData.location, location);
         assert.equal(eventAccountData.ticketPrice.toString(), ticketPrice.toString());
-        assert.equal(eventAccountData.organizer.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
+        assert.equal(eventAccountData.organizer.toBase58(), organizerWallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
     });
 
     // ERROR buy_ticket
@@ -95,6 +97,8 @@ describe("create_event_and_ticket", () => {
 
     // SUCCESS buy_ticket
     it("Attempt to buy a ticket with success", async () => {
+        const ownerWallet = provider.wallet;
+
         // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
@@ -108,7 +112,7 @@ describe("create_event_and_ticket", () => {
             .accounts({
                 ticket: ticketAccountForNft.publicKey, // Compte du ticket.
                 event: eventAccount.publicKey, // Compte de l'événement.
-                owner: provider.wallet.publicKey, // Propriétaire du ticket.
+                owner: ownerWallet.publicKey, // Propriétaire du ticket.
                 organizer: eventAccountData.organizer, // Organizer de l'événement.
                 systemProgram: web3.SystemProgram.programId, // Programme système.
             })
@@ -123,23 +127,23 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
-        assert.equal(ticketAccountData.owner.toBase58(), provider.wallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
+        assert.equal(ticketAccountData.owner.toBase58(), ownerWallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
         assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
     });
 
     // SUCCESS create_nft
     it("Attempt to create a NFT", async () => {
-        const signer = provider.wallet;
+        const signerWallet = provider.wallet;
 
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
-        const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(signer));
+        const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(signerWallet));
 
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = web3.Keypair.generate();
 
         // Dérivez le compte d'adresse de jeton associé à l'atelier monétaire.
         // Calculer l'adresse du compte de token associé pour le mint.
-        const associatedTokenAccount = await getAssociatedTokenAddress(mint.publicKey, signer.publicKey);
+        const associatedTokenAccount = await getAssociatedTokenAddress(mint.publicKey, signerWallet.publicKey);
 
         // Dérivez le compte de metadata PDA.
         // Calculer l'adresse du compte de metadata pour le mint.
@@ -164,7 +168,7 @@ describe("create_event_and_ticket", () => {
         const txid = await program.methods
             .createNft(metadata.name, metadata.symbol, metadata.uri)
             .accounts({
-                signer: signer.publicKey, // Signataire de la transaction.
+                signer: signerWallet.publicKey, // Signataire de la transaction.
                 mint: mint.publicKey, // Clé publique du mint (NFT).
                 associatedTokenAccount: associatedTokenAccount, // Compte de token associé au mint.
                 metadataAccount: metadataAccount, // Compte de metadata.
@@ -204,7 +208,7 @@ describe("create_event_and_ticket", () => {
             // Vérifier que le mint du compte de token associé correspond au mint créé.
             assert.equal(parsedInfo.mint, mint.publicKey.toString(), "Token account mint should match the created mint");
             // Vérifier que le propriétaire du compte de token associé est le signataire.
-            assert.equal(parsedInfo.owner, signer.publicKey.toString(), "Token account owner should be the signer");
+            assert.equal(parsedInfo.owner, signerWallet.publicKey.toString(), "Token account owner should be the signer");
         } else {
             assert.fail("Parsed account data is not in the expected format");
         }
@@ -217,11 +221,11 @@ describe("create_event_and_ticket", () => {
 
     // SUCCESS create_nft (s'assurer-vous que le test de création NFT réussit en premier).
     it("Verify NFT is associated with the correct ticket and event", async () => {
-        const wallet = provider.wallet; // Le même user que le signer.
+        const userWallet = provider.wallet; // Le même user que le signer.
 
         // Assume we have already created an event and a ticket, and minted an NFT in previous tests
         //const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
-        const eventPublicKey   = eventAccount.publicKey;
+        const eventPublicKey = eventAccount.publicKey;
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
 
         // Ensure the ticket belongs to the event
@@ -232,7 +236,7 @@ describe("create_event_and_ticket", () => {
 
         // Verify the NFT mint is correct
         const nftMint = ticketAccountData.nftMint;
-        const associatedTokenAccount = await getAssociatedTokenAddress(nftMint, wallet.publicKey);
+        const associatedTokenAccount = await getAssociatedTokenAddress(nftMint, userWallet.publicKey);
 
         // Fetch associated token account info
         const tokenAccountInfo = await provider.connection.getParsedAccountInfo(associatedTokenAccount);
@@ -241,7 +245,7 @@ describe("create_event_and_ticket", () => {
         // Verify the token account belongs to the wallet
         if ("parsed" in tokenAccountInfo.value.data) {
             const parsedInfo = tokenAccountInfo.value.data.parsed.info;
-            assert.equal(parsedInfo.owner, wallet.publicKey.toString(), "Token account owner should be the wallet");
+            assert.equal(parsedInfo.owner, userWallet.publicKey.toString(), "Token account owner should be the wallet");
         } else {
             console.error("parsedInfo.owner is undefined");
         }

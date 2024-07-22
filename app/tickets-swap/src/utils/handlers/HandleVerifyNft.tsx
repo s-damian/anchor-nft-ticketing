@@ -77,4 +77,3 @@ const getOwnerPublicKey = (accountInfoValue: any): PublicKey | null => {
     }
     return null;
 };
-
