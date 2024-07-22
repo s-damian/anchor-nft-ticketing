@@ -139,7 +139,7 @@ const ShowEvent: React.FC = () => {
                                         {ticket.account.owner.toBase58()}
                                     </span>
                                 </p>
-                                <p className="mb-2">
+                                <p className="mb-5">
                                     <b>PublicKey du ticket</b> :{" "}
                                     <span
                                         className="truncate bg-gray-200 p-1 rounded cursor-pointer"
@@ -150,9 +150,11 @@ const ShowEvent: React.FC = () => {
                                     </span>
                                 </p>
                                 {ticket.account.nftMint ? (
-                                    <>
+                                    <div className="border border-grey-700 p-2 rounded-md text-center">
+                                        <p className="mb-3">
+                                            <b>PublicKey NFT Mint</b> :
+                                        </p>
                                         <p>
-                                            <b>PublicKey NFT Mint</b> :{" "}
                                             <span
                                                 className="truncate bg-yellow-200 p-1 rounded cursor-pointer"
                                                 title={ticket.account.nftMint.toBase58()}
@@ -167,12 +169,12 @@ const ShowEvent: React.FC = () => {
                                                 qrCodeRefs.current[ticket.account.nftMint.toBase58()] = el;
                                             }}
                                             onClick={() => handleDownloadQrCode(ticket.account.nftMint.toBase58())}
-                                            className="cursor-pointer"
+                                            className="cursor-pointer mx-auto mt-2 flex justify-center"
                                             title="Télécharger le QR code"
                                         >
-                                            <QRCode value={ticket.account.nftMint.toBase58()} size={128} data-nft-mint={ticket.account.nftMint.toBase58()} />
+                                            <QRCode value={ticket.account.nftMint.toBase58()} size={80} data-nft-mint={ticket.account.nftMint.toBase58()} />
                                         </div>
-                                    </>
+                                    </div>
                                 ) : (
                                     ticket.account.owner.equals(wallet?.publicKey) && (
                                         <button
