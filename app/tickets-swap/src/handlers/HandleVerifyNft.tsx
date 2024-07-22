@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { toast } from "react-toastify";
-import { getAnchorProgram } from "../anchorUtils";
+import { getAnchorProgram } from "../utils/anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
 export const handleVerifyNft = async (e: React.FormEvent, nftPublicKey: string, eventPublicKey: string, wallet: ReturnType<typeof useAnchorWallet>) => {

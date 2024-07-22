@@ -1,7 +1,7 @@
 import { web3, BN } from "@coral-xyz/anchor";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
 import { toast } from "react-toastify";
-import { getAnchorProgram, getNetworkUrl } from "../../utils/anchorUtils";
+import { getAnchorProgram, getNetworkUrl } from "../utils/anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 // Imports ajoutés pour le NFT :
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";

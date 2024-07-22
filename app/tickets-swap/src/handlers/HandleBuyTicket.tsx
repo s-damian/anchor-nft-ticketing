@@ -1,7 +1,7 @@
 import { web3, BN } from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { toast } from "react-toastify";
-import { getAnchorProgram } from "../../utils/anchorUtils";
+import { getAnchorProgram } from "../utils/anchorUtils";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
 export const handleBuyTicket = async (

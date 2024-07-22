@@ -1,6 +1,6 @@
 import { web3 } from "@coral-xyz/anchor";
 import { toast } from "react-toastify";
-import { getAnchorProgram } from "../anchorUtils";
+import { getAnchorProgram } from "../utils/anchorUtils";
 import BN from "bn.js";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
