@@ -224,7 +224,6 @@ describe("create_event_and_ticket", () => {
         const userWallet = provider.wallet; // Le même user que le signer.
 
         // Assume we have already created an event and a ticket, and minted an NFT in previous tests
-        //const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
         const eventPublicKey = eventAccount.publicKey;
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
 
@@ -237,6 +236,7 @@ describe("create_event_and_ticket", () => {
         // Verify the NFT mint is correct
         const nftMint = ticketAccountData.nftMint;
         const associatedTokenAccount = await getAssociatedTokenAddress(nftMint, userWallet.publicKey);
+        const nftPublicKey = nftMint.toBase58(); // Define nftPublicKey for use in the verification step
 
         // Fetch associated token account info
         const tokenAccountInfo = await provider.connection.getParsedAccountInfo(associatedTokenAccount);
@@ -248,6 +248,26 @@ describe("create_event_and_ticket", () => {
             assert.equal(parsedInfo.owner, userWallet.publicKey.toString(), "Token account owner should be the wallet");
         } else {
             console.error("parsedInfo.owner is undefined");
+        }
+
+        // Vérifier que le ticket est associé à l'événement fourni.
+        const tickets = await program.account.ticket.all([
+            {
+                memcmp: {
+                    offset: 8, // Taille de l'en-tête de l'account.
+                    bytes: eventPublicKey.toBase58(),
+                },
+            },
+        ]);
+        // Trouver le ticket avec le mint NFT correspondant.
+        const ticket = tickets.find((t) => {
+            const nftMint = t.account.nftMint as PublicKey | undefined;
+            return nftMint && nftMint.equals(new PublicKey(nftPublicKey));
+        });
+        if (ticket) {
+            assert.equal(ticket.account.event.toBase58(), eventPublicKey.toBase58(), "The ticket's event should match the provided event public key");
+        } else {
+            assert.fail("A ticket associated with this event for this NFT should exist");
         }
     });
 });

@@ -79,7 +79,7 @@ export const handleSubmitCreateNft = async (
         const accounts = await program.account.ticket.all([
             {
                 memcmp: {
-                    offset: 8, // taille de l'en-tête de l'account.
+                    offset: 8, // Taille de l'en-tête de l'account.
                     bytes: eventPublicKey,
                 },
             },
