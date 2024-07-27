@@ -22,7 +22,7 @@ solana config set --url localhost
 ```
 
 
-## Install deps
+## Install dependencies
 
 On Anchor Program:
 
