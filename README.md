@@ -45,14 +45,14 @@ npm install
 ```
 
 
-## Create your .env file
+## Create your .env file on Next.js App:
 
 ```
-cd /[your-path]/anchor-nft-ticketing
+cd /[your-path]/anchor-nft-ticketing/app/front
 ```
 
 ```
-cp app/front/.env.example app/front/.env
+cp .env.example .env
 ```
 
 
