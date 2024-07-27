@@ -38,7 +38,6 @@ Install Rust, Solana, Anchor on your computer.
 
 ```
 git clone https://github.com/s-damian/anchor-nft-ticketing.git
-
 ```
 
 
