@@ -68,16 +68,8 @@ npm run ledger
 
 ## Build and Deploy
 
-Build:
-
 ```
-anchor build
-```
-
-Deploy:
-
-```
-anchor deploy
+anchor build && anchor deploy
 ```
 
 
@@ -122,6 +114,11 @@ nft_ticketing = "[YOUR_PROGRAM_ID]"
 
 ```
 declare_id!("[YOUR_PROGRAM_ID]");
+```
+
+Build and deploy again:
+```
+anchor build && anchor deploy
 ```
 
 
