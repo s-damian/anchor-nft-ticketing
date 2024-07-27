@@ -2,10 +2,13 @@
 # Anchor NFT Ticketing
 
 <a href="https://github.com/s-damian/rust-solana-wallet">
+<img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/rust.webp" alt="Rust Logo" height="100px">
+</a>
+<a href="https://github.com/s-damian/rust-solana-wallet">
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/solana.webp" alt="Solana Logo" height="100px">
 </a>
 <a href="https://github.com/s-damian/rust-solana-wallet">
-<img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/rust.webp" alt="Rust Logo" height="100px">
+<img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/anchor.webp" alt="Anchor Logo" height="100px">
 </a>
 
 > #Rust #Solana #Anchor #React #NFT # Web3
