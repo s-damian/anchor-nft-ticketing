@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "name": "tickets_swap",
+  "name": "anchor_nft_ticketing",
   "instructions": [
     {
       "name": "createEvent",
@@ -237,6 +237,6 @@
     }
   ],
   "metadata": {
-    "address": "E3Mqfc5uYhQ1V8VCNQpWnx59LXECGYo3fvfvFgxFq1Ah"
+    "address": "EKvx21X9PgjXUFqHwzvZDJGHMJtUkLab3DaL3LZ7nGkW"
   }
 }

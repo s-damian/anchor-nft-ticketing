@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "start_daw_preprod": "next start -p 3012",
-    "start_daw_preprod_debug": "next dev -p 3012"
+    "lint": "next lint"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.29.0",

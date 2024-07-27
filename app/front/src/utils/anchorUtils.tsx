@@ -2,7 +2,7 @@ import { Connection, Commitment, clusterApiUrl, PublicKey } from "@solana/web3.j
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { Program, AnchorProvider, web3, Idl, setProvider } from "@coral-xyz/anchor";
 import { Wallet } from "@coral-xyz/anchor/dist/cjs/provider";
-import idl from "../idl/tickets_swap.json";
+import idl from "../idl/anchor_nft_ticketing.json";
 
 const { SystemProgram } = web3;
 

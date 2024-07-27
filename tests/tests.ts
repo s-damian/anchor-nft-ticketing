@@ -1,5 +1,5 @@
 import { AnchorProvider, Program, setProvider, web3, workspace } from "@coral-xyz/anchor";
-import { TicketsSwap } from "../target/types/tickets_swap";
+import { AnchorNftTicketing } from "../target/types/anchor_nft_ticketing";
 import { assert } from "chai";
 import BN from "bn.js";
 import { PublicKey } from "@solana/web3.js";
@@ -16,7 +16,7 @@ describe("create_event_and_ticket", () => {
     setProvider(provider);
 
     // Initialisation du programme Anchor.
-    const program = workspace.TicketsSwap as Program<TicketsSwap>;
+    const program = workspace.AnchorNftTicketing as Program<AnchorNftTicketing>;
 
     // Générer une nouvelle paire de clés pour le compte de l'événement.
     const eventAccount = web3.Keypair.generate();

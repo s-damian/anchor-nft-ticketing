@@ -5,7 +5,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-tickets_swap = "FxqDp1TKF7DTsdRQZeppkQZyMcMBbR26KQMGK1AmQisF"
+anchor_nft_ticketing = "EKvx21X9PgjXUFqHwzvZDJGHMJtUkLab3DaL3LZ7nGkW"
 
 [registry]
 url = "https://api.apr.dev"
@@ -18,5 +18,5 @@ wallet = "~/.config/solana/id.json"
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
 [[test.genesis]]
-address = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"  
+address = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
 program = "tests/metaplex_token_metadata_program.so"

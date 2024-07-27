@@ -11,10 +11,10 @@ use kernel::ticket_manager::TicketManager;
 use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
 
 // Déclare l'ID du programme.
-declare_id!("FxqDp1TKF7DTsdRQZeppkQZyMcMBbR26KQMGK1AmQisF");
+declare_id!("EKvx21X9PgjXUFqHwzvZDJGHMJtUkLab3DaL3LZ7nGkW");
 
 #[program]
-pub mod tickets_swap {
+pub mod anchor_nft_ticketing {
     use super::*;
 
     // Instruction permettant de créer un événement.

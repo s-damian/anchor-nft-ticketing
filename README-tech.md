@@ -1,7 +1,7 @@
 # Develop
 
 
-## Back-End Lint :
+## Back-End Lint
 
 ```
 cd /[your-path]/anchor-nft-ticketing
@@ -20,7 +20,7 @@ cargo clippy
 ```
 
 
-## Front-End Lint :
+## Front-End Lint
 
 ```
 cd /[your-path]/anchor-nft-ticketing
@@ -33,7 +33,7 @@ npm run lint:fix
 ```
 
 
-## Run Localnet Validator :
+## Run Localnet Validator
 
 ```
 cd /[your-path]/anchor-nft-ticketing
@@ -44,7 +44,7 @@ npm run ledger
 ```
 
 
-## Run test with Localnet :
+## Run test with Localnet
 
 ```
 cd /[your-path]/anchor-nft-ticketing
@@ -56,7 +56,7 @@ npm run test
 ```
 
 
-## Build/Deploy program :
+## Build/Deploy program
 
 ```
 cd /[your-path]/anchor-nft-ticketing
