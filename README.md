@@ -96,13 +96,13 @@ cd /[your-path]/anchor-nft-ticketing
 
 ## Change program ID
 
-Dans le fichier :
+In the file :
 
 ```
-target/idl/anchor_nft_ticketing.json
+target/idl/nft_ticketing.json
 ```
 
-Chercher votre program ID :
+Find your program ID (with Anchor 0.29.0):
 
 ```
 "metadata": {
@@ -110,15 +110,15 @@ Chercher votre program ID :
 }
 ```
 
-Puis mettez ce program ID dans ces fichier :
+Then put this program ID in these files:
 
-```Anchor.toml``` file:
+- ```Anchor.toml``` file:
 
 ```
-tickets_swap = "[YOUR_PROGRAM_ID]"
+nft_ticketing = "[YOUR_PROGRAM_ID]"
 ```
 
-```programs/tickets-swap/src/lib.rs``` file:
+- ```programs/nft-ticketing/src/lib.rs``` file:
 
 ```
 declare_id!("[YOUR_PROGRAM_ID]");

@@ -6,7 +6,7 @@ import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { getAnchorProgram } from "../../src/utils/anchorUtils";
 import { handleCopyToClipboard } from "../../src/utils/various";
 import { PublicKey } from "@solana/web3.js";
-import idl from "../../src/idl/anchor_nft_ticketing.json";
+import idl from "../../src/idl/nft_ticketing.json";
 import Layout from "../../src/components/Layout";
 
 const ListEvents: React.FC = () => {

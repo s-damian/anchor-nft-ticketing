@@ -14,7 +14,7 @@ use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
 declare_id!("EKvx21X9PgjXUFqHwzvZDJGHMJtUkLab3DaL3LZ7nGkW");
 
 #[program]
-pub mod anchor_nft_ticketing {
+pub mod nft_ticketing {
     use super::*;
 
     // Instruction permettant de créer un événement.
