@@ -30,7 +30,7 @@ Install Rust, Solana, Anchor on your computer.
 * Phantom Wallet
 * Next.js 14
 * React 18
-* TypeScript
+* TypeScript 5
 * Tailwind
 
 
