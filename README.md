@@ -23,7 +23,7 @@ Install Rust, Solana, Anchor on your computer.
 
 ## Technologies
 
-Rust / Solana / Anchor / Solana-Web3.js / Next.js / TypeScript / Tailwind CSS
+Rust / Solana / Anchor / Solana-Web3.js / Phantom / Next.js / TypeScript / Tailwind
 
 
 ## Clone this project
