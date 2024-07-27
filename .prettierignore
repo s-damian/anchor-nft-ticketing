@@ -6,5 +6,5 @@ dist
 build
 test-ledger
 
-/app/tickets-swap/.next
-/app/tickets-swap/node_modules
+/app/front/.next
+/app/front/node_modules

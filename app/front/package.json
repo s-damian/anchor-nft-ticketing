@@ -1,12 +1,14 @@
 {
-  "name": "tickets-swap",
+  "name": "anchor-nft-ticketing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start_daw_preprod": "next start -p 3012",
+    "start_daw_preprod_debug": "next dev -p 3012"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.29.0",
@@ -28,6 +30,7 @@
     "qrcode.react": "^3.1.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^5.2.1",
     "react-toastify": "^10.0.5",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
