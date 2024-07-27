@@ -1,5 +1,5 @@
 
-# Anchor NFT Ticketing
+# NFT Ticketing in Solana / Anchor
 
 <a href="https://github.com/s-damian/rust-solana-wallet">
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/rust.webp" alt="Rust Logo" height="100px">
