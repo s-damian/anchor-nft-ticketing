@@ -6,4 +6,3 @@ node_modules
 test-ledger
 .yarn
 sh/test-ledger-after.sh
-app/front/src/idl
