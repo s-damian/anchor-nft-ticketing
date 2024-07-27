@@ -5,5 +5,5 @@ target
 node_modules
 test-ledger
 .yarn
-_OLD
 sh/test-ledger-after.sh
+app/front/src/idl
