@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-Install Rust, Solana, etc.
+Install Rust, Solana, Anchor on your computer.
 
 
 ## Clone this project
