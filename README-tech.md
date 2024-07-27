@@ -54,22 +54,3 @@ cd /[your-path]/anchor-nft-ticketing
 ```
 npm run test
 ```
-
-
-## Build/Deploy program
-
-```
-cd /[your-path]/anchor-nft-ticketing
-```
-
-Build:
-
-```
-npm run build
-```
-
-Deploy:
-
-```
-npm run deploy
-```
