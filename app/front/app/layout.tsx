@@ -10,7 +10,7 @@ export default function RootLayout({
     return (
         <html lang="fr">
             <body>
-                <title>Tickets Swap</title>
+                <title>Anchor NFT Ticketing</title>
                 <ClientOnly>
                     <AppWalletProvider>{children}</AppWalletProvider>
                 </ClientOnly>

@@ -53,7 +53,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <p>
                     &copy; {new Date().getFullYear()} |{" "}
                     <Link href="https://github.com/s-damian/anchor-nft-ticketing" className="hover:text-yellow-300" target="_blank">
-                        Tickets Swap
+                        Anchor NFT Ticketing
                     </Link>
                 </p>
             </footer>
