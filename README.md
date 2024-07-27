@@ -27,11 +27,11 @@ Install Rust, Solana, Anchor on your computer.
 * Solana
 * Anchor 0.29.0
 * Solana-Web3.js
-* Phantom Wallet
 * Next.js 14
 * React 18
-* TypeScript 5
+* TypeScript
 * Tailwind
+* Phantom Wallet
 
 
 ## Clone this project
