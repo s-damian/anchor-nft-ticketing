@@ -37,6 +37,9 @@ describe("create_event_and_ticket", () => {
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
         const location = "Test Location";
 
+        // Capturez le solde de l'organisateur avant la création de l'événement
+        const organizerBalanceBefore = await provider.connection.getBalance(organizerWallet.publicKey);
+
         // Appeler l'instruction create_event
         const txid = await program.methods
             .createEvent(title, description, date, location, ticketPrice)
@@ -59,6 +62,10 @@ describe("create_event_and_ticket", () => {
         assert.equal(eventAccountData.location, location);
         assert.equal(eventAccountData.ticketPrice.toString(), ticketPrice.toString());
         assert.equal(eventAccountData.organizer.toBase58(), organizerWallet.publicKey.toBase58()); // Vérifie que l'organisateur est correct.
+
+        // Vérifier le solde après la création de l'event (vérifier que l'organisateur a bien payé des frais pour la transaction).
+        const organizerBalanceAfter = await provider.connection.getBalance(organizerWallet.publicKey);
+        assert.isBelow(organizerBalanceAfter, organizerBalanceBefore, "Organizer balance should decrease after the transaction.");
     });
 
     // ERROR buy_ticket
@@ -72,6 +79,9 @@ describe("create_event_and_ticket", () => {
 
         // Générer une clé publique non valide pour le propriétaire.
         const invalidOwner = web3.Keypair.generate();
+
+        // Solde initial de l'organisateur.
+        const organizerBalanceBefore = await provider.connection.getBalance(eventAccountData.organizer);
 
         try {
             // Appeler l'instruction buy_ticket du programme Anchor.
@@ -91,8 +101,17 @@ describe("create_event_and_ticket", () => {
             // Si le transfert réussit, échouer le test.
             assert.fail("The transaction should have failed but it succeeded.");
         } catch (err) {
-            assert.equal("OK", "OK");
+            // Vérifier que l'erreur est du type attendu
+            assert.include(err.message, "Signature verification failed", "Expected a signature verification error");
         }
+
+        // Vérifier qu'aucun transfert de SOL n'a eu lieu.
+        const organizerBalanceAfter = await provider.connection.getBalance(eventAccountData.organizer);
+        assert.equal(organizerBalanceAfter, organizerBalanceBefore, "Organizer balance should not change");
+
+        // Vérifier que le ticket n'a pas été créé.
+        const ticketAccountInfo = await provider.connection.getAccountInfo(ticketAccount.publicKey);
+        assert.isNull(ticketAccountInfo, "Ticket account should not exist");
     });
 
     // SUCCESS buy_ticket
@@ -103,7 +122,6 @@ describe("create_event_and_ticket", () => {
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
         // Générer une nouvelle paire de clés pour le compte du ticket.
-        //const ticketAccount = web3.Keypair.generate();
         const dateOfPurchase = new BN(new Date().getTime() / 1000); // Date actuelle en secondes.
 
         // Appeler l'instruction buy_ticket du programme Anchor.
@@ -129,11 +147,15 @@ describe("create_event_and_ticket", () => {
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
         assert.equal(ticketAccountData.owner.toBase58(), ownerWallet.publicKey.toBase58()); // Vérifie que le propriétaire est correct.
         assert.isNull(ticketAccountData.nftMint, "The nft_mint should be null initially");
+
+        // Vérifier que le compte du ticket a été créé.
+        const ticketAccountInfo = await provider.connection.getAccountInfo(ticketAccountForNft.publicKey);
+        assert.isNotNull(ticketAccountInfo, "Ticket account should exist");
     });
 
     // SUCCESS create_nft
     it("Attempt to create a NFT", async () => {
-        const signerWallet = provider.wallet;
+        const signerWallet = provider.wallet; // PS : le signerWallet du NFT c'est le ownerWallet du ticket.
 
         // Initialisation de UMI avec les identités de portefeuille et le module mplTokenMetadata.
         const umi = createUmi("http://127.0.0.1:8899").use(mplTokenMetadata()).use(walletAdapterIdentity(signerWallet));
@@ -164,6 +186,12 @@ describe("create_event_and_ticket", () => {
             uri: "https://example.com/my-nft.json",
         };
 
+        // Vérifier que le ticket existe et n'a pas déjà un NFT
+        const ticketAccountDataBefore = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
+        assert.isNull(ticketAccountDataBefore.nftMint, "The ticket should not have an NFT before creation");
+
+        const signerBalanceBefore = await provider.connection.getBalance(signerWallet.publicKey);
+
         // Appeler l'instruction create_nft du programme Anchor.
         const txid = await program.methods
             .createNft(metadata.name, metadata.symbol, metadata.uri)
@@ -186,6 +214,10 @@ describe("create_event_and_ticket", () => {
         // Afficher la signature de la transaction.
         console.log("createNft - tx signature", txid);
 
+        // Vérifier le solde après la création du NFT (vérifier que le signer a bien payé des frais pour la transaction).
+        const signerBalanceAfter = await provider.connection.getBalance(signerWallet.publicKey);
+        assert.isBelow(signerBalanceAfter, signerBalanceBefore, "Signer balance should decrease after the transaction.");
+
         // Assertions pour vérifier la création NFT :
 
         // Vérifier l'existence du compte de metadata.
@@ -204,7 +236,7 @@ describe("create_event_and_ticket", () => {
 
         // Vérifier si les données analysées sont présentes dans le compte token associé.
         if ("parsed" in tokenAccountInfo.value.data) {
-            const parsedInfo = tokenAccountInfo.value.data.parsed.info;
+            const parsedInfo = tokenAccountInfo.value.data.parsed.info; // On accède aux informations parsées.
             // Vérifier que le mint du compte de token associé correspond au mint créé.
             assert.equal(parsedInfo.mint, mint.publicKey.toString(), "Token account mint should match the created mint");
             // Vérifier que le propriétaire du compte de token associé est le signataire.
@@ -216,6 +248,7 @@ describe("create_event_and_ticket", () => {
         // Pour joindre le NFT au ticket.
         // Vérifier que le champ nft_mint du ticket est mis à jour correctement.
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
+        assert.isNotNull(ticketAccountData.nftMint, "The ticket should have an NFT after creation");
         assert.equal(ticketAccountData.nftMint.toBase58(), mint.publicKey.toBase58(), "The nft_mint should match the created mint");
     });
 
@@ -243,13 +276,38 @@ describe("create_event_and_ticket", () => {
                 },
             },
         ]);
+
         // Trouver le ticket avec le mint NFT correspondant.
         const ticket = tickets.find((t) => {
             const nftMint = t.account.nftMint as PublicKey | undefined;
             return nftMint && nftMint.equals(new PublicKey(nftPublicKey));
         });
+
         if (ticket) {
             assert.equal(ticket.account.event.toBase58(), eventPublicKey.toBase58(), "The ticket's event should match the provided event public key");
+
+            // Une vérification supplémentaire est ajoutée pour s'assurer que le mint du NFT est bien celui attendu.
+            assert.equal(ticket.account.nftMint.toBase58(), nftPublicKey, "The NFT mint should match the one associated with the ticket");
+
+            // Vérifier que le propriétaire du ticket correspond au propriétaire du NFT :
+            // Obtenir l'adresse du compte associé au token pour le propriétaire du ticket.
+            const associatedTokenAccount = await getAssociatedTokenAddress(new PublicKey(nftPublicKey), ticket.account.owner);
+            // Récupérer les informations du compte de token associé.
+            const tokenAccountInfo = await provider.connection.getParsedAccountInfo(associatedTokenAccount);
+            assert.isNotNull(tokenAccountInfo.value, "The associated token account should exist");
+            if ("parsed" in tokenAccountInfo.value.data) {
+                const parsedInfo = tokenAccountInfo.value.data.parsed.info; // On accède aux informations parsées.
+                // Vérifier que le propriétaire du compte de token associé est le même que le propriétaire du ticket.
+                // "parsedInfo.owner" contient la clé publique du propriétaire du compte de token associé.
+                // On vérifie que cette clé publique correspond à celle du propriétaire du ticket.
+                assert.equal(parsedInfo.owner, ticket.account.owner.toBase58(), "The NFT owner should match the ticket owner");
+                // Vérification de l'unicité : En vérifiant que le montant est exactement "1", nous nous assurons que :
+                // a) Le NFT a bien été minté (le montant n'est pas 0).
+                // b) Il n'y a pas eu de duplication accidentelle du NFT (le montant n'est pas supérieur à 1).
+                assert.equal(parsedInfo.tokenAmount.amount, "1", "The NFT token amount should be 1");
+            } else {
+                assert.fail("Parsed account data is not in the expected format");
+            }
         } else {
             assert.fail("A ticket associated with this event for this NFT should exist");
         }
