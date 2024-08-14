@@ -5,7 +5,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-nft_ticketing = "FrNoBNCVgAkKDSmkYMwNQ3YSddeATc1dQ3kUXH7HEd33"
+nft_ticketing = "F4z76S7pDeYY2kGTn4MmzT6sYpAEmkD4WErSQagQ1aQU"
 
 [registry]
 url = "https://api.apr.dev"

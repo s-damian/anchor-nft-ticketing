@@ -24,7 +24,7 @@ const ListEvents: React.FC = () => {
 
             try {
                 // Récupère les comptes du programme.
-                const accounts = await connection.getProgramAccounts(new PublicKey(idl.metadata.address));
+                const accounts = await connection.getProgramAccounts(new PublicKey(idl.address));
 
                 // Récupère les données de chaque compte événement.
                 const eventAccounts = await Promise.all(

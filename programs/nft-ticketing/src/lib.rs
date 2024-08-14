@@ -11,7 +11,7 @@ use kernel::ticket_manager::TicketManager;
 use mpl_token_metadata::accounts::{MasterEdition, Metadata as MetadataAccount};
 
 // Déclare l'ID du programme.
-declare_id!("FrNoBNCVgAkKDSmkYMwNQ3YSddeATc1dQ3kUXH7HEd33");
+declare_id!("F4z76S7pDeYY2kGTn4MmzT6sYpAEmkD4WErSQagQ1aQU");
 
 #[program]
 pub mod nft_ticketing {
@@ -68,6 +68,7 @@ pub struct BuyTicket<'info> {
     pub event: Account<'info, Event>,
     #[account(mut)]
     pub owner: Signer<'info>,
+    /// CHECK: The organizer is not checked because it's part of the event account.
     #[account(mut)]
     pub organizer: AccountInfo<'info>, // Ajouté spécialement afin de pouvoir effectuer le transfert des lamports.
     pub system_program: Program<'info, System>,
@@ -108,6 +109,7 @@ pub struct CreateNft<'info> {
     // Le compte de métadonnées contient toutes les informations relatives au NFT, telles que son nom, son symbole,
     // son URI de métadonnées (lien vers des informations détaillées sur le NFT,
     // souvent un fichier JSON hébergé quelque part), et d'autres informations supplémentaires.
+    /// CHECK: The metadata_account is derived from the mint and its PDA is checked, so it's safe to use.
     #[account(
         mut,
         address = MetadataAccount::find_pda(&mint.key()).0,
@@ -119,6 +121,7 @@ pub struct CreateNft<'info> {
     // Nous utilisons `AccountInfo` car nous savons que cette vérification est sécurisée en raison de l'utilisation de l'adresse calculée.
     // Le compte de master edition est utilisé pour représenter une édition unique du NFT.
     // Cela est particulièrement utile lorsque vous avez des éditions limitées ou des copies numérotées d'un même NFT.
+    /// CHECK: The master_edition_account is derived from the mint and its PDA is checked, so it's safe to use.
     #[account(
         mut,
         address = MasterEdition::find_pda(&mint.key()).0,

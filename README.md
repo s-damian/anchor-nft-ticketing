@@ -25,7 +25,7 @@ Install Rust, Solana, Anchor on your computer.
 
 * Rust
 * Solana
-* Anchor 0.29.0
+* Anchor 0.30.1
 * Solana-Web3.js
 * Next.js 14
 * React 18
@@ -120,12 +120,10 @@ In the file :
 target/idl/nft_ticketing.json
 ```
 
-Find your program ID (with Anchor 0.29.0):
+Find your program ID (with Anchor 0.30.1):
 
 ```
-"metadata": {
-    "address": "[YOUR_PROGRAM_ID]"
-}
+"address": "[YOUR_PROGRAM_ID]"
 ```
 
 Then put this program ID in these files:

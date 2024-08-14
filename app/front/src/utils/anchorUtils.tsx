@@ -68,8 +68,8 @@ export const getAnchorProgram = (wallet: Wallet) => {
     setProvider(provider);
 
     // Initialise le programme Anchor.
-    //const program = new Program(idl as Idl, provider); // for "@coral-xyz/anchor": "0.30.1"
-    const program = new Program(idl as Idl, new PublicKey(idl.metadata.address), provider); // for "@coral-xyz/anchor": "0.29.0"
+    const program = new Program(idl as Idl, provider); // For "@coral-xyz/anchor" >= "0.30.0"
+    //const program = new Program(idl as Idl, new PublicKey(idl.metadata.address), provider); // For "@coral-xyz/anchor" <= "0.29.0"
 
     return { program, provider, connection, SystemProgram };
 };
