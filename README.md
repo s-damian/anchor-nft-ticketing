@@ -18,7 +18,10 @@
 
 ## Prerequisites
 
-Install Rust, Solana, Anchor on your computer.
+Install:
+* Rust 1.79.0
+* Solana 1.18.22
+* Anchor 0.30.1
 
 
 ## Technologies
