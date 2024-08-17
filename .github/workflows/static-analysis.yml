@@ -15,6 +15,7 @@ jobs:
 
     strategy:
       matrix:
+        # https://releases.rs/
         rust-version: [1.79.0]
 
     steps:

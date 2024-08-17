@@ -15,6 +15,7 @@ jobs:
 
     strategy:
       matrix:
+        # https://releases.rs/
         rust-version: [1.79.0]
 
     steps:
@@ -53,7 +54,6 @@ jobs:
       - name: Debug Project Structure
         run: |
           echo "Current directory: $(pwd)"
-          ls -la
           echo "PATH: $PATH"
           echo "Directory structure:"
           tree -L 3 || ls -R
