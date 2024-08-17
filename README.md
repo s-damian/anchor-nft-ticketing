@@ -28,6 +28,7 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 - Rust 1.79.0
 - Solana 1.18.22
 - Anchor 0.30.1
+- Node.js and npm (for the frontend)
 
 
 ## Technologies
@@ -47,7 +48,7 @@ git clone https://github.com/s-damian/anchor-nft-ticketing.git
 ```
 
 
-### Using Solana Locally
+### Setup Solana Locally
 
 Set Solana to run on the local network:
 
@@ -79,18 +80,17 @@ npm install
 ```
 
 
-### Set Up Environment Variables (for Next.js App):
+### Environment Setup
+
+Create a  ```.env ``` file for the Next.js app:
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing/app/front
 ```
 
-Copy the ```.env.example``` to ```.env```:
-
 ```bash
 cp .env.example .env
 ```
-
 
 
 ### Run Solana Test Validator
@@ -109,7 +109,7 @@ anchor build && anchor deploy
 ```
 
 
-### IDL
+### IDL Setup
 
 Copy the IDL (Interface Definition Language) file:
 
@@ -130,34 +130,20 @@ In the file :
 target/idl/nft_ticketing.json
 ```
 
-Find your program ID (with Anchor 0.30.1):
+1/3. Find your program ID in ```target/idl/nft_ticketing.json```.
 
-```bash
-"address": "[YOUR_PROGRAM_ID]"
-```
+2/3. Update the program ID in:
+- Anchor.toml
+- programs/nft-ticketing/src/lib.rs
 
-Then put this program ID in these files:
-
-- ```Anchor.toml``` file:
-
-```bash
-nft_ticketing = "[YOUR_PROGRAM_ID]"
-```
-
-- ```programs/nft-ticketing/src/lib.rs``` file:
-
-```bash
-declare_id!("[YOUR_PROGRAM_ID]");
-```
-
-Rebuild and redeploy:
+3/3. Rebuild and redeploy:
 
 ```bash
 anchor build && anchor deploy
 ```
 
 
-### Run the Front-End App (Next.js App):
+### Run Front-End (Next.js App):
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing/app/front
