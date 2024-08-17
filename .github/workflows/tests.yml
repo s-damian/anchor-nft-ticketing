@@ -1,0 +1,69 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      solana-test-validator:
+        image: solanalabs/solana:stable
+        options: >-
+          --name solana-test-validator
+          --detach
+          -p 8899:8899/tcp
+          -p 8900:8900/tcp
+          -p 8000:8000/tcp
+        ports:
+          - 8899:8899
+          - 8900:8900
+          - 8000:8000
+        volumes:
+          - /tmp/ledger:/root/ledger
+        command: >
+          bash -c "solana-test-validator --ledger /root/ledger --reset --log -"
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Install Solana CLI
+      run: |
+        sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
+        export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
+        solana --version
+
+    - name: Set up Anchor
+      run: |
+        cargo install --git https://github.com/coral-xyz/anchor avm --locked --force --features cli
+        avm install 0.30.1
+        avm use 0.30.1
+        anchor --version
+
+    - name: Build Anchor project
+      run: anchor build
+
+    - name: Deploy Anchor program to localnet
+      run: anchor deploy --provider.cluster localnet
+
+    - name: Run Tests
+      run: anchor test --skip-build
+      env:
+        ANCHOR_PROVIDER_URL: http://localhost:8899
+        ANCHOR_WALLET: /root/.config/solana/id.json
+
+    - name: Run Front-End Tests
+      working-directory: app/front
+      run: npm install && npm test
