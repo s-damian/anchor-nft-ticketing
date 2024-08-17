@@ -30,36 +30,35 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 - Anchor 0.30.1
 
 
-## Technologies Used
+## Technologies
 
-- Rust
-- Solana
-- Anchor 0.30.1
-- Solana-Web3.js
-- Next.js 14
-- React 18
-- TypeScript
-- Tailwind
-- Phantom Wallet
+- Backend: Rust, Solana, Anchor 0.30.1
+- Frontend: Next.js 14, React 18, TypeScript, Tailwind CSS
+- Wallet Integration: Phantom Wallet
+- Blockchain Interaction: Solana-Web3.js
 
 
-## Clone this project
+## Getting Started
+
+### Clone the Repository
 
 ```bash
 git clone https://github.com/s-damian/anchor-nft-ticketing.git
 ```
 
 
-## Using Solana Locally
+### Using Solana Locally
+
+Set Solana to run on the local network:
 
 ```bash
 solana config set --url localhost
 ```
 
 
-## Install dependencies
+### Install Dependencies
 
-On Anchor Program:
+For the Anchor Program:
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing
@@ -69,7 +68,7 @@ cd /[your-path]/anchor-nft-ticketing
 npm install
 ```
 
-On Next.js App:
+For the Next.js App:
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing/app/front
@@ -80,11 +79,13 @@ npm install
 ```
 
 
-## Create your .env file on Next.js App:
+### Set Up Environment Variables (for Next.js App):
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing/app/front
 ```
+
+Copy the ```.env.example``` to ```.env```:
 
 ```bash
 cp .env.example .env
@@ -92,25 +93,25 @@ cp .env.example .env
 
 
 
-## Solana Test Validator
+### Run Solana Test Validator
 
-Run solana-test-validator (with metaplex):
+Start the Solana test validator with Metaplex:
 
 ```bash
 npm run ledger
 ```
 
 
-## Build and Deploy
+### Build and Deploy the Anchor Program
 
 ```bash
 anchor build && anchor deploy
 ```
 
 
-## IDL
+### IDL
 
-Copy IDL:
+Copy the IDL (Interface Definition Language) file:
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing
@@ -121,7 +122,7 @@ cd /[your-path]/anchor-nft-ticketing
 ```
 
 
-## Change Program ID
+### Change Program ID
 
 In the file :
 
@@ -149,14 +150,14 @@ nft_ticketing = "[YOUR_PROGRAM_ID]"
 declare_id!("[YOUR_PROGRAM_ID]");
 ```
 
-Build and deploy again:
+Rebuild and redeploy:
 
 ```bash
 anchor build && anchor deploy
 ```
 
 
-## Run Front-End App (Next.js App):
+### Run the Front-End App (Next.js App):
 
 ```bash
 cd /[your-path]/anchor-nft-ticketing/app/front
