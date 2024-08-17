@@ -9,32 +9,34 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_test:
+    name: Build and test
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
 
-    - name: Install Solana
-      run: |
-        sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
-        export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
-        solana --version
+      - name: Install Solana
+        run: |
+          sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
+          export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
+          solana --version
 
-    - name: Install Anchor
-      run: |
-        cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1
-        anchor --version
+      - name: Install Anchor
+        run: |
+          cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1
+          anchor --version
 
-    - name: Build Anchor Program
-      run: anchor build
+      - name: Build Anchor Program
+        run: anchor build
 
-    - name: Run Anchor Tests
-      run: anchor test
+      - name: Run Anchor Tests
+        run: anchor test
