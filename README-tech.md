@@ -1,6 +1,3 @@
-# Develop
-
-
 ## Back-End Lint
 
 ```bash
@@ -30,17 +27,6 @@ Lint and format the code :
 
 ```bash
 npm run lint:fix
-```
-
-
-## Run Localnet Validator
-
-```bash
-cd /[your-path]/anchor-nft-ticketing
-```
-
-```bash
-npm run ledger
 ```
 
 
