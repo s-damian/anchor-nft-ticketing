@@ -16,6 +16,13 @@
 > NFT Marketplace Event Ticketing (**under development**)
 
 
+## Project Overview
+
+NFT Marketplace Event Ticketing - A decentralized application for managing and verifying event tickets as NFTs on the Solana blockchain.
+
+**Status**: Under development 🚧
+
+
 ## Prerequisites
 
 - Rust 1.79.0
@@ -23,7 +30,7 @@
 - Anchor 0.30.1
 
 
-## Technologies
+## Technologies Used
 
 - Rust
 - Solana
@@ -114,7 +121,7 @@ cd /[your-path]/anchor-nft-ticketing
 ```
 
 
-## Change program ID
+## Change Program ID
 
 In the file :
 
@@ -160,7 +167,7 @@ npm run dev
 ```
 
 
-## Code structure
+## Code Structure
 
 ```bash
 .
