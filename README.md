@@ -1,19 +1,22 @@
 
 # NFT Ticketing in Solana / Anchor
 
-<a href="https://github.com/s-damian/rust-solana-wallet">
+<a href="https://github.com/s-damian/anchor-nft-ticketing">
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/rust.webp" alt="Rust Logo" height="100px">
 </a>
-<a href="https://github.com/s-damian/rust-solana-wallet">
+<a href="https://github.com/s-damian/anchor-nft-ticketing">
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/solana.webp" alt="Solana Logo" height="100px">
 </a>
-<a href="https://github.com/s-damian/rust-solana-wallet">
+<a href="https://github.com/s-damian/anchor-nft-ticketing">
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/anchor.webp" alt="Anchor Logo" height="100px">
 </a>
 
 > #Rust #Solana #Anchor #React #NFT # Web3
 
 > NFT Marketplace Event Ticketing (**under development**)
+
+![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
 
 ## Project Overview
