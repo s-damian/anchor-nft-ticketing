@@ -15,10 +15,10 @@ jobs:
     name: Run Anchor Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
@@ -27,11 +27,7 @@ jobs:
           key: ${{ runner.os }}-cargo-solana-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Install Solana
         run: |
@@ -56,8 +52,8 @@ jobs:
           anchor test --skip-local-validator
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: test-results
-          path: target/debug/deps/
+          path: target
