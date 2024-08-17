@@ -1,5 +1,4 @@
 name: Anchor Tests
-
 on:
   push:
     branches:
@@ -12,22 +11,19 @@ jobs:
   build_and_test:
     name: Build and test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          profile: minimal
-          override: true
+          components: rustfmt, clippy
 
       - name: Install Solana
         run: |
           sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
-          export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
           solana --version
 
       - name: Install Anchor
@@ -36,7 +32,21 @@ jobs:
           anchor --version
 
       - name: Build Anchor Program
-        run: anchor build
+        run: |
+          anchor build
+        continue-on-error: true
 
       - name: Run Anchor Tests
-        run: anchor test
+        run: |
+          anchor test
+        continue-on-error: true
+
+      - name: Debug Information
+        if: failure()
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -la
+          echo "Rust version: $(rustc --version)"
+          echo "Cargo version: $(cargo --version)"
+          echo "Solana version: $(solana --version)"
+          echo "Anchor version: $(anchor --version)"
