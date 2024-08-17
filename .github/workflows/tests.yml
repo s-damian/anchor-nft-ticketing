@@ -17,10 +17,6 @@ jobs:
       matrix:
         # https://releases.rs/
         rust-version: [1.75.0, 1.80.0]
-
-    strategy:
-      matrix:
-        # https://releases.rs/
         node-version: [17, 20]
 
     steps:
