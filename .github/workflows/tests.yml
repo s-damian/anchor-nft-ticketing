@@ -1,4 +1,5 @@
 name: Anchor Tests
+
 on:
   push:
     branches:
@@ -11,52 +12,31 @@ jobs:
   build_and_test:
     name: Build and test
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
+        uses: actions-rs/toolchain@v1
         with:
-          components: rustfmt, clippy
+          toolchain: stable
+          profile: minimal
+          override: true
 
       - name: Install Solana
         run: |
           sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
-          echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
-          source $HOME/.cargo/env
+          export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
           solana --version
 
       - name: Install Anchor
         run: |
           cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1
-          source $HOME/.cargo/env
           anchor --version
 
-      - name: Debug Environment
-        run: |
-          echo "PATH: $PATH"
-          echo "Rust version: $(rustc --version)"
-          echo "Cargo version: $(cargo --version)"
-          echo "Solana version: $(solana --version)"
-          echo "Anchor version: $(anchor --version)"
-          echo "Current directory: $(pwd)"
-          ls -la
-
       - name: Build Anchor Program
-        run: |
-          anchor build
-        continue-on-error: true
+        run: anchor build
 
       - name: Run Anchor Tests
-        run: |
-          anchor test
-        continue-on-error: true
-
-      - name: Debug Failure
-        if: failure()
-        run: |
-          echo "Build log:"
-          cat target/debug/build/*.log
-          echo "Test log:"
-          cat target/debug/deps/*.stdout
+        run: anchor test
