@@ -30,15 +30,19 @@ jobs:
           echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
           solana --version || echo "Solana version not found"
 
+      - name: Generate Solana Keypair
+        run: |
+          mkdir -p ~/.config/solana
+          solana-keygen new --outfile ~/.config/solana/id.json --no-bip39-passphrase --force
+          solana config set --keypair ~/.config/solana/id.json
+
+      #- name: Set solana target cluster to local
+      #  run: solana config set --url http:localhost:8899
+
       - name: Install Anchor
         run: |
           cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1 || echo "Anchor installation failed"
           anchor --version || echo "Anchor version not found"
-
-      - name: Generate Solana Keypair
-        run: |
-          solana-keygen new --outfile ~/.config/solana/id.json --force
-          solana config set --keypair ~/.config/solana/id.json
 
       - name: Debug Project Structure
         run: |
@@ -56,8 +60,6 @@ jobs:
         run: |
           echo "Current directory: $(pwd)"
           ls -la
-          echo "Anchor.toml content:"
-          cat Anchor.toml || echo "Anchor.toml not found"
           echo "PATH: $PATH"
           echo "Rust version: $(rustc --version)"
           echo "Cargo version: $(cargo --version)"
