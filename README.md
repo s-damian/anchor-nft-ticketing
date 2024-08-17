@@ -19,22 +19,22 @@
 ## Prerequisites
 
 Install:
-* Rust 1.79.0
-* Solana 1.18.22
-* Anchor 0.30.1
+- Rust 1.79.0
+- Solana 1.18.22
+- Anchor 0.30.1
 
 
 ## Technologies
 
-* Rust
-* Solana
-* Anchor 0.30.1
-* Solana-Web3.js
-* Next.js 14
-* React 18
-* TypeScript
-* Tailwind
-* Phantom Wallet
+- Rust
+- Solana
+- Anchor 0.30.1
+- Solana-Web3.js
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind
+- Phantom Wallet
 
 
 ## Clone this project
