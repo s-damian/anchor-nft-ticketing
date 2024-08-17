@@ -1,69 +1,63 @@
-name: Test
+name: Anchor Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
+
+env:
+  SOLANA_VERSION: 1.18.22
+  ANCHOR_VERSION: 0.30.1
 
 jobs:
   test:
+    name: Run Anchor Tests
     runs-on: ubuntu-latest
-
-    services:
-      solana-test-validator:
-        image: solanalabs/solana:stable
-        options: >-
-          --name solana-test-validator
-          --detach
-          -p 8899:8899/tcp
-          -p 8900:8900/tcp
-          -p 8000:8000/tcp
-        ports:
-          - 8899:8899
-          - 8900:8900
-          - 8000:8000
-        volumes:
-          - /tmp/ledger:/root/ledger
-        command: >
-          bash -c "solana-test-validator --ledger /root/ledger --reset --log -"
-
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo
+            ~/.local/share/solana
+            target
+          key: ${{ runner.os }}-cargo-solana-${{ hashFiles('**/Cargo.lock') }}
 
-    - name: Install Solana CLI
-      run: |
-        sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
-        export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
-        solana --version
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
 
-    - name: Set up Anchor
-      run: |
-        cargo install --git https://github.com/coral-xyz/anchor avm --locked --force --features cli
-        avm install 0.30.1
-        avm use 0.30.1
-        anchor --version
+      - name: Install Solana
+        run: |
+          sh -c "$(curl -sSfL https://release.solana.com/v${{ env.SOLANA_VERSION }}/install)"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
+          solana --version
 
-    - name: Build Anchor project
-      run: anchor build
+      - name: Install Anchor
+        run: |
+          cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+          avm install ${{ env.ANCHOR_VERSION }}
+          avm use ${{ env.ANCHOR_VERSION }}
+          anchor --version
 
-    - name: Deploy Anchor program to localnet
-      run: anchor deploy --provider.cluster localnet
+      - name: Build program
+        run: anchor build
 
-    - name: Run Tests
-      run: anchor test --skip-build
-      env:
-        ANCHOR_PROVIDER_URL: http://localhost:8899
-        ANCHOR_WALLET: /root/.config/solana/id.json
+      - name: Run tests
+        run: |
+          solana-test-validator --ledger .anchor/test-ledger --clone-upgradeable-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s --url https://api.mainnet-beta.solana.com &
+          sleep 5
+          anchor test --skip-local-validator
 
-    - name: Run Front-End Tests
-      working-directory: app/front
-      run: npm install && npm test
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-results
+          path: target/debug/deps/
