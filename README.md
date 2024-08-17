@@ -15,7 +15,6 @@
 
 > NFT Marketplace Event Ticketing (**under development**)
 
-![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 
