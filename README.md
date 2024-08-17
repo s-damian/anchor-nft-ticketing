@@ -31,12 +31,12 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 
 ## Prerequisites
 
-- Rust 1.79.0
-  - Ensure Rust is installed on your system. You can install Rust using [rustup](https://rustup.rs/).
-- Solana 1.18.22
-  - Ensure Solana CLI is installed on your system. You can install Solana CLI using [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).
-- Anchor 0.30.1
-  - Ensure Anchor is installed on your system. You can install Anchor using [Anchor](https://www.anchor-lang.com/).
+- **Rust** 1.79.0
+  - *Ensure Rust is installed on your system. You can install Rust using [Rustup](https://rustup.rs/).*
+- **Solana** 1.18.22
+  - *Ensure Solana CLI is installed on your system. You can install Solana CLI using [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
+- **Anchor** 0.30.1
+  - *Ensure Anchor is installed on your system. You can install Anchor using [Anchor](https://www.anchor-lang.com/).*
 - Node.js and npm (for the frontend)
 
 
