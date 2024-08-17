@@ -35,6 +35,10 @@ jobs:
           cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1 || echo "Anchor installation failed"
           anchor --version || echo "Anchor version not found"
 
+      - name: Generate Solana Keypair
+        run: |
+          solana-keygen new --outfile ~/.config/solana/id.json --force
+          solana config set --keypair ~/.config/solana/id.json
 
       - name: Debug Project Structure
         run: |
@@ -47,7 +51,6 @@ jobs:
           cat Cargo.toml || echo "Cargo.toml not found"
           echo "Program Cargo.toml content:"
           cat programs/*/Cargo.toml || echo "Program Cargo.toml not found"
-
 
       - name: Debug Environment
         run: |
@@ -65,20 +68,7 @@ jobs:
         run: anchor build
         continue-on-error: true
 
-
-      - name: Debug Build Failure
-        if: failure()
-        run: |
-          echo "Build failed. Debugging information:"
-          echo "Current directory: $(pwd)"
-          ls -la
-          echo "target directory content:"
-          ls -la target || echo "target directory not found"
-          echo "programs directory content:"
-          ls -la programs || echo "programs directory not found"
-          echo "Cargo.toml content:"
-          cat Cargo.toml || echo "Cargo.toml not found"
-
-
       - name: Run Anchor Tests
-        run: anchor test
+        run: |
+          solana config set --keypair ~/.config/solana/id.json
+          anchor test
