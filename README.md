@@ -176,7 +176,7 @@ npm run dev
 │       │   ├── idl
 │       │   │   └── nft_ticketing.json.
 │       │   └── utils
-│       │       // React utils
+│       │       // React utils.
 │       ├── .env.local
 │       ├── config-overrides.js
 │       ├── package.json
