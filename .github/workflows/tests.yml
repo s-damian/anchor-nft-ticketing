@@ -24,6 +24,11 @@ jobs:
           profile: minimal
           override: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
       - name: Install Solana
         run: |
           sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
@@ -65,6 +70,9 @@ jobs:
           echo "Cargo version: $(cargo --version)"
           echo "Solana version: $(solana --version)"
           echo "Anchor version: $(anchor --version)"
+
+      - name: Install npm dependencies
+        run: npm install
 
       - name: Build Anchor Program
         run: anchor build
