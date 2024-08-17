@@ -13,7 +13,7 @@
 
 > #Rust #Solana #Anchor #React #NFT # Web3
 
-> NFT Marketplace Event Ticketing (**under development**)
+> NFT Marketplace Event Ticketing
 
 ![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)
 ![Clippy](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml/badge.svg)
@@ -33,16 +33,16 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 
 ## Prerequisites
 
-- **Rust** >= 1.75.0 - *You can install Rust here: [Rustup](https://rustup.rs/).*
-- **Solana** 1.18.22 - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
-- **Anchor** 0.30.1 - *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
-- **Node.js and npm** (for the Front-End) - *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
+- **Rust** ```>= 1.75.0``` - *You can install Rust here: [Rustup](https://rustup.rs/).*
+- **Solana** ```1.18.22``` - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
+- **Anchor** ```0.30.1``` - *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
+- **Node.js** ```>= 17``` and **npm** (for the Front-End) - *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
 
 
 ## Technologies
 
-- **Back-End**: Rust, Solana, Anchor 0.30.1
-- **Front-End**: Next.js 14, React 18, TypeScript, Tailwind CSS
+- **Back-End**: Rust, Solana, Anchor ```0.30.1```
+- **Front-End**: Next.js ```14```, React ```18```, TypeScript, Tailwind CSS
 - **Wallet Integration**: Phantom Wallet
 - **Blockchain Interaction**: Solana-Web3.js
 
@@ -55,7 +55,6 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 git clone https://github.com/s-damian/anchor-nft-ticketing.git
 ```
 
-
 ### Setup Solana Locally
 
 Set Solana to run on the local network:
@@ -63,7 +62,6 @@ Set Solana to run on the local network:
 ```bash
 solana config set --url localhost
 ```
-
 
 ### Install Dependencies
 
@@ -87,7 +85,6 @@ cd /[your-path]/anchor-nft-ticketing/app/front
 npm install
 ```
 
-
 ### Environment Setup
 
 Create a  ```.env ``` file for the Next.js app:
@@ -100,7 +97,6 @@ cd /[your-path]/anchor-nft-ticketing/app/front
 cp .env.example .env
 ```
 
-
 ### Run Solana Test Validator
 
 Start the Solana test validator with Metaplex:
@@ -109,13 +105,11 @@ Start the Solana test validator with Metaplex:
 npm run ledger
 ```
 
-
 ### Build and Deploy the Anchor Program
 
 ```bash
 anchor build && anchor deploy
 ```
-
 
 ### IDL Setup
 
@@ -128,7 +122,6 @@ cd /[your-path]/anchor-nft-ticketing
 ```bash
 ./sh/copy-idl.sh
 ```
-
 
 ### Change Program ID
 
@@ -149,7 +142,6 @@ target/idl/nft_ticketing.json
 ```bash
 anchor build && anchor deploy
 ```
-
 
 ### Run Front-End (Next.js App):
 
