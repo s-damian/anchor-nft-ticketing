@@ -1,4 +1,3 @@
-
 # NFT Ticketing in Solana / Anchor
 
 <a href="https://github.com/s-damian/anchor-nft-ticketing">
