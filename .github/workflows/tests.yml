@@ -16,7 +16,12 @@ jobs:
     strategy:
       matrix:
         # https://releases.rs/
-        rust-version: [1.74.1]
+        rust-version: [1.75.0, 1.80.0]
+
+    strategy:
+      matrix:
+        # https://releases.rs/
+        node-version: [17, 20]
 
     steps:
       - name: Checkout Code
@@ -32,7 +37,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node-versio }}
 
       - name: Install Solana
         run: |
