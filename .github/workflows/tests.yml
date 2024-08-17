@@ -10,11 +10,11 @@ on:
 
 jobs:
   build_and_test:
-    name: Build and test
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Rust
@@ -62,7 +62,7 @@ jobs:
           echo "Anchor version: $(anchor --version)"
           echo "Node.js version: $(node --version)"
 
-      - name: Install npm dependencies
+      - name: Install NPM Dependencies
         run: npm install
 
       - name: Build Anchor Program
