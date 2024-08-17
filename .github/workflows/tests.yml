@@ -73,6 +73,5 @@ jobs:
         run: anchor build
 
       - name: Run Anchor Tests
-        run: |
-          solana config set --keypair ~/.config/solana/id.json
-          anchor test
+        run: anchor test
+          
