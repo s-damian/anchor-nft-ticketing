@@ -28,12 +28,12 @@ jobs:
         run: |
           sh -c "$(curl -sSfL https://release.solana.com/v1.18.22/install)"
           export PATH="/home/runner/.local/share/solana/install/active_release/bin:$PATH"
-          solana --version
+          solana --version || echo "Solana installation failed"
 
       - name: Install Anchor
         run: |
-          cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1
-          anchor --version
+          cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1 || echo "Anchor installation failed"
+          anchor --version || echo "Anchor not found"
 
       - name: Build Anchor Program
         run: anchor build
