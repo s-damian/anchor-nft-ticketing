@@ -35,6 +35,20 @@ jobs:
           cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v0.30.1 || echo "Anchor installation failed"
           anchor --version || echo "Anchor version not found"
 
+
+      - name: Debug Project Structure
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory structure:"
+          tree -L 3 || ls -R
+          echo "Anchor.toml content:"
+          cat Anchor.toml || echo "Anchor.toml not found"
+          echo "Cargo.toml content:"
+          cat Cargo.toml || echo "Cargo.toml not found"
+          echo "Program Cargo.toml content:"
+          cat programs/*/Cargo.toml || echo "Program Cargo.toml not found"
+
+
       - name: Debug Environment
         run: |
           echo "Current directory: $(pwd)"
@@ -51,6 +65,7 @@ jobs:
         run: anchor build
         continue-on-error: true
 
+
       - name: Debug Build Failure
         if: failure()
         run: |
@@ -63,6 +78,7 @@ jobs:
           ls -la programs || echo "programs directory not found"
           echo "Cargo.toml content:"
           cat Cargo.toml || echo "Cargo.toml not found"
+
 
       - name: Run Anchor Tests
         run: anchor test
