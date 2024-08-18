@@ -37,7 +37,7 @@ describe("create_event_and_ticket", () => {
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
         const location = "Paris";
 
-        // Capturez le solde de l'organisateur avant la création de l'événement
+        // Capturer le solde de l'organisateur avant la création de l'événement
         const organizerBalanceBefore = await provider.connection.getBalance(organizerWallet.publicKey);
 
         // Appeler l'instruction create_event
@@ -55,7 +55,7 @@ describe("create_event_and_ticket", () => {
         // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
 
-        // Assertions pour vérifier que les détails sont corrects.
+        // Vérifier les détails de l'événement.
         assert.equal(eventAccountData.title, title);
         assert.equal(eventAccountData.description, description);
         assert.equal(eventAccountData.date.toString(), date.toString());
@@ -141,7 +141,7 @@ describe("create_event_and_ticket", () => {
         // Récupérer les détails du compte du ticket
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
 
-        // Assertions pour vérifier que les détails sont corrects.
+        // Vérifier les détails du ticket.
         assert.equal(ticketAccountData.event.toBase58(), eventAccount.publicKey.toBase58());
         assert.equal(ticketAccountData.price.toString(), ticketPrice.toString());
         assert.equal(ticketAccountData.dateOfPurchase.toString(), dateOfPurchase.toString());
@@ -163,17 +163,17 @@ describe("create_event_and_ticket", () => {
         // Génération d'une nouvelle paire de clés pour le mint (NFT).
         const mint = web3.Keypair.generate();
 
-        // Dérivez le compte d'adresse de jeton associé à l'atelier monétaire.
+        // Dériver le compte d'adresse de jeton associé à l'atelier monétaire.
         // Calculer l'adresse du compte de token associé pour le mint.
         const associatedTokenAccount = await getAssociatedTokenAddress(mint.publicKey, signerWallet.publicKey);
 
-        // Dérivez le compte de metadata PDA.
+        // Dériver le compte de metadata PDA.
         // Calculer l'adresse du compte de metadata pour le mint.
         let metadataAccount = findMetadataPda(umi, {
             mint: publicKey(mint.publicKey),
         })[0];
 
-        // Dérivez l'édition principale PDA.
+        // Dériver l'édition principale PDA.
         // Calculer l'adresse du compte de master edition pour le mint.
         let masterEditionAccount = findMasterEditionPda(umi, {
             mint: publicKey(mint.publicKey),
