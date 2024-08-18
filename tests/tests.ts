@@ -28,7 +28,7 @@ describe("create_event_and_ticket", () => {
     const ticketAccountForNft = web3.Keypair.generate();
 
     // SUCCESS create_event
-    it("Create an event and a ticket", async () => {
+    it("Create an event", async () => {
         const organizerWallet = provider.wallet;
 
         // Détails de l'événement.
