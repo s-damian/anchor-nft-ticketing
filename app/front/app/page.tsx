@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Layout from "../src/components/Layout";
 
 const Home: React.FC = () => {
@@ -17,32 +18,32 @@ const Home: React.FC = () => {
                     <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs">
                         <h3 className="text-xl font-bold text-indigo-600 mb-2">Créer un Événement</h3>
                         <p className="text-gray-600 mb-4">Organisez vos événements en quelques clics et mettez-les à disposition de votre audience.</p>
-                        <a
+                        <Link
                             href="/create-event"
                             className="block text-center py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
                         >
                             Créer un Événement
-                        </a>
+                        </Link>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs">
                         <h3 className="text-xl font-bold text-indigo-600 mb-2">Liste des Événements</h3>
                         <p className="text-gray-600 mb-4">Découvrez tous les événements disponibles et participez à ceux qui vous intéressent.</p>
-                        <a
+                        <Link
                             href="/list-events"
                             className="block text-center py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
                         >
                             Voir les Événements
-                        </a>
+                        </Link>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs">
                         <h3 className="text-xl font-bold text-indigo-600 mb-2">Vérifier un NFT</h3>
                         <p className="text-gray-600 mb-4">Assurez-vous de l'authenticité des NFTs associés à vos tickets d'événement.</p>
-                        <a
+                        <Link
                             href="/verify-nft"
                             className="block text-center py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
                         >
                             Vérifier un NFT
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -71,9 +72,12 @@ const Home: React.FC = () => {
                     <p className="text-lg text-gray-700 mb-8 max-w-2xl">
                         Que vous soyez un organisateur d'événements ou un participant, notre plateforme vous offre une expérience unique et sécurisée.
                     </p>
-                    <a href="/create-event" className="inline-block py-2 px-6 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300">
+                    <Link
+                        href="/create-event"
+                        className="inline-block py-2 px-6 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
+                    >
                         Commencer
-                    </a>
+                    </Link>
                 </div>
             </div>
         </Layout>
