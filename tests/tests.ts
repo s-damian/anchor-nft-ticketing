@@ -32,10 +32,10 @@ describe("create_event_and_ticket", () => {
         const organizerWallet = provider.wallet;
 
         // Détails de l'événement.
-        const title = "Test Event";
-        const description = "This is a test event.";
+        const title = "Event A";
+        const description = "Description of Event A";
         const date = new BN(new Date("2023-12-25").getTime() / 1000); // Convertir la date en secondes puis en BN (BigNumber).
-        const location = "Test Location";
+        const location = "Paris";
 
         // Capturez le solde de l'organisateur avant la création de l'événement
         const organizerBalanceBefore = await provider.connection.getBalance(organizerWallet.publicKey);
