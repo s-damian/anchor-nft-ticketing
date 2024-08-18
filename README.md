@@ -12,7 +12,7 @@
 
 > #Rust #Solana #Anchor #React #NFT # Web3
 
-> NFT Marketplace Event Ticketing
+> NFT Marketplace Event Ticketingon the Solana Blockchain
 
 ![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)
 ![Clippy](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml/badge.svg)
