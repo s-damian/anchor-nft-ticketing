@@ -20,7 +20,7 @@
 
 This **NFT Solana Project** is developed by [Stephen Damian](https://github.com/s-damian)
 
-PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-damian/anchor-nft-ticketing)
+PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-damian/hardhat-nft-ticketing)
 
 
 ## Project Overview
