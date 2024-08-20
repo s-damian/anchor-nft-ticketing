@@ -12,13 +12,15 @@
 
 > #Rust #Solana #Anchor #React #NFT # Web3
 
-> NFT Marketplace Event Ticketing on the Solana blockchain
+> NFT Marketplace Event Ticketing on the Solana Blockchain
 
 ![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)
 ![Clippy](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 This **NFT Solana Project** is developed by [Stephen Damian](https://github.com/s-damian)
+
+PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-damian/anchor-nft-ticketing)
 
 
 ## Project Overview
