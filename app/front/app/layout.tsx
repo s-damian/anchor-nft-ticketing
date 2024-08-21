@@ -1,6 +1,5 @@
 import "./globals.css";
 import AppWalletProvider from "../src/components/AppWalletProvider";
-import ClientOnly from "../src/components/ClientOnly";
 
 export default function RootLayout({
     children,
@@ -12,9 +11,7 @@ export default function RootLayout({
             <body>
                 <title>Anchor NFT Ticketing</title>
                 <meta name="description" content="Plateforme de billetterie NFT basée sur Solana" />
-                <ClientOnly>
-                    <AppWalletProvider>{children}</AppWalletProvider>
-                </ClientOnly>
+                <AppWalletProvider>{children}</AppWalletProvider>
             </body>
         </html>
     );
