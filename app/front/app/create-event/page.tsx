@@ -13,14 +13,15 @@ const CreateEvent: React.FC = () => {
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>(""); // État pour l'heure
     const [location, setLocation] = useState<string>("");
-    const [ticketPrice, setTicketPrice] = useState<string>("");
+    const [ticketPrice, setTicketPrice] = useState<string>(""); // Valeur en Lamports. PS: 1 SOL = 10^9 Lamports. 1 SOL = 1,000,000,000 Lamports (9 zéros).
 
-    const [ticketPriceInSOL, setTicketPriceInSOL] = useState<string>("");
+    const [ticketPriceInSOL, setTicketPriceInSOL] = useState<string>(""); // Pour afficher la valeur en SOL.
     const wallet = useAnchorWallet();
 
     useEffect(() => {
         const priceInLamports = parseFloat(ticketPrice);
         if (!isNaN(priceInLamports)) {
+            // Convertir de Lamports à SOL pour pour l'UX.
             setTicketPriceInSOL((priceInLamports / web3.LAMPORTS_PER_SOL).toFixed(9));
         } else {
             setTicketPriceInSOL("");

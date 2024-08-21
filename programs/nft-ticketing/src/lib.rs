@@ -159,7 +159,7 @@ pub struct Event {
     pub description: String,
     pub date: i64,
     pub location: String,
-    pub ticket_price: u64,
+    pub ticket_price: u64, // Valeur en Lamports. PS: 1 SOL = 10^9 Lamports. 1 SOL = 1,000,000,000 Lamports (9 zéros).
     pub organizer: Pubkey, // Clé publique de l'organisateur de l'événement.
 }
 
