@@ -162,16 +162,16 @@ npm run dev
 ├── app
 │   └── front
 │       ├── app
-│       │   // Pages (Nextjs App Router).
+│       │   └── // Pages (Nextjs App Router).
 │       ├── src
 │       │   ├── components
-│       │   │   // React components.
+│       │   │   └── // React components.
 │       │   ├── handlers
-│       │   │   // React handlers.
+│       │   │   └── // React handlers.
 │       │   ├── idl
 │       │   │   └── nft_ticketing.json.
 │       │   └── utils
-│       │       // React utils.
+│       │       └── // React utils.
 │       ├── .env.local
 │       ├── config-overrides.js
 │       ├── package.json
@@ -180,11 +180,11 @@ npm run dev
 │   └── nft-ticketing
 │       ├── src
 │       │   ├── kernel
-│       │   │   // Program managers.
+│       │   │   └── // Program managers.
 │       │   └── lib.rs
 │       └── Cargo.toml
 ├── tests
-│   └── tests.ts
+│   └── // Tests.
 ├── Anchor.toml
 ├── Cargo.toml
 ├── package.json
