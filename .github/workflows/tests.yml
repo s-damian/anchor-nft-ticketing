@@ -68,7 +68,7 @@ jobs:
           echo "Anchor version: $(anchor --version)"
           echo "Node.js version: $(node --version)"
 
-      - name: Install npm Dependencies
+      - name: Install NPM Dependencies
         run: npm install
 
       - name: Build Anchor Program
