@@ -42,10 +42,10 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 
 ## Technologies
 
-- **Back-End**: Rust, Solana, Anchor ```0.30.1```.
-- **Front-End**: Next.js ```14```, React ```18```, TypeScript ```5```, Tailwind CSS.
-- **Wallet Integration**: Phantom Wallet.
-- **Blockchain Interaction**: Solana-Web3.js.
+- **Back-End**: Rust, Solana, Anchor ```0.30.1```
+- **Front-End**: Next.js ```14```, React ```18```, TypeScript ```5```, Tailwind CSS
+- **Wallet Integration**: Phantom Wallet
+- **Blockchain Interaction**: Solana-Web3.js
 
 
 ## Getting Started
