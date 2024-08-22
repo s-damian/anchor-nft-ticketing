@@ -162,7 +162,7 @@ npm run dev
 ├── app
 │   └── front
 │       ├── app
-│       │   └── [Pages - Nextjs App Router]
+│       │   └── [Pages]
 │       ├── src
 │       │   ├── components
 │       │   │   └── [React components]
