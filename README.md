@@ -162,7 +162,7 @@ npm run dev
 ├── app
 │   └── front
 │       ├── app
-│       │   └── [Pages]
+│       │   └── [React pages]
 │       ├── src
 │       │   ├── components
 │       │   │   └── [React components]
