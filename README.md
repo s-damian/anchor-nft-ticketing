@@ -1,4 +1,4 @@
-# NFT Ticketing in Solana / Anchor / Rust
+# NFT Ticketing in Rust / Solana / Anchor
 
 <a href="https://github.com/s-damian/anchor-nft-ticketing">
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/rust.webp" alt="Rust Logo" height="100px">
