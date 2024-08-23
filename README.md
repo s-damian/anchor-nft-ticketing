@@ -34,18 +34,18 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 
 ## Prerequisites
 
-- **Rust** ```>= 1.75.0``` | *You can install Rust here: [Rustup](https://rustup.rs/).*
-- **Solana** ```1.18.22``` | *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
-- **Anchor** ```0.30.1``` | *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
-- **Node.js** ```>= 18``` and **npm** | *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
+- **Rust** ```>= 1.75.0``` - *You can install Rust here: [Rustup](https://rustup.rs/).*
+- **Solana** ```1.18.22``` - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
+- **Anchor** ```0.30.1``` - *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
+- **Node.js** ```>= 18``` and **npm** - *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
 
 
 ## Technologies
 
 - **Back-End**: Rust, Solana, Anchor ```0.30.1```
 - **Front-End**: Next.js ```14```, React ```18```, TypeScript ```5```, Tailwind CSS
-- **Wallet Integration**: Phantom Wallet
 - **Blockchain Interaction**: Solana-Web3.js
+- **Wallet Integration**: Phantom Wallet
 
 
 ## Getting Started
