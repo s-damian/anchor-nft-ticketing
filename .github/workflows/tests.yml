@@ -18,7 +18,7 @@ jobs:
         # Rust releases: https://releases.rs/
         rust-version: [1.75.0, 1.80.0]
         # Solana releases: https://github.com/solana-labs/solana/tags
-        solana-version: [v1.18.17, v1.18.22],
+        solana-version: [1.18.17, 1.18.22],
         # Node.js releases: https://nodejs.org/en/about/previous-releases
         node-version: [18, 20]
 
@@ -40,7 +40,7 @@ jobs:
 
       - name: Install Solana
         run: |
-          sh -c "$(curl -sSfL https://release.solana.com/${{ matrix.solana-version }}/install)"
+          sh -c "$(curl -sSfL https://release.solana.com/v${{ matrix.solana-version }}/install)"
           echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
           solana --version || echo "Solana version not found"
 
