@@ -20,7 +20,7 @@ jobs:
         # Rust releases: https://releases.rs/
         rust-version: [1.75.0, 1.80.0]
         # Solana releases: https://github.com/solana-labs/solana/tags
-        solana-version: [1.18.21, 1.18.22]
+        solana-version: [1.18.15, 1.18.21, 1.18.22]
         # Node.js releases: https://nodejs.org/en/about/previous-releases
         node-version: [18, 20]
 
