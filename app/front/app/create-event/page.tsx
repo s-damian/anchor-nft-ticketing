@@ -42,10 +42,8 @@ const CreateEvent: React.FC = () => {
         <Layout>
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 mt-3 bg-white rounded-xl shadow-md">
-                    <h1 className="text-center text-3xl font-extrabold text-gray-900">Créer un Événement</h1>
-                    <p className="text-gray-600 mb-4">
-                        Créez un événement unique sur la blockchain Solana, et vendez des tickets en toute sécurité sous forme de NFTs.
-                    </p>
+                    <h1 className="text-center text-3xl font-extrabold text-gray-900">Create an Event</h1>
+                    <p className="text-gray-600 mb-4">Create a unique event on the Solana blockchain and securely sell tickets as NFTs.</p>
                     <form
                         className="space-y-6"
                         onSubmit={(e) => handleCreateEvent(e, title, description, date, time, location, ticketPrice, wallet, resetForm)}
@@ -60,7 +58,7 @@ const CreateEvent: React.FC = () => {
                                     onChange={(e) => setTitle(e.target.value)}
                                     required
                                     className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm"
-                                    placeholder="Titre"
+                                    placeholder="Title"
                                 />
                             </div>
                             <div>
@@ -95,7 +93,7 @@ const CreateEvent: React.FC = () => {
                                     onChange={(e) => setTime(e.target.value)}
                                     required
                                     className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
-                                    placeholder="Heure"
+                                    placeholder="Time"
                                 />
                             </div>
                             <div>
@@ -107,7 +105,7 @@ const CreateEvent: React.FC = () => {
                                     onChange={(e) => setLocation(e.target.value)}
                                     required
                                     className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm"
-                                    placeholder="Lieu"
+                                    placeholder="Location"
                                 />
                             </div>
                             <div>
@@ -119,7 +117,7 @@ const CreateEvent: React.FC = () => {
                                     onChange={(e) => setTicketPrice(e.target.value)}
                                     required
                                     className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md sm:text-sm"
-                                    placeholder="Prix du Ticket (Lamports)"
+                                    placeholder="Ticket Price (Lamports)"
                                 />
                             </div>
                             {ticketPrice && <span className="text-gray-600">({ticketPriceInSOL} SOL)</span>}
@@ -129,7 +127,7 @@ const CreateEvent: React.FC = () => {
                                 type="submit"
                                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                             >
-                                Créer l'Événement
+                                Create Event
                             </button>
                         </div>
                     </form>

@@ -56,31 +56,30 @@ const ListEvents: React.FC = () => {
     return (
         <Layout>
             <div>
-                <h1 className="text-center text-3xl font-extrabold text-gray-900">Liste des Événements</h1>
+                <h1 className="text-center text-3xl font-extrabold text-gray-900">List of Events</h1>
                 <p className="text-gray-600 mb-4 mt-4">
-                    Découvrez tous les événements créés sur la blockchain Solana. Cliquez sur un événement pour en savoir plus et acheter des tickets en toute
-                    sécurité.
+                    Discover all the events created on the Solana blockchain. Click on an event to learn more and securely purchase tickets.
                 </p>
                 <div>
                     {events.map((event, index) => (
                         <div className="w-full p-10 mt-8 bg-white rounded-xl shadow-md" key={index}>
                             <h3 className="mb-2">
-                                <b>Titre</b> : {event.accountData.title}
+                                <b>Title</b>: {event.accountData.title}
                             </h3>
                             <p className="mb-2">
-                                <b>Description</b> : {event.accountData.description}
+                                <b>Description</b>: {event.accountData.description}
                             </p>
                             <p className="mb-2">
-                                <b>Date et heure</b> : {new Date(event.accountData.date.toNumber() * 1000).toLocaleString()}
+                                <b>Date and Time</b>: {new Date(event.accountData.date.toNumber() * 1000).toLocaleString()}
                             </p>
                             <p className="mb-2">
-                                <b>Lieu</b> : {event.accountData.location}
+                                <b>Location</b>: {event.accountData.location}
                             </p>
                             <p className="mb-2">
-                                <b>Prix du Ticket</b> : {(event.accountData.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
+                                <b>Ticket Price</b>: {(event.accountData.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
                             </p>
                             <p className="mb-2 flex items-center justify-center">
-                                <b>Clé publique de l'organisateur</b> :{" "}
+                                <b>Organizer's Public Key</b>:{" "}
                                 <span
                                     className="truncate bg-gray-200 p-1 rounded cursor-pointer ml-2"
                                     onClick={() => handleCopyToClipboard(event.accountData.organizer.toBase58())}
@@ -89,7 +88,7 @@ const ListEvents: React.FC = () => {
                                 </span>
                             </p>
                             <p className="mb-2 flex items-center justify-center">
-                                <b>Clé publique de l'événement</b> :{" "}
+                                <b>Event Public Key</b>:{" "}
                                 <span
                                     className="truncate bg-gray-200 p-1 rounded cursor-pointer ml-2"
                                     onClick={() => handleCopyToClipboard(event.publicKey.toBase58())}
@@ -102,7 +101,7 @@ const ListEvents: React.FC = () => {
                                     href={`/show-event/${event.publicKey.toBase58()}`}
                                     className="group relative inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 mt-4"
                                 >
-                                    Aller dans l'événement
+                                    Go to Event
                                 </Link>
                             </p>
                         </div>

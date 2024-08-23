@@ -70,19 +70,19 @@ const ShowEvent: React.FC = () => {
                         <div className="mb-6">
                             <h1 className="text-center text-3xl font-extrabold text-gray-900 mb-3">{eventDetails.title}</h1>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Description</b> : {eventDetails.description}
+                                <b>Description</b>: {eventDetails.description}
                             </p>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Date et heure</b> : {new Date(eventDetails.date.toNumber() * 1000).toLocaleString()}
+                                <b>Date and Time</b>: {new Date(eventDetails.date.toNumber() * 1000).toLocaleString()}
                             </p>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Lieu</b> : {eventDetails.location}
+                                <b>Location</b>: {eventDetails.location}
                             </p>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Prix du Ticket</b> : {(eventDetails.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
+                                <b>Ticket Price</b>: {(eventDetails.ticketPrice.toNumber() / 1_000_000_000).toFixed(9)} SOL
                             </p>
                             <p className="text-center text-gray-700 mb-2">
-                                <b>Clé publique de l'organisateur</b> :
+                                <b>Organizer's Public Key</b>:{" "}
                                 <span
                                     className="block truncate bg-gray-200 p-1 rounded cursor-pointer"
                                     title={eventDetails.organizer.toBase58()}
@@ -92,7 +92,7 @@ const ShowEvent: React.FC = () => {
                                 </span>
                             </p>
                             <p className="text-center text-gray-700">
-                                <b>Clé publique de l'événement</b> :
+                                <b>Event Public Key</b>:{" "}
                                 <span
                                     className="block truncate bg-gray-200 p-1 rounded cursor-pointer"
                                     title={eventPublicKey as string}
@@ -109,7 +109,7 @@ const ShowEvent: React.FC = () => {
                                 type="submit"
                                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                             >
-                                Acheter un Ticket
+                                Buy a Ticket
                             </button>
                         </div>
                     </form>
@@ -117,18 +117,18 @@ const ShowEvent: React.FC = () => {
             </div>
             {tickets.length > 0 && (
                 <div className="mt-8">
-                    <h3 className="text-center text-2xl font-extrabold text-gray-900">Tickets achetés pour cet événement :</h3>
+                    <h3 className="text-center text-2xl font-extrabold text-gray-900">Tickets purchased for this event:</h3>
                     <ul>
                         {tickets.map((ticket, index) => (
                             <li key={index} className="mt-4 p-4 bg-blue-100 rounded-md shadow-sm">
                                 <p className="mb-2">
-                                    <b>Prix payé</b> : {(ticket.account.price.toNumber() / 1_000_000_000).toFixed(9)} SOL
+                                    <b>Paid Price</b>: {(ticket.account.price.toNumber() / 1_000_000_000).toFixed(9)} SOL
                                 </p>
                                 <p className="mb-2">
-                                    <b>Date et heure de l'achat</b> : {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleString()}
+                                    <b>Date and Time of Purchase</b>: {new Date(ticket.account.dateOfPurchase.toNumber() * 1000).toLocaleString()}
                                 </p>
                                 <p className="mb-2 flex items-center justify-center">
-                                    <b>Clé publique de l'acheteur</b> :{" "}
+                                    <b>Buyer's Public Key</b>:{" "}
                                     <span
                                         className="truncate bg-gray-200 p-1 rounded cursor-pointer"
                                         onClick={() => handleCopyToClipboard(ticket.account.owner.toBase58())}
@@ -137,7 +137,7 @@ const ShowEvent: React.FC = () => {
                                     </span>
                                 </p>
                                 <p className="mb-5 flex items-center justify-center">
-                                    <b>Clé publique du ticket</b> :{" "}
+                                    <b>Ticket Public Key</b>:{" "}
                                     <span
                                         className="truncate bg-gray-200 p-1 rounded cursor-pointer ml-2"
                                         onClick={() => handleCopyToClipboard(ticket.publicKey.toBase58())}
@@ -148,7 +148,7 @@ const ShowEvent: React.FC = () => {
                                 {ticket.account.nftMint ? (
                                     <div className="border border-grey-600 p-2 rounded-md text-center">
                                         <p>
-                                            <b>Clé publique du NFT</b> :
+                                            <b>NFT Public Key</b>:
                                         </p>
                                         <p className="mt-2 flex items-center justify-center">
                                             <span
@@ -164,7 +164,7 @@ const ShowEvent: React.FC = () => {
                                             }}
                                             onClick={() => handleDownloadQrCode(ticket.account.nftMint.toBase58())}
                                             className="cursor-pointer mx-auto mt-2 flex justify-center"
-                                            title="Télécharger le QR code"
+                                            title="Download QR code"
                                         >
                                             <QRCode value={ticket.account.nftMint.toBase58()} size={80} data-nft-mint={ticket.account.nftMint.toBase58()} />
                                         </div>
@@ -175,7 +175,7 @@ const ShowEvent: React.FC = () => {
                                             onClick={() => handleCreateNft(ticket.publicKey, wallet, eventPublicKey!, setTickets)}
                                             className="group relative inline-flex justify-center mt-1 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
                                         >
-                                            Générer mon NFT
+                                            Generate My NFT
                                         </button>
                                     )
                                 )}

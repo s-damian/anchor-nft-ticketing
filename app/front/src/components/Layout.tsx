@@ -47,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         </>
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full">
-                            <p className="text-xl text-gray-800 mb-4">Veuillez connecter votre portefeuille pour continuer.</p>
+                            <p className="text-xl text-gray-800 mb-4">Please connect your wallet to continue.</p>
                         </div>
                     )}
                 </div>

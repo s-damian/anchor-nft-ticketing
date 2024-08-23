@@ -14,8 +14,8 @@ const VerifyNft: React.FC = () => {
         <Layout>
             <div className="flex items-center justify-center">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md mt-3">
-                    <h1 className="text-center text-3xl font-extrabold text-gray-900">Vérifier un NFT</h1>
-                    <p className="text-gray-600 mb-4">Pour un X événements, assurez-vous de l'authenticité d'un X NFT.</p>
+                    <h1 className="text-center text-3xl font-extrabold text-gray-900">Verify an NFT</h1>
+                    <p className="text-gray-600 mb-4">For a given event, ensure the authenticity of a specific NFT.</p>
                     <form className="space-y-6" onSubmit={(e) => handleVerifyNft(e, nftPublicKey, eventPublicKey, wallet)}>
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
@@ -27,7 +27,7 @@ const VerifyNft: React.FC = () => {
                                     onChange={(e) => setEventPublicKey(e.target.value)}
                                     required
                                     className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm"
-                                    placeholder="Clé publique de l'événement"
+                                    placeholder="Event Public Key"
                                 />
                             </div>
                             <div>
@@ -39,7 +39,7 @@ const VerifyNft: React.FC = () => {
                                     onChange={(e) => setNftPublicKey(e.target.value)}
                                     required
                                     className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md sm:text-sm"
-                                    placeholder="PublicKey du NFT"
+                                    placeholder="NFT Public Key"
                                 />
                             </div>
                         </div>
@@ -48,7 +48,7 @@ const VerifyNft: React.FC = () => {
                                 type="submit"
                                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                             >
-                                Vérifier le NFT
+                                Verify NFT
                             </button>
                         </div>
                     </form>
