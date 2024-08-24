@@ -39,3 +39,13 @@ cd /[your-path]/anchor-nft-ticketing
 ```bash
 npm run test
 ```
+
+
+## Networks
+
+| Name         | Consensus            | Type              | Equivalent on Ethereum      |
+|--------------|----------------------|-------------------|-----------------------------|
+| **Localnet** | PoS (Proof of Stake) | Local development | Localhost (Hardhat Network) |
+| **Devnet**   | PoS (Proof of Stake) | Public devnet     | Sepolia                     |
+| **Testnet**  | PoS (Proof of Stake) | Public testnet    | Goerli                      |
+| **Mainnet**  | PoS (Proof of Stake) | Production        | Mainnet                     |
