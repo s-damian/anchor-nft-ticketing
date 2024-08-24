@@ -3,6 +3,7 @@ import Link from "next/link";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { FaBars, FaTimes } from "react-icons/fa";
 import BalanceDisplay from "./wallet/BalanceDisplay";
+import NetworkName from "./wallet/NetworkName";
 
 const NavBar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +37,11 @@ const NavBar: React.FC = () => {
                         </Link>
                     </li>
                     <li className="ml-auto">
+                        <span className="bg-yellow-500 text-white rounded-md font-semibold px-3 py-1">
+                            <NetworkName />
+                        </span>
+                    </li>
+                    <li>
                         <span className="text-yellow-300 p-2">
                             <BalanceDisplay />
                         </span>
@@ -73,6 +79,11 @@ const NavBar: React.FC = () => {
                         </Link>
                     </li>
                     <li className="w-full text-center mt-4">
+                        <span className="bg-yellow-500 text-white rounded-md font-semibold px-3 py-1">
+                            <NetworkName />
+                        </span>
+                    </li>
+                    <li className="w-full text-center mt-2">
                         <span className="text-yellow-300 p-2">
                             <BalanceDisplay />
                         </span>

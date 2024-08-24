@@ -37,7 +37,7 @@ const BalanceDisplay: React.FC = () => {
 
     const balanceInSol = balanceInLamports / web3.LAMPORTS_PER_SOL;
 
-    return <span title={`${balanceInSol.toFixed(9)} SOL (${balanceInLamports} Lamports)`}>{balanceInSol.toFixed(4)} SOL</span>;
+    return <span title={`${balanceInSol.toFixed(9)} SOL`}>{balanceInSol.toFixed(4)} SOL</span>;
 };
 
 export default BalanceDisplay;
