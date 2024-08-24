@@ -10,9 +10,9 @@
 <img src="https://raw.githubusercontent.com/s-damian/medias/main/technos-logos/anchor.webp" alt="Anchor Logo" height="100px">
 </a>
 
-> #Rust #Solana #Anchor #React #NFT # Web3
+> #Rust 🦀 #Solana 🌐 #Anchor ⚓ #React ⚛️ #NFT 🖼️ #Web3 🔁
 
-> NFT Marketplace Event Ticketing on the Solana Blockchain
+> NFT Marketplace Event Ticketing on the **Solana Blockchain**
 
 [![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml)
 [![Static Analysis](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml)
