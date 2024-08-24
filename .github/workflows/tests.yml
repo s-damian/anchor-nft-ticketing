@@ -57,15 +57,10 @@ jobs:
           cargo install --git https://github.com/coral-xyz/anchor anchor-cli --tag v${{ matrix.anchor-version }} || echo "Anchor installation failed"
           anchor --version || echo "Anchor version not found"
 
-      - name: Debug Project Structure
+      - name: Debug Environment
         run: |
           echo "Current directory: $(pwd)"
           echo "PATH: $PATH"
-          echo "Directory structure:"
-          tree -L 3 || ls -R
-
-      - name: Debug Environment
-        run: |
           echo "Rust version: $(rustc --version)"
           echo "Cargo version: $(cargo --version)"
           echo "Solana version: $(solana --version)"
