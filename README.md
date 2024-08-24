@@ -72,7 +72,7 @@ solana config set --url localhost
 For the Anchor Program:
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing
+cd /<your-path>/anchor-nft-ticketing
 ```
 
 ```bash
@@ -82,7 +82,7 @@ npm install
 For the Next.js App:
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing/app/front
+cd /<your-path>/anchor-nft-ticketing/app/front
 ```
 
 ```bash
@@ -94,7 +94,7 @@ npm install
 Create a  ```.env ``` file for the Next.js app:
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing/app/front
+cd /<your-path>/anchor-nft-ticketing/app/front
 ```
 
 ```bash
@@ -120,7 +120,7 @@ anchor build && anchor deploy
 Copy the IDL (Interface Definition Language) file:
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing
+cd /<your-path>/anchor-nft-ticketing
 ```
 
 ```bash
@@ -150,7 +150,7 @@ anchor build && anchor deploy
 ### Run Front-End (Next.js App):
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing/app/front
+cd /<your-path>/anchor-nft-ticketing/app/front
 ```
 
 ```bash

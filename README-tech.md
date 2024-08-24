@@ -1,7 +1,7 @@
 ## Back-End Lint
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing
+cd /<your-path>/anchor-nft-ticketing
 ```
 
 Format the code:
@@ -20,7 +20,7 @@ cargo clippy
 ## Front-End Lint
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing
+cd /<your-path>/anchor-nft-ticketing
 ```
 
 Lint and format the code :
@@ -33,7 +33,7 @@ npm run lint:fix
 ## Run test with Localnet
 
 ```bash
-cd /[your-path]/anchor-nft-ticketing
+cd /<your-path>/anchor-nft-ticketing
 ```
 
 ```bash
