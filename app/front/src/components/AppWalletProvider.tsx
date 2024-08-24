@@ -7,7 +7,7 @@ import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { getNetworkAdapterUrl } from "../utils/anchorUtils";
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-export default function AppWalletProvider({ children }: { children: React.ReactNode }) {
+const AppWalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const networkUrl = getNetworkAdapterUrl(process.env.NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK!);
 
     const wallets = [new PhantomWalletAdapter()];
@@ -19,4 +19,6 @@ export default function AppWalletProvider({ children }: { children: React.ReactN
             </WalletProvider>
         </ConnectionProvider>
     );
-}
+};
+
+export default AppWalletProvider;

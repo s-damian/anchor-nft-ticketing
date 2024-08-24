@@ -1,44 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
-import { web3 } from "@coral-xyz/anchor";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { FaBars, FaTimes } from "react-icons/fa";
+import BalanceDisplay from "./wallet/BalanceDisplay";
 
 const NavBar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const wallet = useAnchorWallet();
-    const { connection } = useConnection();
-    const [balanceInSol, setBalanceInSol] = useState<number | null>(null); // Balance in SOL.
-
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
-
-    useEffect(() => {
-        const fetchBalance = async () => {
-            if (wallet?.publicKey) {
-                try {
-                    const balance = await connection.getBalance(wallet.publicKey);
-                    setBalanceInSol(balance / web3.LAMPORTS_PER_SOL);
-                } catch (error) {
-                    console.error("Error fetching balance:", error);
-                    setBalanceInSol(null);
-                }
-            } else {
-                setBalanceInSol(null);
-            }
-        };
-
-        fetchBalance();
-
-        // Set up an interval to update the balance every 60 seconds.
-        const intervalId = setInterval(fetchBalance, 60000);
-
-        // Clean up the interval on component unmount.
-        return () => clearInterval(intervalId);
-    }, [wallet, connection]);
 
     return (
         <nav className="bg-blue-700 p-4">
@@ -65,7 +36,9 @@ const NavBar: React.FC = () => {
                         </Link>
                     </li>
                     <li className="ml-auto">
-                        {wallet?.publicKey && balanceInSol !== null ? <span className="text-yellow-300 p-2">{balanceInSol.toFixed(4)} SOL</span> : null}
+                        <span className="text-yellow-300 p-2">
+                            <BalanceDisplay />
+                        </span>
                     </li>
                     <li>
                         <WalletMultiButton style={{}} />
@@ -100,7 +73,9 @@ const NavBar: React.FC = () => {
                         </Link>
                     </li>
                     <li className="w-full text-center mt-4">
-                        {wallet?.publicKey && balanceInSol !== null ? <span className="text-yellow-300 p-2">{balanceInSol.toFixed(4)} SOL</span> : null}
+                        <span className="text-yellow-300 p-2">
+                            <BalanceDisplay />
+                        </span>
                     </li>
                     <li className="w-full text-center mt-2 mb-2">
                         <WalletMultiButton />
