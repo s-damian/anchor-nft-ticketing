@@ -16,7 +16,7 @@
 
 [![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml)
 [![Static Analysis](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml)
-[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/s-damian/anchor-nft-ticketing/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
 
 This **NFT Solana Project** is developed by [Stephen Damian](https://github.com/s-damian)
 
@@ -197,4 +197,4 @@ npm run dev
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
