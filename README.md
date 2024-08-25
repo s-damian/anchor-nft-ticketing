@@ -120,10 +120,12 @@ Start the Solana local validator (solana-test-validator) with Metaplex:
 npm run ledger
 ```
 
-after starting the Solana local validator, you will probably need to do an airdrop(s):
+### Fund Your Wallet
+
+After starting the Solana local validator, you will probably need to airdrop SOL to your Localnet wallet:
 
 ```bash
-solana airdrop <amout> <your-address>
+solana airdrop <amout>
 ```
 
 ### Build and Deploy the Anchor Program
@@ -142,7 +144,7 @@ anchor deploy
 
 > **PS**: `anchor deploy` will create your `target/idl/nft_ticketing.json` file.
 
-### Change Program ID
+### Update Program ID
 
 Automatically update the Program ID in the necessary files:
 
