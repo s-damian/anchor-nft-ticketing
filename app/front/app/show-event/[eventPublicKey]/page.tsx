@@ -120,7 +120,7 @@ const ShowEvent: React.FC = () => {
                     <h3 className="text-center text-2xl font-extrabold text-gray-900">Tickets purchased for this event:</h3>
                     <ul>
                         {tickets.map((ticket, index) => (
-                            <li key={index} className="mt-4 p-4 bg-blue-100 rounded-md shadow-sm">
+                            <li key={index} className="mt-4 p-4 bg-white rounded-md shadow-sm">
                                 <p className="mb-2">
                                     <b>Paid Price</b>: {(ticket.account.price.toNumber() / 1_000_000_000).toFixed(9)} SOL
                                 </p>
