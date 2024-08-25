@@ -140,6 +140,8 @@ Deploy:
 anchor deploy
 ```
 
+> **PS**: `anchor deploy` will create your `target/idl/nft_ticketing.json` file.
+
 ### Change Program ID
 
 Automatically update the Program ID in the necessary files:

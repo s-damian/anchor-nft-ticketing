@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Assurez-vous que le script est exécutable avec : chmod +x update_program_id.sh
-
 # Obtenez le nouveau Program ID
 PROGRAM_ID=$(solana address -k target/deploy/nft_ticketing-keypair.json)
 
