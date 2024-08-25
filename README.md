@@ -148,6 +148,12 @@ Automatically update the Program ID in the necessary files:
 npm run update-program-id
 ```
 
+### Rebuild and Redeploy the Anchor Program
+
+```bash
+anchor build && anchor deploy
+```
+
 ### IDL Setup
 
 Copy the IDL (Interface Definition Language) file into the Next.js App:
