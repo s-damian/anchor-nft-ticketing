@@ -23,6 +23,7 @@ This **NFT Solana Project** is developed by [Stephen Damian](https://github.com/
 PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-damian/hardhat-nft-ticketing)
 
 
+
 ## Project Overview
 
 NFT Marketplace Event Ticketing - A decentralized application for managing and verifying event tickets as NFTs on the Solana blockchain.
@@ -35,23 +36,26 @@ See more images here:
 [Images](./img/)
 
 
+
 ## Prerequisites
 
-- **Rust** ```>= 1.75.0``` (last tested: ```1.80.0```) - *You can install Rust here: [Rustup](https://rustup.rs/).*
-- **Solana** ```>= 1.18.14``` (last tested: ```1.18.22```) - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
-- **Anchor** ```0.30.1``` - *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
-- **Node.js** ```>= 18``` (last tested: ```20```) and **npm** - *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
+- **Rust** `>= 1.75.0` (last tested: `1.80.0`) - *You can install Rust here: [Rustup](https://rustup.rs/).*
+- **Solana** `>= 1.18.14` (last tested: `1.18.22`) - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
+- **Anchor** `0.30.1` - *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
+- **Node.js** `>= 18` (last tested: `20`) and **npm** - *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
+
 
 
 ## Technologies
 
-- **Back-End**: Rust, Solana, Anchor ```0.30.1```
-- **Front-End**: Next.js ```14```, React ```18```, TypeScript ```5```, Tailwind CSS
+- **Back-End**: Rust, Solana, Anchor `0.30.1`
+- **Front-End**: Next.js `14`, React `18`, TypeScript `5`, Tailwind CSS
 - **Blockchain Interaction**: Solana-Web3.js
 - **Wallet Integration**: Phantom Wallet
 
 
-## Getting Started
+
+## Getting Started (with Localnet)
 
 ### Clone the Repository
 
@@ -101,9 +105,13 @@ cd /<your-path>/anchor-nft-ticketing/app/front
 cp .env.example .env
 ```
 
-### Run Solana Test Validator
+### Run Solana Local Validator
 
-Start the Solana test validator with Metaplex:
+```bash
+cd /<your-path>/anchor-nft-ticketing
+```
+
+Start the Solana local validator with Metaplex (`solana-test-validator  --ledger <and other arguments>`):
 
 ```bash
 npm run ledger
@@ -114,6 +122,20 @@ npm run ledger
 ```bash
 anchor build && anchor deploy
 ```
+
+### Change Program ID
+
+In the file :
+
+```bash
+target/idl/nft_ticketing.json
+```
+
+1/2. Find your program ID in `target/idl/nft_ticketing.json`.
+
+2/2. Update the program ID in:
+- Anchor.toml
+- programs/nft-ticketing/src/lib.rs
 
 ### IDL Setup
 
@@ -127,26 +149,6 @@ cd /<your-path>/anchor-nft-ticketing
 ./sh/copy-idl.sh
 ```
 
-### Change Program ID
-
-In the file :
-
-```bash
-target/idl/nft_ticketing.json
-```
-
-1/3. Find your program ID in ```target/idl/nft_ticketing.json```.
-
-2/3. Update the program ID in:
-- Anchor.toml
-- programs/nft-ticketing/src/lib.rs
-
-3/3. Rebuild and redeploy:
-
-```bash
-anchor build && anchor deploy
-```
-
 ### Run Front-End (Next.js App):
 
 ```bash
@@ -156,6 +158,7 @@ cd /<your-path>/anchor-nft-ticketing/app/front
 ```bash
 npm run dev
 ```
+
 
 
 ## Code Structure
@@ -193,6 +196,7 @@ npm run dev
 ├── package.json
 └── README.md
 ```
+
 
 
 ## License

@@ -17,6 +17,7 @@ cargo clippy
 ```
 
 
+
 ## Front-End Lint
 
 ```bash
@@ -30,15 +31,25 @@ npm run lint:fix
 ```
 
 
-## Run test with Localnet
+
+## Run test (with Localnet)
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing
 ```
 
+When the Solana local validator is not activated (without `--skip-local-validator` argument):
+
 ```bash
-npm run test
+anchor test
 ```
+
+When the Solana local validator is activated (must add argument `--skip-local-validator`):
+
+```bash
+anchor test --skip-local-validator
+```
+
 
 
 ## Networks
