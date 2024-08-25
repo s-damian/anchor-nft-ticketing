@@ -95,7 +95,7 @@ npm install
 
 ### Environment Setup
 
-Create a  ```.env ``` file for the Next.js app:
+Create a  ```.env ``` file for the Next.js App:
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing/app/front
