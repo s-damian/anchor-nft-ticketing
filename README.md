@@ -55,7 +55,7 @@ See more images here:
 
 
 
-## Getting Started (with Localnet)
+## Getting Started (Localnet)
 
 ### Clone the Repository
 
