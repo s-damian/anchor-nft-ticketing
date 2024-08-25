@@ -9,7 +9,7 @@
 
 
 
-## Commitment Levels
+## Solana Commitment Levels
 
 | **Option**    | **Description** |
 |---------------|---|
