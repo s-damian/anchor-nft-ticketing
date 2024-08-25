@@ -9,7 +9,7 @@
 
 
 
-## Run test (Localnet)
+## Run tests (Localnet)
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing
