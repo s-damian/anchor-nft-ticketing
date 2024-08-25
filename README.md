@@ -112,8 +112,16 @@ npm run ledger
 
 ### Build and Deploy the Anchor Program
 
+Build:
+
 ```bash
-anchor build && anchor deploy
+anchor build
+```
+
+Deploy:
+
+```bash
+anchor deploy
 ```
 
 ### Change Program ID
