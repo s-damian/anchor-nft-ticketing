@@ -135,8 +135,8 @@ target/idl/nft_ticketing.json
 1/2. Find your program ID in `target/idl/nft_ticketing.json`.
 
 2/2. Update the program ID in:
-- Anchor.toml
-- programs/nft-ticketing/src/lib.rs
+- `Anchor.toml`
+- `programs/nft-ticketing/src/lib.rs`
 
 ### IDL Setup
 
