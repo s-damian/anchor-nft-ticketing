@@ -120,6 +120,12 @@ Start the Solana local validator (solana-test-validator) with Metaplex:
 npm run ledger
 ```
 
+after starting the Solana local validator, you will probably need to do an airdrop(s):
+
+```bash
+solana airdrop <amout> <your-address>
+```
+
 ### Build and Deploy the Anchor Program
 
 Build:

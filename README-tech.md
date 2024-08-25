@@ -70,3 +70,8 @@ Lint and format the code :
 ```bash
 npm run lint:fix
 ```
+
+
+
+## Localnet to Devnet
+
