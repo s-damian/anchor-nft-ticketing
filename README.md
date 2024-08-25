@@ -96,15 +96,17 @@ npm install --prefix ./app/front
 
 ### Environment Setup
 
-Create a  `.env ` file for the Next.js App:
+Create a  `.env` file for the Next.js App:
 
 ```bash
 cp ./app/front/.env.example ./app/front/.env
 ```
 
+Ensure all necessary environment variables are configured in the `.env` file.
+
 ### Run Solana Local Validator
 
-Start the Solana local validator with Metaplex (`solana-test-validator  --ledger <and other arguments>`):
+Start the Solana local validator with Metaplex (`solana-test-validator --ledger <and other arguments>`):
 
 ```bash
 npm run ledger
@@ -126,12 +128,6 @@ anchor deploy
 
 ### Change Program ID
 
-In the file :
-
-```bash
-target/idl/nft_ticketing.json
-```
-
 1/2. Find your program ID in `target/idl/nft_ticketing.json`.
 
 2/2. Update the program ID in:
@@ -140,7 +136,7 @@ target/idl/nft_ticketing.json
 
 ### IDL Setup
 
-Copy the IDL (Interface Definition Language) file:
+Copy the IDL (Interface Definition Language) file into the Next.js App:
 
 ```bash
 ./sh/copy-idl.sh
@@ -153,6 +149,8 @@ Go to the Next.js App Directory:
 ```bash
 cd /<your-path>/anchor-nft-ticketing/app/front
 ```
+
+Start the development server:
 
 ```bash
 npm run dev
