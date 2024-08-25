@@ -95,7 +95,7 @@ solana airdrop <amout>
 
 Modify your `Anchor.toml` file:
 
-#### Anchor.toml - In [programs.devnet]:
+#### Anchor.toml - In [programs.devnet] section:
 
 Add :
 
@@ -104,7 +104,7 @@ Add :
 nft_ticketing = "<your-program-id>"
 ```
 
-#### Anchor.toml - In [provider]:
+#### Anchor.toml - In [provider] section:
 
 Replace:
 
