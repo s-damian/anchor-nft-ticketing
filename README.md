@@ -114,7 +114,7 @@ chmod +x sh/*.sh
 
 ### Run Solana Local Validator
 
-Start the Solana local validator with Metaplex (`solana-test-validator --ledger <and other arguments>`):
+Start the Solana local validator (solana-test-validator) with Metaplex:
 
 ```bash
 npm run ledger
