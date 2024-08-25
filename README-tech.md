@@ -29,7 +29,9 @@ anchor test --skip-local-validator
 
 
 
-## Back-End Lint
+## Lint
+
+### Rust Lint
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing
@@ -47,9 +49,7 @@ Lint :
 cargo clippy
 ```
 
-
-
-## Front-End Lint
+### JS Lint
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing
