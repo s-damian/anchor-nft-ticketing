@@ -104,6 +104,14 @@ cp ./app/front/.env.example ./app/front/.env
 
 Ensure all necessary environment variables are configured in the `.env` file.
 
+### Make Scripts Executable
+
+Ensure the shell scripts are executable:
+
+```bash
+chmod +x sh/*.sh
+```
+
 ### Run Solana Local Validator
 
 Start the Solana local validator with Metaplex (`solana-test-validator --ledger <and other arguments>`):
@@ -127,6 +135,8 @@ anchor deploy
 ```
 
 ### Change Program ID
+
+Automatically update the Program ID in the necessary files:
 
 ```bash
 npm run update-program-id
