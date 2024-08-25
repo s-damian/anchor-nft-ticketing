@@ -44,11 +44,15 @@ cluster = "devnet"
 ### Environment Variables
 
 In  `/app/front/.env` (Next.js App):
+
 Replace:
+
 ```bash
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="localnet"
 ```
+
 By:
+
 ```bash
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
 ```
