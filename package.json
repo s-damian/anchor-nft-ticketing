@@ -3,12 +3,14 @@
   "scripts": {
     "lint:fix": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" -w",
     "lint": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" --check",
-    "build": "anchor build && ./sh/copy-idl.sh",
+    "build": "anchor build && npm run copy-idl",
     "lint-all": "cargo fmt && npm run lint:fix",
-    "deploy": "anchor build && anchor deploy && ./sh/copy-idl.sh",
+    "deploy": "anchor build && anchor deploy && npm run copy-idl",
     "ledger": "./sh/test-ledger.sh",
     "ledger-b": "./sh/test-ledger-b.sh",
-    "test": "anchor test --skip-local-validator"
+    "test": "anchor test --skip-local-validator",
+    "copy-idl": "./sh/copy-idl.sh",
+    "update-program-id": "./sh/update-program-id.sh"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.30.1",

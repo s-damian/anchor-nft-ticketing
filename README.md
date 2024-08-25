@@ -128,18 +128,16 @@ anchor deploy
 
 ### Change Program ID
 
-1/2. Find your program ID in `target/idl/nft_ticketing.json`.
-
-2/2. Update the program ID in:
-- `Anchor.toml`
-- `programs/nft-ticketing/src/lib.rs`
+```bash
+npm run update-program-id
+```
 
 ### IDL Setup
 
 Copy the IDL (Interface Definition Language) file into the Next.js App:
 
 ```bash
-./sh/copy-idl.sh
+npm run copy-idl
 ```
 
 ### Run Front-End (Next.js App)
