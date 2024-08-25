@@ -62,7 +62,7 @@ See further technical details here:
 
 ### Setup Solana Locally
 
-Set Solana to run on the local network:
+Configure your Solana CLI to use your localhost validator:
 
 ```bash
 solana config set --url localhost
