@@ -167,14 +167,6 @@ anchor build && anchor deploy
 
 > This step is crucial after updating the Program ID to ensure that the deployed program matches the updated configuration.
 
-### Verify Deployment
-
-Check if your program is correctly deployed:
-
-```bash
-solana program show <your-program-id>
-```
-
 ### IDL Setup
 
 Copy the IDL (Interface Definition Language) file into the Next.js App:
