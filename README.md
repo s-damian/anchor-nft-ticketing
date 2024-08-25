@@ -35,6 +35,9 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 See more images here:
 [Images](./img/)
 
+See further technical details here:
+[README-tech.md](./README-tech.md)
+
 
 
 ## Prerequisites
@@ -57,12 +60,6 @@ See more images here:
 
 ## Getting Started (Localnet)
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/s-damian/anchor-nft-ticketing.git
-```
-
 ### Setup Solana Locally
 
 Set Solana to run on the local network:
@@ -71,13 +68,21 @@ Set Solana to run on the local network:
 solana config set --url localhost
 ```
 
-### Install Dependencies
+### Clone the Repository
 
-For the Anchor Program:
+```bash
+git clone https://github.com/s-damian/anchor-nft-ticketing.git
+```
+
+### Go to the Anchor Directory
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing
 ```
+
+### Install Dependencies
+
+For the Anchor Program:
 
 ```bash
 npm install
@@ -86,30 +91,18 @@ npm install
 For the Next.js App:
 
 ```bash
-cd /<your-path>/anchor-nft-ticketing/app/front
-```
-
-```bash
-npm install
+npm install --prefix ./app/front
 ```
 
 ### Environment Setup
 
-Create a  ```.env ``` file for the Next.js App:
+Create a  `.env ` file for the Next.js App:
 
 ```bash
-cd /<your-path>/anchor-nft-ticketing/app/front
-```
-
-```bash
-cp .env.example .env
+cp ./app/front/.env.example ./app/front/.env
 ```
 
 ### Run Solana Local Validator
-
-```bash
-cd /<your-path>/anchor-nft-ticketing
-```
 
 Start the Solana local validator with Metaplex (`solana-test-validator  --ledger <and other arguments>`):
 
@@ -142,14 +135,12 @@ target/idl/nft_ticketing.json
 Copy the IDL (Interface Definition Language) file:
 
 ```bash
-cd /<your-path>/anchor-nft-ticketing
-```
-
-```bash
 ./sh/copy-idl.sh
 ```
 
-### Run Front-End (Next.js App):
+### Run Front-End (Next.js App)
+
+Go to the Next.js App Directory:
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing/app/front
