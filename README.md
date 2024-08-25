@@ -36,7 +36,7 @@ See more images here:
 [Images](./img/)
 
 See further technical details here:
-[README-tech.md](./README-tech.md)
+[README-tech.md](./docs/README-tech.md)
 
 
 
