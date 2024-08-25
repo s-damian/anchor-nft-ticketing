@@ -11,7 +11,8 @@
     "test": "anchor test --skip-local-validator",
     "copy-idl": "./sh/copy-idl.sh",
     "update-program-id": "./sh/update-program-id.sh",
-    "localnet-to-devnet": "./sh/localnet-to-devnet.sh"
+    "localnet-to-devnet": "./sh/localnet-to-devnet.sh",
+    "devnet-to-localnet": "./sh/devnet-to-localnet.sh"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.30.1",
