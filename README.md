@@ -165,6 +165,8 @@ npm run update-program-id
 anchor build && anchor deploy
 ```
 
+> This step is crucial after updating the Program ID to ensure that the deployed program matches the updated configuration.
+
 ### IDL Setup
 
 Copy the IDL (Interface Definition Language) file into the Next.js App:
