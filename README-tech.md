@@ -95,21 +95,29 @@ solana airdrop <amout>
 
 Modify your `Anchor.toml` file:
 
-Replace:
+#### [programs.devnet]
+
+Add :
+
+```bash
+[programs.devnet]
+nft_ticketing = "<your-program-id>"
+```
+
+#### [provider]
+
+And replace:
+
 ```bash
 [provider]
 cluster = "localnet"
 ```
+
 By:
+
 ```bash
 [provider]
 cluster = "devnet"
-```
-
-Add :
-```bash
-[programs.devnet]
-nft_ticketing = "<your-program-id>"
 ```
 
 ### Environment Variables
