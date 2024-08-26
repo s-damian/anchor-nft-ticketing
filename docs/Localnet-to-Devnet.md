@@ -1,4 +1,4 @@
-# Localnet to Devnet - Solana / Anchor
+# Local to Devnet - Solana / Anchor
 
 ## Preparing for Public Deployment: Transition from Localnet to Solana Devnet
 

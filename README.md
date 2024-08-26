@@ -31,7 +31,7 @@ PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-
 - [Prerequisites](#prerequisites)
 - [Technologies](#technologies)
 - [Getting Started (Localnet)](#getting-started-localnet)
-- [Localnet to Devnet](#localnet-to-devnet)
+- [Transition: Localnet to Devnet](#transition-localnet-to-devnet)
 - [Code Structure](#code-structure)
 - [License](#license)
 
@@ -227,7 +227,7 @@ http://localhost:3000
 
 
 
-## Localnet to Devnet
+## Transition: Localnet to Devnet
 
 *Preparing for Public Deployment: Transition from Localnet to Devnet*
 
