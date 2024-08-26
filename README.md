@@ -187,6 +187,11 @@ npm run copy-idl
 ```
 
 
+### Phantom Wallet
+
+In your Phantom wallet settings, switch to **Solana Localnet**.
+
+
 ### Run Front-End (Next.js App)
 
 Go to the Next.js App Directory:
@@ -199,6 +204,12 @@ Start the development server:
 
 ```bash
 npm run dev
+```
+
+And you can go to the URL:
+
+```bash
+http://localhost:3000
 ```
 
 

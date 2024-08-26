@@ -66,11 +66,6 @@ NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
 ```
 
 
-### Phantom Wallet
-
-In your Phantom wallet settings, switch to **Solana Devnet**.
-
-
 ### Build and Deploy the Anchor Program
 
 Build:
@@ -86,6 +81,11 @@ anchor deploy --provider.cluster devnet
 ```
 
 
+### Phantom Wallet
+
+In your Phantom wallet settings, switch to **Solana Devnet**.
+
+
 ### Run Front-End (Next.js App)
 
 Go to the Next.js App Directory:
@@ -98,4 +98,10 @@ Start the development server:
 
 ```bash
 npm run dev
+```
+
+And you can go to the URL:
+
+```bash
+http://localhost:3000
 ```
