@@ -39,7 +39,7 @@ anchor test --skip-local-validator
 
 
 
-### Verify Deployment
+## Verify Deployment
 
 Check if your program is correctly deployed:
 
