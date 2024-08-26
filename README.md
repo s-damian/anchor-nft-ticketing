@@ -39,11 +39,11 @@ See more images here:
 
 ## Documentation
 
-- See further technical details here:
-[Notes-tech.md](./docs/Notes-tech.md)
-
 - To switch from the **Localnet** to **Devnet**:
 [Localnet-to-Devnet.md](./docs/Localnet-to-Devnet.md)
+
+- See further technical details here:
+[Notes-tech.md](./docs/Notes-tech.md)
 
 
 
