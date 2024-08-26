@@ -24,6 +24,19 @@ PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-
 
 
 
+## Summary
+
+- [Project Overview](#project-overview)
+- [Various Documentations](#various-documentations)
+- [Prerequisites](#prerequisites)
+- [Technologies](#technologies)
+- [Getting Started (Localnet)](#getting-started-localnet)
+- [Localnet to Devnet](#localnet-to-devnet)
+- [Code Structure](#code-structure)
+- [License](#license)
+
+
+
 ## Project Overview
 
 NFT Marketplace Event Ticketing - A decentralized application for managing and verifying event tickets as NFTs on the Solana blockchain.
@@ -37,7 +50,7 @@ See more images here:
 
 
 
-## Documentation
+## Various Documentations
 
 - To switch from the **Localnet** to **Devnet**:
 [Localnet-to-Devnet.md](./docs/Localnet-to-Devnet.md)
@@ -211,6 +224,16 @@ And you can go to the URL:
 ```bash
 http://localhost:3000
 ```
+
+
+
+## Localnet to Devnet
+
+*Preparing for Public Deployment: Transition from Localnet to Devnet*
+
+After successfully running your project locally, the next step is to deploy it on a public Devnet. This section guides you through the process of configuring your environment, deploying your program to Devnet, and updating your Front-End to interact with the deployed program on the Devnet.
+
+To switch from the **Localnet** to **Devnet**: [Localnet-to-Devnet.md](./docs/Localnet-to-Devnet.md)
 
 
 
