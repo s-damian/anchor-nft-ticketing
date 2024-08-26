@@ -75,17 +75,20 @@ Configure your Solana CLI to use your localhost validator:
 solana config set --url localhost
 ```
 
+
 ### Clone the Repository
 
 ```bash
 git clone https://github.com/s-damian/anchor-nft-ticketing.git
 ```
 
+
 ### Go to the Anchor Directory
 
 ```bash
 cd /<your-path>/anchor-nft-ticketing
 ```
+
 
 ### Install Dependencies
 
@@ -101,6 +104,7 @@ For the Next.js App:
 npm install --prefix ./app/front
 ```
 
+
 ### Environment Setup
 
 Create a  `.env` file for the Next.js App:
@@ -111,6 +115,7 @@ cp ./app/front/.env.example ./app/front/.env
 
 Ensure all necessary environment variables are configured in the `.env` file.
 
+
 ### Make Scripts Executable
 
 Ensure the shell scripts are executable:
@@ -118,6 +123,7 @@ Ensure the shell scripts are executable:
 ```bash
 chmod +x sh/*.sh
 ```
+
 
 ### Run Solana Local Validator
 
@@ -127,6 +133,7 @@ Start the Solana local validator (solana-test-validator) with Metaplex:
 npm run ledger
 ```
 
+
 ### Fund Your Wallet
 
 After starting the Solana local validator, you will probably need to airdrop SOL to your Localnet wallet:
@@ -134,6 +141,7 @@ After starting the Solana local validator, you will probably need to airdrop SOL
 ```bash
 solana airdrop <amout>
 ```
+
 
 ### Build and Deploy the Anchor Program
 
@@ -151,6 +159,7 @@ anchor deploy
 
 > **PS**: `anchor deploy` will create your `target/idl/nft_ticketing.json` file.
 
+
 ### Update Program ID
 
 Automatically update the Program ID in the necessary files:
@@ -158,6 +167,7 @@ Automatically update the Program ID in the necessary files:
 ```bash
 npm run update-program-id
 ```
+
 
 ### Rebuild and Redeploy the Anchor Program
 
@@ -167,6 +177,7 @@ anchor build && anchor deploy
 
 > This step is crucial after updating the Program ID to ensure that the deployed program matches the updated configuration.
 
+
 ### IDL Setup
 
 Copy the IDL (Interface Definition Language) file into the Next.js App:
@@ -174,6 +185,7 @@ Copy the IDL (Interface Definition Language) file into the Next.js App:
 ```bash
 npm run copy-idl
 ```
+
 
 ### Run Front-End (Next.js App)
 
@@ -208,7 +220,7 @@ npm run dev
 │       │   │   └── nft_ticketing.json.
 │       │   └── utils
 │       │       └── [React utils]
-│       ├── .env.local
+│       ├── .env
 │       ├── config-overrides.js
 │       ├── package.json
 │       └── tailwind.config.ts

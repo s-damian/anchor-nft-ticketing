@@ -8,6 +8,7 @@ Change your Solana CLI to use the Devnet:
 solana config set --url https://api.devnet.solana.com
 ```
 
+
 ### Fund Your Wallet
 
 Airdrop SOL to your Devnet wallet:
@@ -16,9 +17,11 @@ Airdrop SOL to your Devnet wallet:
 solana airdrop <amout>
 ```
 
+
 ### Update Anchor Configuration
 
 Modify your `Anchor.toml` file:
+
 
 #### - In [programs.devnet] section:
 
@@ -45,9 +48,10 @@ By:
 cluster = "devnet"
 ```
 
+
 ### Environment Variables
 
-In  `/app/front/.env` (Next.js App):
+In  `./app/front/.env` (Next.js App):
 
 Replace:
 
@@ -61,9 +65,11 @@ By:
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
 ```
 
+
 ### Phantom Wallet
 
 In your Phantom wallet settings, switch to **Solana Devnet**.
+
 
 ### Build and Deploy the Anchor Program
 
@@ -79,13 +85,6 @@ Deploy on the Devnet:
 anchor deploy --provider.cluster devnet
 ```
 
-### Verify Deployment
-
-Check if your program is correctly deployed:
-
-```bash
-solana program show <your-program-id> --url devnet
-```
 
 ### Run Front-End (Next.js App)
 

@@ -39,6 +39,16 @@ anchor test --skip-local-validator
 
 
 
+### Verify Deployment
+
+Check if your program is correctly deployed:
+
+```bash
+solana program show <your-program-id> --url <network>
+```
+
+
+
 ## Lint
 
 ### Rust Lint
