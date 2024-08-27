@@ -20,7 +20,7 @@
 
 This **NFT Solana Project** is developed by [Stephen Damian](https://github.com/s-damian)
 
-PS: I developed the same project with [Ethereum / Hardhat](https://github.com/s-damian/hardhat-nft-ticketing)
+Note: I developed the same project with [Ethereum / Hardhat](https://github.com/s-damian/hardhat-nft-ticketing)
 
 
 
@@ -131,7 +131,7 @@ Ensure all necessary environment variables are configured in the `.env` file.
 
 ### Make Scripts Executable
 
-Ensure the shell scripts are executable:
+Ensure that the shell scripts are executable:
 
 ```bash
 chmod +x sh/*.sh
@@ -152,7 +152,7 @@ npm run ledger
 After starting the Solana local validator, you will probably need to airdrop SOL to your Localnet wallet:
 
 ```bash
-solana airdrop <amout>
+solana airdrop <amount>
 ```
 
 
@@ -219,7 +219,7 @@ Start the development server:
 npm run dev
 ```
 
-And you can go to the URL:
+Open your browser and go to:
 
 ```bash
 http://localhost:3000
@@ -231,7 +231,7 @@ http://localhost:3000
 
 *Preparing for Public Deployment: Transition from Localnet to Devnet*
 
-After successfully running your project locally, the next step is to deploy it on a public Devnet. This section guides you through the process of configuring your environment, deploying your program to Devnet, and updating your Front-End to interact with the deployed program on the Devnet.
+After successfully running your project locally, the next step is to deploy it on the public Devnet. This section guides you through the process of configuring your environment, deploying your program to Devnet, and updating your Front-End to interact with the deployed program on the Devnet.
 
 To switch from the **Localnet** to **Devnet**: [Localnet-to-Devnet.md](./docs/Localnet-to-Devnet.md)
 

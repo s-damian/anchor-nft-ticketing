@@ -16,7 +16,7 @@ solana config set --url https://api.devnet.solana.com
 Airdrop SOL to your Devnet wallet:
 
 ```bash
-solana airdrop <amout>
+solana airdrop <amount>
 ```
 
 
@@ -43,7 +43,7 @@ Replace:
 cluster = "localnet"
 ```
 
-By:
+With:
 
 ```bash
 [provider]
@@ -61,7 +61,7 @@ Replace:
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="localnet"
 ```
 
-By:
+With:
 
 ```bash
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
@@ -102,7 +102,7 @@ Start the development server:
 npm run dev
 ```
 
-And you can go to the URL:
+Open your browser and go to:
 
 ```bash
 http://localhost:3000
