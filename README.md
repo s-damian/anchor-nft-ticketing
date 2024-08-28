@@ -14,7 +14,7 @@
 
 > NFT Marketplace Event Ticketing on the **Solana Blockchain**
 
-[![Build](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml)
+[![Tests](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/tests.yml)
 [![Static Analysis](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/s-damian/anchor-nft-ticketing/actions/workflows/static-analysis.yml)
 [![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
 
@@ -27,6 +27,7 @@ Note: I developed the same project with [Ethereum / Hardhat](https://github.com/
 ## Summary
 
 - [Project Overview](#project-overview)
+- [Roadmap](#roadmap)
 - [Various Documentations](#various-documentations)
 - [Prerequisites](#prerequisites)
 - [Technologies](#technologies)
@@ -47,6 +48,20 @@ NFT Marketplace Event Ticketing - A decentralized application for managing and v
 
 See more images here:
 [Images](./img/)
+
+
+
+## Roadmap
+
+- [x] Phantom integration.
+- [x] Homepage.
+- [x] Create event.
+- [x] Event listing.
+- [x] Buy a ticket.
+- [x] Generate NFTs.
+- [x] Verify NFTs.
+- [ ] Integrate other wallets.
+- [ ] Event organizer dashboard.
 
 
 
@@ -74,7 +89,7 @@ See more images here:
 - **Back-End**: Rust, Solana, Anchor `0.30.1`
 - **Front-End**: Next.js `14`, React `18`, TypeScript `5`, Tailwind CSS
 - **Blockchain Interaction**: Solana-Web3.js
-- **Wallet Integration**: Phantom Wallet
+- **Wallet Integration**: Phantom
 
 
 
