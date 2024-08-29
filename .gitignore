@@ -6,4 +6,4 @@ node_modules
 test-ledger
 .yarn
 sh/test-ledger-b.sh
-app/front/src/idl/nft_ticketing.json
+app/frontend/src/idl/nft_ticketing.json

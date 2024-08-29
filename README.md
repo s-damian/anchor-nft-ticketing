@@ -129,7 +129,7 @@ npm install
 For the Next.js App:
 
 ```bash
-npm install --prefix ./app/front
+npm install --prefix ./app/frontend
 ```
 
 
@@ -138,7 +138,7 @@ npm install --prefix ./app/front
 Create a  `.env` file for the Next.js App:
 
 ```bash
-cp ./app/front/.env.example ./app/front/.env
+cp ./app/frontend/.env.example ./app/frontend/.env
 ```
 
 Ensure all necessary environment variables are configured in the `.env` file.
@@ -225,7 +225,7 @@ In your Phantom wallet settings, switch to **Solana Localnet**.
 Go to the Next.js App Directory:
 
 ```bash
-cd /<your-path>/anchor-nft-ticketing/app/front
+cd /<your-path>/anchor-nft-ticketing/app/frontend
 ```
 
 Start the development server:
@@ -257,7 +257,7 @@ To switch from the **Localnet** to **Devnet**: [Localnet-to-Devnet.md](./docs/Lo
 ```bash
 .
 ├── app
-│   └── front
+│   └── frontend
 │       ├── app
 │       │   └── [React pages]
 │       ├── src

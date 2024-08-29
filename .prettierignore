@@ -6,5 +6,5 @@ dist
 build
 test-ledger
 
-/app/front/.next
-/app/front/node_modules
+/app/frontend/.next
+/app/frontend/node_modules

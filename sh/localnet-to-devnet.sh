@@ -7,5 +7,5 @@ solana config set --url https://api.devnet.solana.com
 sed -i "s/cluster = \"localnet\"/cluster = \"devnet\"/" Anchor.toml
 
 # Mise à jour du fichier .env de l'App Next.js.
-ENV_FILE="./app/front/.env"
+ENV_FILE="./app/frontend/.env"
 sed -i 's/NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="localnet"/NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"/' "$ENV_FILE"

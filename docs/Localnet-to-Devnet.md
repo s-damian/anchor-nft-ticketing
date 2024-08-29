@@ -53,7 +53,7 @@ cluster = "devnet"
 
 ### Environment Variables
 
-In  `./app/front/.env` (Next.js App):
+In  `./app/frontend/.env` (Next.js App):
 
 Replace:
 
@@ -93,7 +93,7 @@ In your Phantom wallet settings, switch to **Solana Devnet**.
 Go to the Next.js App Directory:
 
 ```bash
-cd /<your-path>/anchor-nft-ticketing/app/front
+cd /<your-path>/anchor-nft-ticketing/app/frontend
 ```
 
 Start the development server:
