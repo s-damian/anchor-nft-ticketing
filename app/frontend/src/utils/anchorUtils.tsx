@@ -33,8 +33,8 @@ export const getNetworkAdapterUrl = (network: string): string => {
         case "localnet":
             return "http://127.0.0.1:8899";
         case "devnet-custom-rpc":
-            if (process.env.CUSTOM_RPC_URL) {
-                return JSON.parse(process.env.CUSTOM_RPC_URL);
+            if (process.env.DEVNET_CUSTOM_RPC_URL) {
+                return JSON.parse(process.env.DEVNET_CUSTOM_RPC_URL);
             }
             return clusterApiUrl(WalletAdapterNetwork.Devnet);
         case "devnet":
