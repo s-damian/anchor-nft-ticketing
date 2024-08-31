@@ -50,6 +50,13 @@ solana airdrop <amount>
 ```
 
 
+### Go to the Anchor Directory
+
+```bash
+cd /<your-path>/anchor-nft-ticketing
+```
+
+
 ### Build and Deploy the Anchor Program
 
 Build:
