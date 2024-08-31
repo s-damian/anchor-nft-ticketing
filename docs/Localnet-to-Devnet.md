@@ -11,21 +11,12 @@ solana config set --url https://api.devnet.solana.com
 ```
 
 
-### Fund Your Wallet
-
-Airdrop SOL to your Devnet wallet:
-
-```bash
-solana airdrop <amount>
-```
-
-
 ### Update Anchor Configuration
 
 Modify your `Anchor.toml` file:
 
 
-#### - In [programs.devnet] section:
+#### - In `[programs.devnet]` section:
 
 Add or update:
 
@@ -34,16 +25,9 @@ Add or update:
 nft_ticketing = "<your-program-id>"
 ```
 
-#### - In [provider] section:
+#### - In `[provider]` section:
 
-Replace:
-
-```bash
-[provider]
-cluster = "localnet"
-```
-
-With:
+Update to:
 
 ```bash
 [provider]
@@ -65,6 +49,15 @@ With:
 
 ```bash
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
+```
+
+
+### Fund Your Wallet
+
+Airdrop SOL to your Devnet wallet:
+
+```bash
+solana airdrop <amount>
 ```
 
 
