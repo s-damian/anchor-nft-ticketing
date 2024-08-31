@@ -72,6 +72,31 @@ anchor deploy --provider.cluster devnet
 ```
 
 
+
+
+### If the Program ID changed during deployment:
+
+#### Update Program ID
+
+If the Program ID changed during deployment, you must update the references to the Program ID in your configuration files:
+
+```bash
+npm run update-program-id
+```
+
+
+#### Rebuild and Redeploy the Anchor Program
+
+```bash
+anchor build && anchor deploy --provider.cluster devnet
+```
+
+> This step is crucial after updating the Program ID to ensure that the deployed program matches the updated configuration.
+
+
+
+
+
 ### Phantom Wallet
 
 In your Phantom wallet settings, switch to **Solana Devnet**.
