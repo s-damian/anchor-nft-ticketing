@@ -16,15 +16,6 @@ solana config set --url https://api.devnet.solana.com
 Modify your `Anchor.toml` file:
 
 
-#### - In `[programs.devnet]` section:
-
-Add or update:
-
-```bash
-[programs.devnet]
-nft_ticketing = "<your-program-id>"
-```
-
 #### - In `[provider]` section:
 
 Update to:
@@ -32,6 +23,15 @@ Update to:
 ```bash
 [provider]
 cluster = "devnet"
+```
+
+#### - In `[programs.devnet]` section:
+
+Add or update:
+
+```bash
+[programs.devnet]
+nft_ticketing = "<your-program-id>"
 ```
 
 
