@@ -71,9 +71,9 @@ Deploy on the Devnet:
 anchor deploy --provider.cluster devnet
 ```
 
-> If the Program ID changed during deployment:
+#### If the Program ID changed during deployment:
 
-If the Program ID changed during deployment, you must update the references to the Program ID in your configuration files.
+> If the Program ID changed during deployment, you must update the references to the Program ID in your configuration files.
 
 - Update Program ID:
 
