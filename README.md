@@ -147,13 +147,13 @@ cluster = "localnet"
 
 ### Environment Setup
 
-Create a  `.env` file for the Next.js App:
+Create a  `./app/frontend/.env` file (for the Next.js App):
 
 ```bash
 cp ./app/frontend/.env.example ./app/frontend/.env
 ```
 
-Ensure all necessary environment variables are configured in the `.env` file.
+Ensure all necessary environment variables are configured in the `./app/frontend/.env` file.
 
 
 ### Make Scripts Executable

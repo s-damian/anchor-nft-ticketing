@@ -15,19 +15,14 @@ solana config set --url https://api.devnet.solana.com
 
 Modify your `Anchor.toml` file:
 
-
-#### - In `[provider]` section:
-
-Update to:
+- In `[provider]` section, update to:
 
 ```bash
 [provider]
 cluster = "devnet"
 ```
 
-#### - In `[programs.devnet]` section:
-
-Add or update:
+- In `[programs.devnet]` section, add or update:
 
 ```bash
 [programs.devnet]
