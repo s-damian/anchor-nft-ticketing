@@ -104,18 +104,6 @@ solana config set --url localhost
 ```
 
 
-### Update Anchor Configuration
-
-#### - In `[provider]` section:
-
-Update to:
-
-```bash
-[provider]
-cluster = "localnet"
-```
-
-
 ### Clone the Repository
 
 ```bash
@@ -142,6 +130,18 @@ For the Next.js App:
 
 ```bash
 npm install --prefix ./app/frontend
+```
+
+
+### Update Anchor Configuration
+
+#### - In `[provider]` section:
+
+Update to:
+
+```bash
+[provider]
+cluster = "localnet"
 ```
 
 

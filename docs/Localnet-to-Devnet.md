@@ -39,13 +39,7 @@ nft_ticketing = "<your-program-id>"
 
 In  `./app/frontend/.env` (Next.js App):
 
-Replace:
-
-```bash
-NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="localnet"
-```
-
-With:
+Update to:
 
 ```bash
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
