@@ -71,14 +71,11 @@ Deploy on the Devnet:
 anchor deploy --provider.cluster devnet
 ```
 
-
-
-
 #### If the Program ID changed during deployment:
 
-- Update Program ID:
+If the Program ID changed during deployment, you must update the references to the Program ID in your configuration files.
 
-If the Program ID changed during deployment, you must update the references to the Program ID in your configuration files:
+- Update Program ID:
 
 ```bash
 npm run update-program-id
@@ -89,9 +86,6 @@ npm run update-program-id
 ```bash
 anchor build && anchor deploy --provider.cluster devnet
 ```
-
-
-
 
 
 ### Phantom Wallet
