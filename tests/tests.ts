@@ -50,7 +50,7 @@ describe("create_event_and_ticket", () => {
             })
             .signers([eventAccount]) // Signataires de la transaction.
             .rpc();
-        console.log("createEvent - tx signature", txid);
+        console.log("createEvent - Transaction ID:", txid);
 
         // Récupérer les détails du compte de l'événement.
         const eventAccountData = await program.account.event.fetch(eventAccount.publicKey);
@@ -136,7 +136,7 @@ describe("create_event_and_ticket", () => {
             })
             .signers([ticketAccountForNft]) // Signataires de la transaction.
             .rpc();
-        console.log("buyTicket - tx signature", txid);
+        console.log("buyTicket - Transaction ID:", txid);
 
         // Récupérer les détails du compte du ticket
         const ticketAccountData = await program.account.ticket.fetch(ticketAccountForNft.publicKey);
@@ -212,7 +212,7 @@ describe("create_event_and_ticket", () => {
             .rpc();
 
         // Afficher la signature de la transaction.
-        console.log("createNft - tx signature", txid);
+        console.log("createNft - Transaction ID:", txid);
 
         // Vérifier le solde après la création du NFT (vérifier que le signer a bien payé des frais pour la transaction).
         const signerBalanceAfter = await provider.connection.getBalance(signerWallet.publicKey);

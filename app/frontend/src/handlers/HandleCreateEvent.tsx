@@ -44,7 +44,7 @@ export const handleCreateEvent = async (
             .rpc();
 
         toast.success("Événement créé avec succès !");
-        console.log(`solana confirm -v ${txid}`);
+        console.log(`Transaction ID: ${txid}`);
 
         resetForm(); // Reset le formulaire.
     } catch (err) {

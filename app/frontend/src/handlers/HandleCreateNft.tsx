@@ -73,7 +73,7 @@ export const handleCreateNft = async (
             .rpc();
 
         toast.success("NFT généré avec succès !");
-        console.log(`solana confirm -v ${txid}`);
+        console.log(`Transaction ID: ${txid}`);
 
         // Mettre à jour les tickets après la création du NFT.
         const accounts = await program.account.ticket.all([

@@ -41,7 +41,7 @@ export const handleBuyTicket = async (
             .rpc();
 
         toast.success("Ticket acheté avec succès !");
-        console.log(`solana confirm -v ${txid}`);
+        console.log(`Transaction ID: ${txid}`);
 
         // Récupère les tickets après la création d'un nouveau ticket.
         const accounts = await program.account.ticket.all([
