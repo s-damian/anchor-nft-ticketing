@@ -32,7 +32,7 @@ nft_ticketing = "<your-program-id>"
 
 ### Environment Variables
 
-In  `./app/frontend/.env` (Next.js App):
+Modify your `./app/frontend/.env` file (for the Next.js App):
 
 Update to:
 
