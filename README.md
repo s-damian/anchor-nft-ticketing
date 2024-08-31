@@ -135,9 +135,7 @@ npm install --prefix ./app/frontend
 
 ### Update Anchor Configuration
 
-#### - In `[provider]` section:
-
-Update to:
+- In `[provider]` section, update to:
 
 ```bash
 [provider]

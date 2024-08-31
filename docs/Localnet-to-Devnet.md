@@ -34,7 +34,7 @@ nft_ticketing = "<your-program-id>"
 
 Modify your `./app/frontend/.env` file (for the Next.js App):
 
-Update to:
+- Update to:
 
 ```bash
 NEXT_PUBLIC_REACT_APP_SOLANA_NETWORK="devnet"
