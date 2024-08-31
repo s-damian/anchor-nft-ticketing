@@ -10,8 +10,8 @@ for PROGRAM in "${PROGRAMS[@]}"; do
     # Convertir le nom du programme pour le chemin du fichier (remplacer _ par -).
     PROGRAM_PATH=${PROGRAM//_/-}
 
-    # Mise à jour de Anchor.toml pour chaque programme
-    sed -i "/^\[programs\./,/^\[/ s/^$PROGRAM = \"[^\"]*\"/$PROGRAM = \"$PROGRAM_ID\"/" Anchor.toml
+    # Mise à jour de toutes les occurrences dans Anchor.toml pour chaque programme
+    sed -i "s/^$PROGRAM = \"[^\"]*\"/$PROGRAM = \"$PROGRAM_ID\"/g" Anchor.toml
 
     # Mise à jour de lib.rs pour chaque programme
     sed -i "s/declare_id!(\"[^\"]*\")/declare_id!(\"$PROGRAM_ID\")/" programs/${PROGRAM_PATH}/src/lib.rs
