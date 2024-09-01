@@ -40,7 +40,7 @@ export const handleBuyTicket = async (
             .signers([ticketAccount])
             .rpc();
 
-        toast.success("Ticket acheté avec succès !");
+        toast.success("Ticket purchased successfully!");
         console.log(`Transaction ID: ${txid}`);
 
         // Récupère les tickets après la création d'un nouveau ticket.
@@ -54,7 +54,7 @@ export const handleBuyTicket = async (
         ]);
         setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
     } catch (err) {
-        toast.error("Échec de l'achat du ticket.");
+        toast.error("Failed to buy ticket.");
         console.error("Failed to buy ticket.", err);
     }
 };

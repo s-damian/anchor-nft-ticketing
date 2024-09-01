@@ -72,7 +72,7 @@ export const handleCreateNft = async (
             .signers([mint]) // Signer la transaction avec la clé du mint.
             .rpc();
 
-        toast.success("NFT généré avec succès !");
+        toast.success("NFT generated successfully!");
         console.log(`Transaction ID: ${txid}`);
 
         // Mettre à jour les tickets après la création du NFT.
@@ -86,7 +86,7 @@ export const handleCreateNft = async (
         ]);
         setTickets(accounts.map(({ publicKey, account }) => ({ publicKey, account })));
     } catch (err) {
-        toast.error("Échec de de la génération du NFT.");
+        toast.error("Failed to create NFT.");
         console.error("Failed to create NFT.", err);
     }
 };

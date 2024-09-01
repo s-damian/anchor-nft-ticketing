@@ -42,12 +42,12 @@ export const handleCreateEvent = async (
             .signers([eventAccount])
             .rpc();
 
-        toast.success("Événement créé avec succès !");
+        toast.success("Event created successfully!");
         console.log(`Transaction ID: ${txid}`);
 
         resetForm(); // Reset le formulaire.
     } catch (err) {
-        toast.error("Échec de la création de l'événement.");
+        toast.error("Failed to create event.");
         console.error("Failed to create event.", err);
     }
 };

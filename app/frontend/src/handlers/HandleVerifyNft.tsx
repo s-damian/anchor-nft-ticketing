@@ -40,9 +40,9 @@ export const handleVerifyNft = async (e: React.FormEvent, nftPublicKey: string, 
             return;
         }
 
-        toast.success("NFT vérifié avec succès !");
+        toast.success("NFT verified successfully!");
     } catch (err) {
-        toast.error("Échec de la vérification du NFT.");
+        toast.error("Failed to verify NFT.");
         console.error("Failed to verify NFT.", err);
     }
 };
