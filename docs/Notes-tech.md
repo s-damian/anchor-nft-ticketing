@@ -69,6 +69,12 @@ Lint:
 cargo clippy
 ```
 
+Lint (with warnings):
+
+```bash
+cargo clippy --all-targets
+```
+
 ### JS Lint
 
 ```bash
