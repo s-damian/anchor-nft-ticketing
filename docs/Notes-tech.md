@@ -63,7 +63,7 @@ Format the code:
 cargo fmt
 ```
 
-Lint :
+Lint:
 
 ```bash
 cargo clippy
@@ -75,7 +75,7 @@ cargo clippy
 cd /<your-path>/anchor-nft-ticketing
 ```
 
-Lint and format the code :
+Lint and format the code:
 
 ```bash
 npm run lint:fix

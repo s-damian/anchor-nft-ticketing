@@ -28,12 +28,12 @@ Note: I developed the same project with [Ethereum / Hardhat](https://github.com/
 
 - [Project Overview](#project-overview)
 - [Roadmap](#roadmap)
-- [Various Documentations](#various-documentations)
 - [Prerequisites](#prerequisites)
 - [Technologies](#technologies)
 - [Getting Started (Localnet)](#getting-started-localnet)
 - [Transition: Localnet to Devnet](#transition-localnet-to-devnet)
 - [Code Structure](#code-structure)
+- [Various Documentations](#various-documentations)
 - [License](#license)
 
 
@@ -62,16 +62,6 @@ See more images here:
 - [x] Verify NFTs.
 - [ ] Integrate other wallets.
 - [ ] Event organizer dashboard.
-
-
-
-## Various Documentations
-
-- To switch from the **Localnet** to **Devnet**:
-[Localnet-to-Devnet.md](./docs/Localnet-to-Devnet.md)
-
-- See further technical details here:
-[Notes-tech.md](./docs/Notes-tech.md)
 
 
 
@@ -295,6 +285,16 @@ To switch from the **Localnet** to **Devnet**: [Localnet-to-Devnet.md](./docs/Lo
 ├── package.json
 └── README.md
 ```
+
+
+
+## Various Documentations
+
+- To switch from the **Localnet** to **Devnet**:
+[Localnet-to-Devnet.md](./docs/Localnet-to-Devnet.md)
+
+- See further technical details here:
+[Notes-tech.md](./docs/Notes-tech.md)
 
 
 
