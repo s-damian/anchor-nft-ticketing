@@ -1,7 +1,7 @@
-import { AnchorProvider, Program, setProvider, web3, workspace } from "@coral-xyz/anchor";
+import { AnchorProvider, Program, setProvider, web3, workspace, BN } from "@coral-xyz/anchor";
 import { NftTicketing } from "../target/types/nft_ticketing";
 import { assert } from "chai";
-import BN from "bn.js";
+//import BN from "bn.js";
 import { PublicKey } from "@solana/web3.js";
 // Imports ajoutés pour le NFT :
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
