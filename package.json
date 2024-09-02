@@ -4,7 +4,7 @@
     "lint:fix": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" -w",
     "lint": "prettier */*.js \"*/**/*.{js,jsx,ts,tsx}\" --check",
     "build": "anchor build && npm run copy-idl",
-    "lint-all": "cargo fmt && npm run lint:fix",
+    "lint-all": "npm run lint:fix && cargo fmt && cargo clippy --all-targets",
     "deploy": "anchor build && anchor deploy && npm run copy-idl",
     "ledger": "./sh/test-ledger.sh",
     "ledger-b": "./sh/test-ledger-b.sh",
