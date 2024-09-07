@@ -53,15 +53,15 @@ See more images here:
 
 ## Roadmap
 
-- [x] Phantom integration.
-- [x] Homepage.
-- [x] Create event.
-- [x] Event listing.
-- [x] Buy a ticket.
-- [x] Generate NFTs.
-- [x] Verify NFTs.
-- [ ] Integrate other wallets.
-- [ ] Event organizer dashboard.
+- ✅ Phantom integration.
+- ✅ Homepage.
+- ✅ Create event.
+- ✅ Event listing.
+- ✅ Buy a ticket.
+- ✅ Generate NFTs.
+- ✅ Verify NFTs.
+- ⬜ Integrate other wallets.
+- ⬜ Event organizer dashboard.
 
 
 
