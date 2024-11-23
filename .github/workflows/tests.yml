@@ -20,7 +20,7 @@ jobs:
         # Node.js releases: https://nodejs.org/en/about/previous-releases
         node-version: [18, 23]
         # Solana releases: https://github.com/solana-labs/solana/tags
-        solana-version: [1.18.14, 1.18.22]
+        solana-version: [1.18.14, 1.18.26]
         # Anchor releases: https://github.com/coral-xyz/anchor/tags
         anchor-version: [0.30.1] # Keep ONLY ONE version.
 
