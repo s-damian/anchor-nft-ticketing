@@ -68,7 +68,7 @@ See more images here:
 ## Prerequisites
 
 - **Rust** `>= 1.75.0` (last tested: `1.82.0`) - *You can install Rust here: [Rustup](https://rustup.rs/).*
-- **Solana** `>= 1.18.14` (last tested: `1.18.26`) - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
+- **Solana** `>= 1.18.14` (last tested: `1.18.25`) - *You can install Solana CLI here: [Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development#3-install-the-solana-cli).*
 - **Anchor** `0.30.1` - *You can install Anchor here: [Anchor](https://www.anchor-lang.com/).*
 - **Node.js** `>= 18` (last tested: `23`) and **npm** - *You can install Node.js and npm here: [Node.js](https://nodejs.org/en/download/package-manager).*
 
